@@ -1,5 +1,10 @@
 # Web Design Project - README
-<img src="report/asset/icon.jpeg" alt="Politecnico di Milano Logo" width="100"/>
+<p align="center">
+  <img src="report/asset/icon.jpeg" alt="Politecnico di Milano Logo" width="100"/>
+  <img src="report/asset/images.jpeg" alt="logo of our team"="100"/>
+</p>
+
+
 
 ## Overview
 This repository contains all materials for the Web Design Project as part of the HYP 2024-2025 course. It includes design documentation, prototypes, and the final implementation of our web application.
