@@ -93,6 +93,6 @@ The comprehensive design report follows the required structure:
 - [Ewan Decima] ([ewangabriel.decima@mail.polimi.it](mailto:ewangabriel.decima@mail.polimi.it))
 
 ## Figma Prototype
-The interactive prototype can be accessed [here](Figma-prototype-URL).
+The interactive prototype can be accessed [here](https://www.figma.com/design/grXIBaO2j7GEfZ686v671W/Hyp-App?node-id=0-1&p=f&t=GdOyxDLW52tlILSi-0).
 
 
