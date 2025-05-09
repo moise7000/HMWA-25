@@ -1,3 +1,4 @@
+// Use DBML to define your database structure
 // Docs: https://dbdiagram.io/docs
 
 Table Course {
@@ -5,8 +6,8 @@ Table Course {
   title varchar
   image blob
   description text
-  goals json // stored as array
-  timetable json //stored as array
+  goals json // stocké comme tableau
+  timetable json // stocké comme tableau
   price float
   introVideoUrl varchar
   teacherId uuid [ref: > Teacher.id]
@@ -17,8 +18,8 @@ Table Teacher {
   name varchar
   photo blob
   biography text
-  certificates json // stored as array
-  socialMedia json // stored as dictionary
+  certificates json // stocké comme tableau
+  socialMedia json // stocké comme dictionnaire
 }
 
 Table Student {
@@ -83,4 +84,18 @@ Table StudentCourse {
   courseId uuid [pk, ref: > Course.id]
   enrollmentDate timestamp
   status varchar
+}
+
+Table Equipement {
+  id uuid [pk]
+  name varchar
+  image blob
+  description text
+}
+
+Table CourseEquipement {
+  courseId uuid [pk, ref: > Course.id]
+  equipementId uuid [pk, ref: > Equipement.id]
+  quantity int
+  isRequired boolean
 }

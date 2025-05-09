@@ -84,15 +84,31 @@ erDiagram
         string status
     }
 
-    Teacher ||--o{ Course : "enseigne"
-    Student ||--o{ Feedback : "donne"
-    Course ||--o{ Feedback : "reçoit"
-    Course ||--o{ CourseSubscription : "inclus dans"
-    Subscription ||--o{ CourseSubscription : "comprend"
-    Article ||--o{ ArticleCourse : "concerne"
-    Course ||--o{ ArticleCourse : "mentionné dans"
-    Article ||--o{ ArticleEvent : "concerne"
-    Event ||--o{ ArticleEvent : "mentionné dans"
-    Teacher ||--o{ Event : "anime"
-    Student ||--o{ StudentCourse : "inscrit à"
-    Course ||--o{ StudentCourse : "suivie par"
+    Equipement {
+        uuid id PK
+        string name
+        blob image
+        text description
+    }
+
+    CourseEquipement {
+        uuid courseId PK,FK
+        uuid equipementId PK,FK
+        int quantity
+        boolean isRequired
+    }
+
+    Teacher ||--o{ Course : "teach"
+    Student ||--o{ Feedback : "give"
+    Course ||--o{ Feedback : "get"
+    Course ||--o{ CourseSubscription : "included in"
+    Subscription ||--o{ CourseSubscription : "include"
+    Article ||--o{ ArticleCourse : "for"
+    Course ||--o{ ArticleCourse : "mentioned in"
+    Article ||--o{ ArticleEvent : "for"
+    Event ||--o{ ArticleEvent : "mentioned in"
+    Teacher ||--o{ Event : "animate"
+    Student ||--o{ StudentCourse : "register in"
+    Course ||--o{ StudentCourse : "follow by"
+    Course ||--o{ CourseEquipement : "employ"
+    Equipement ||--o{ CourseEquipement : "used in"
