@@ -1,4 +1,4 @@
--- SQL Script to generate the yoga studio database for Supabaseca
+-- SQL Script to generate the yoga studio database for Supabase
 -- Compatible with PostgreSQL
 
 -- Create extensions
@@ -507,4 +507,426 @@ BEGIN
     (uuid_generate_v4(), event2_id, student4_id, CURRENT_DATE - INTERVAL '6 days', 'confirmed', 'paid', 30, CURRENT_DATE - INTERVAL '6 days'),
     (uuid_generate_v4(), event3_id, student1_id, CURRENT_DATE - INTERVAL '15 days', 'confirmed', 'paid', 250, CURRENT_DATE - INTERVAL '15 days'),
     (uuid_generate_v4(), event3_id, student5_id, CURRENT_DATE - INTERVAL '14 days', 'confirmed', 'paid', 250, CURRENT_DATE - INTERVAL '14 days'),
-    (uuid_generate_v4(), event4_id, student1_id, CURRENT_DATE - INTERVAL '2 days', 'confirmed', '
+    (uuid_generate_v4(), event4_id, student1_id, CURRENT_DATE - INTERVAL '2 days', 'confirmed', '(uuid_generate_v4(), event4_id, student3_id, CURRENT_DATE - INTERVAL '3 days', 'confirmed', 'paid', 35, CURRENT_DATE - INTERVAL '3 days'),
+    (uuid_generate_v4(), event4_id, student4_id, CURRENT_DATE - INTERVAL '2 days', 'confirmed', 'paid', 35, CURRENT_DATE - INTERVAL '2 days');
+END $$;
+
+-- Create indexes to improve query performance
+CREATE INDEX IF NOT EXISTS idx_courses_teacher_id ON courses(teacher_id);
+CREATE INDEX IF NOT EXISTS idx_student_course_student_id ON student_course(student_id);
+CREATE INDEX IF NOT EXISTS idx_student_course_course_id ON student_course(course_id);
+CREATE INDEX IF NOT EXISTS idx_feedbacks_student_id ON feedbacks(student_id);
+CREATE INDEX IF NOT EXISTS idx_feedbacks_course_id ON feedbacks(course_id);
+CREATE INDEX IF NOT EXISTS idx_events_teacher_id ON events(teacher_id);
+CREATE INDEX IF NOT EXISTS idx_student_subscription_student_id ON student_subscription(student_id);
+CREATE INDEX IF NOT EXISTS idx_student_subscription_is_active ON student_subscription(is_active);
+CREATE INDEX IF NOT EXISTS idx_event_registrations_event_id ON event_registrations(event_id);
+CREATE INDEX IF NOT EXISTS idx_event_registrations_student_id ON event_registrations(student_id);
+
+-- Create views for common queries
+-- View to get course details with teacher information
+CREATE OR REPLACE VIEW v_course_details AS
+SELECT 
+    c.id, 
+    c.title, 
+    c.description, 
+    c.goals, 
+    c.timetable, 
+    c.price, 
+    c.intro_video_url,
+    c.difficulty_level,
+    c.duration_minutes,
+    c.max_capacity,
+    t.id AS teacher_id,
+    t.name AS teacher_name,
+    t.biography AS teacher_biography,
+    t.certificates AS teacher_certificates,
+    t.social_media AS teacher_social_media
+FROM 
+    courses c
+LEFT JOIN 
+    teachers t ON c.teacher_id = t.id;
+
+-- View to get active subscriptions with student information
+CREATE OR REPLACE VIEW v_active_subscriptions AS
+SELECT 
+    ss.id,
+    s.id AS student_id,
+    s.name AS student_name,
+    s.email AS student_email,
+    sub.id AS subscription_id,
+    sub.name AS subscription_name,
+    sub.type AS subscription_type,
+    sub.price AS subscription_price,
+    ss.start_date,
+    ss.end_date,
+    ss.payment_status,
+    ss.payment_method
+FROM 
+    student_subscription ss
+JOIN 
+    students s ON ss.student_id = s.id
+JOIN 
+    subscriptions sub ON ss.subscription_id = sub.id
+WHERE 
+    ss.is_active = TRUE;
+
+-- View to get course attendance statistics
+CREATE OR REPLACE VIEW v_course_statistics AS
+SELECT 
+    c.id,
+    c.title,
+    COUNT(sc.student_id) AS enrolled_students,
+    COALESCE(AVG(f.rating), 0) AS average_rating,
+    COUNT(f.id) AS feedback_count
+FROM 
+    courses c
+LEFT JOIN 
+    student_course sc ON c.id = sc.course_id AND sc.status = 'active'
+LEFT JOIN 
+    feedbacks f ON c.id = f.course_id
+GROUP BY 
+    c.id, c.title;
+
+-- View to get upcoming events
+CREATE OR REPLACE VIEW v_upcoming_events AS
+SELECT 
+    e.id,
+    e.title,
+    e.date,
+    e.end_date,
+    e.description,
+    e.location,
+    e.capacity,
+    e.price,
+    e.is_free,
+    e.registration_required,
+    t.id AS teacher_id,
+    t.name AS teacher_name,
+    COUNT(er.id) AS registrations_count
+FROM 
+    events e
+LEFT JOIN 
+    teachers t ON e.teacher_id = t.id
+LEFT JOIN 
+    event_registrations er ON e.id = er.event_id AND er.status = 'confirmed'
+WHERE 
+    e.date >= CURRENT_DATE
+GROUP BY 
+    e.id, e.title, e.date, e.end_date, e.description, e.location, e.capacity, 
+    e.price, e.is_free, e.registration_required, t.id, t.name
+ORDER BY 
+    e.date;
+
+-- Functions to manage subscriptions and enrollments
+-- Function to add a student to a course
+CREATE OR REPLACE FUNCTION add_student_to_course(
+    p_student_id UUID,
+    p_course_id UUID,
+    p_status VARCHAR DEFAULT 'active'
+) RETURNS BOOLEAN AS $$
+DECLARE
+    enrollment_exists BOOLEAN;
+BEGIN
+    -- Check if enrollment already exists
+    SELECT EXISTS (
+        SELECT 1 FROM student_course 
+        WHERE student_id = p_student_id AND course_id = p_course_id
+    ) INTO enrollment_exists;
+    
+    IF enrollment_exists THEN
+        -- Update if exists
+        UPDATE student_course
+        SET status = p_status, 
+            enrollment_date = CASE WHEN p_status = 'active' AND status <> 'active' 
+                              THEN CURRENT_TIMESTAMP 
+                              ELSE enrollment_date END
+        WHERE student_id = p_student_id AND course_id = p_course_id;
+    ELSE
+        -- Insert if not exists
+        INSERT INTO student_course (student_id, course_id, enrollment_date, status)
+        VALUES (p_student_id, p_course_id, CURRENT_TIMESTAMP, p_status);
+    END IF;
+    
+    RETURN TRUE;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Function to check if a student can access a course based on their subscriptions
+CREATE OR REPLACE FUNCTION can_access_course(
+    p_student_id UUID,
+    p_course_id UUID
+) RETURNS BOOLEAN AS $$
+DECLARE
+    direct_enrollment BOOLEAN;
+    subscription_access BOOLEAN;
+BEGIN
+    -- Check direct enrollment
+    SELECT EXISTS (
+        SELECT 1 FROM student_course 
+        WHERE student_id = p_student_id AND course_id = p_course_id AND status = 'active'
+    ) INTO direct_enrollment;
+    
+    IF direct_enrollment THEN
+        RETURN TRUE;
+    END IF;
+    
+    -- Check through subscriptions
+    SELECT EXISTS (
+        SELECT 1
+        FROM student_subscription ss
+        JOIN course_subscription cs ON ss.subscription_id = cs.subscription_id
+        WHERE ss.student_id = p_student_id
+          AND cs.course_id = p_course_id
+          AND ss.is_active = TRUE
+          AND ss.end_date >= CURRENT_DATE
+    ) INTO subscription_access;
+    
+    RETURN subscription_access;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Function to register a student for an event
+CREATE OR REPLACE FUNCTION register_for_event(
+    p_student_id UUID,
+    p_event_id UUID,
+    p_payment_status VARCHAR DEFAULT NULL,
+    p_payment_amount DECIMAL DEFAULT NULL
+) RETURNS UUID AS $$
+DECLARE
+    registration_id UUID;
+    event_is_free BOOLEAN;
+    event_price DECIMAL;
+BEGIN
+    -- Get event details
+    SELECT is_free, price INTO event_is_free, event_price FROM events WHERE id = p_event_id;
+    
+    -- Set payment status and amount if not provided
+    IF p_payment_status IS NULL THEN
+        p_payment_status := CASE WHEN event_is_free THEN 'free' ELSE 'pending' END;
+    END IF;
+    
+    IF p_payment_amount IS NULL THEN
+        p_payment_amount := CASE WHEN event_is_free THEN 0 ELSE event_price END;
+    END IF;
+    
+    -- Create registration
+    INSERT INTO event_registrations (
+        id, event_id, student_id, registration_date, status, 
+        payment_status, payment_amount, payment_date
+    ) VALUES (
+        uuid_generate_v4(), p_event_id, p_student_id, CURRENT_TIMESTAMP, 'confirmed',
+        p_payment_status, p_payment_amount, 
+        CASE WHEN p_payment_status = 'paid' THEN CURRENT_TIMESTAMP ELSE NULL END
+    )
+    RETURNING id INTO registration_id;
+    
+    RETURN registration_id;
+EXCEPTION WHEN unique_violation THEN
+    -- Registration already exists
+    UPDATE event_registrations
+    SET status = 'confirmed',
+        payment_status = p_payment_status,
+        payment_amount = p_payment_amount,
+        payment_date = CASE WHEN p_payment_status = 'paid' THEN CURRENT_TIMESTAMP ELSE payment_date END
+    WHERE event_id = p_event_id AND student_id = p_student_id
+    RETURNING id INTO registration_id;
+    
+    RETURN registration_id;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Triggers to maintain data integrity
+-- Trigger to update updated_at timestamp
+CREATE OR REPLACE FUNCTION update_modified_column()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at = CURRENT_TIMESTAMP;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Apply updated_at trigger to tables
+CREATE TRIGGER update_students_modtime
+BEFORE UPDATE ON students
+FOR EACH ROW EXECUTE FUNCTION update_modified_column();
+
+CREATE TRIGGER update_courses_modtime
+BEFORE UPDATE ON courses
+FOR EACH ROW EXECUTE FUNCTION update_modified_column();
+
+CREATE TRIGGER update_equipment_modtime
+BEFORE UPDATE ON equipment
+FOR EACH ROW EXECUTE FUNCTION update_modified_column();
+
+CREATE TRIGGER update_subscriptions_modtime
+BEFORE UPDATE ON subscriptions
+FOR EACH ROW EXECUTE FUNCTION update_modified_column();
+
+CREATE TRIGGER update_events_modtime
+BEFORE UPDATE ON events
+FOR EACH ROW EXECUTE FUNCTION update_modified_column();
+
+CREATE TRIGGER update_articles_modtime
+BEFORE UPDATE ON articles
+FOR EACH ROW EXECUTE FUNCTION update_modified_column();
+
+CREATE TRIGGER update_student_subscription_modtime
+BEFORE UPDATE ON student_subscription
+FOR EACH ROW EXECUTE FUNCTION update_modified_column();
+
+-- Function and trigger to increment views count when an article is viewed
+CREATE OR REPLACE FUNCTION increment_article_views()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.views_count := OLD.views_count + 1;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER update_article_views
+BEFORE UPDATE OF views_count ON articles
+FOR EACH ROW EXECUTE FUNCTION increment_article_views();
+
+-- Create role-based access control
+-- Role for regular users
+CREATE ROLE yoga_app_user;
+GRANT USAGE ON SCHEMA public TO yoga_app_user;
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO yoga_app_user;
+GRANT INSERT, UPDATE ON feedbacks TO yoga_app_user;
+GRANT INSERT, UPDATE ON event_registrations TO yoga_app_user;
+
+-- Role for administrators
+CREATE ROLE yoga_app_admin;
+GRANT USAGE ON SCHEMA public TO yoga_app_admin;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO yoga_app_admin;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO yoga_app_admin;
+
+-- Example of row-level security policies
+-- Make sure RLS is enabled
+ALTER TABLE students ENABLE ROW LEVEL SECURITY;
+ALTER TABLE student_subscription ENABLE ROW LEVEL SECURITY;
+ALTER TABLE student_course ENABLE ROW LEVEL SECURITY;
+ALTER TABLE feedbacks ENABLE ROW LEVEL SECURITY;
+ALTER TABLE event_registrations ENABLE ROW LEVEL SECURITY;
+
+-- Policy for students to view and update only their own data
+CREATE POLICY student_self_access ON students
+    USING (id = current_setting('app.current_user_id')::UUID);
+
+CREATE POLICY student_subscription_access ON student_subscription
+    USING (student_id = current_setting('app.current_user_id')::UUID);
+
+CREATE POLICY student_course_access ON student_course
+    USING (student_id = current_setting('app.current_user_id')::UUID);
+
+CREATE POLICY student_feedback_access ON feedbacks
+    USING (student_id = current_setting('app.current_user_id')::UUID);
+
+CREATE POLICY student_event_registration_access ON event_registrations
+    USING (student_id = current_setting('app.current_user_id')::UUID);
+
+-- Create stored procedures for common operations
+-- Procedure to enroll student in a course with subscription check
+CREATE OR REPLACE PROCEDURE enroll_student_with_subscription_check(
+    p_student_id UUID,
+    p_course_id UUID
+)
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    has_valid_subscription BOOLEAN;
+BEGIN
+    -- Check if student has valid subscription for this course
+    SELECT EXISTS (
+        SELECT 1
+        FROM student_subscription ss
+        JOIN course_subscription cs ON ss.subscription_id = cs.subscription_id
+        WHERE ss.student_id = p_student_id
+          AND cs.course_id = p_course_id
+          AND ss.is_active = TRUE
+          AND ss.end_date >= CURRENT_DATE
+    ) INTO has_valid_subscription;
+    
+    IF has_valid_subscription THEN
+        -- Add student to course
+        PERFORM add_student_to_course(p_student_id, p_course_id);
+    ELSE
+        RAISE EXCEPTION 'Student does not have a valid subscription for this course';
+    END IF;
+END;
+$$;
+
+-- Procedure to renew a subscription
+CREATE OR REPLACE PROCEDURE renew_subscription(
+    p_student_subscription_id UUID,
+    p_payment_method VARCHAR
+)
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    v_student_id UUID;
+    v_subscription_id UUID;
+    v_subscription_duration INTEGER;
+    v_new_end_date TIMESTAMP WITH TIME ZONE;
+BEGIN
+    -- Get subscription details
+    SELECT 
+        ss.student_id, 
+        ss.subscription_id,
+        s.duration_days
+    INTO 
+        v_student_id, 
+        v_subscription_id,
+        v_subscription_duration
+    FROM 
+        student_subscription ss
+    JOIN 
+        subscriptions s ON ss.subscription_id = s.id
+    WHERE 
+        ss.id = p_student_subscription_id;
+    
+    -- Calculate new end date
+    SELECT
+        CASE
+            WHEN ss.end_date < CURRENT_TIMESTAMP THEN CURRENT_TIMESTAMP + (v_subscription_duration || ' days')::INTERVAL
+            ELSE ss.end_date + (v_subscription_duration || ' days')::INTERVAL
+        END
+    INTO v_new_end_date
+    FROM student_subscription ss
+    WHERE ss.id = p_student_subscription_id;
+    
+    -- Update subscription
+    UPDATE student_subscription
+    SET 
+        end_date = v_new_end_date,
+        payment_status = 'paid',
+        payment_method = p_payment_method,
+        updated_at = CURRENT_TIMESTAMP,
+        is_active = TRUE
+    WHERE 
+        id = p_student_subscription_id;
+END;
+$$;
+
+-- COMMIT TRANSACTION;
+
+-- Just to verify, count rows in each table to ensure data was inserted properly
+SELECT 'teachers' AS table_name, COUNT(*) FROM teachers UNION ALL
+SELECT 'students', COUNT(*) FROM students UNION ALL
+SELECT 'courses', COUNT(*) FROM courses UNION ALL
+SELECT 'equipment', COUNT(*) FROM equipment UNION ALL
+SELECT 'feedbacks', COUNT(*) FROM feedbacks UNION ALL
+SELECT 'subscriptions', COUNT(*) FROM subscriptions UNION ALL
+SELECT 'events', COUNT(*) FROM events UNION ALL
+SELECT 'articles', COUNT(*) FROM articles UNION ALL
+SELECT 'course_subscription', COUNT(*) FROM course_subscription UNION ALL
+SELECT 'course_equipment', COUNT(*) FROM course_equipment UNION ALL
+SELECT 'article_course', COUNT(*) FROM article_course UNION ALL
+SELECT 'article_event', COUNT(*) FROM article_event UNION ALL
+SELECT 'student_course', COUNT(*) FROM student_course UNION ALL
+SELECT 'student_subscription', COUNT(*) FROM student_subscription UNION ALL
+SELECT 'event_registrations', COUNT(*) FROM event_registrations
+ORDER BY table_name;
+
+-- End of script
