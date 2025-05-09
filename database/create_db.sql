@@ -507,7 +507,8 @@ BEGIN
     (uuid_generate_v4(), event2_id, student4_id, CURRENT_DATE - INTERVAL '6 days', 'confirmed', 'paid', 30, CURRENT_DATE - INTERVAL '6 days'),
     (uuid_generate_v4(), event3_id, student1_id, CURRENT_DATE - INTERVAL '15 days', 'confirmed', 'paid', 250, CURRENT_DATE - INTERVAL '15 days'),
     (uuid_generate_v4(), event3_id, student5_id, CURRENT_DATE - INTERVAL '14 days', 'confirmed', 'paid', 250, CURRENT_DATE - INTERVAL '14 days'),
-    (uuid_generate_v4(), event4_id, student1_id, CURRENT_DATE - INTERVAL '2 days', 'confirmed', '(uuid_generate_v4(), event4_id, student3_id, CURRENT_DATE - INTERVAL '3 days', 'confirmed', 'paid', 35, CURRENT_DATE - INTERVAL '3 days'),
+    (uuid_generate_v4(), event4_id, student1_id, CURRENT_DATE - INTERVAL '2 days', 'confirmed', 'paid', 35, CURRENT_DATE - INTERVAL '2 days'),
+    (uuid_generate_v4(), event4_id, student3_id, CURRENT_DATE - INTERVAL '3 days', 'confirmed', 'paid', 35, CURRENT_DATE - INTERVAL '3 days'),
     (uuid_generate_v4(), event4_id, student4_id, CURRENT_DATE - INTERVAL '2 days', 'confirmed', 'paid', 35, CURRENT_DATE - INTERVAL '2 days');
 END $$;
 
