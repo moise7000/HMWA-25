@@ -5,8 +5,8 @@ Table Course {
   title varchar
   image blob
   description text
-  goals json // stocké comme tableau
-  timetable json // stocké comme tableau
+  goals json // stored as array
+  timetable json //stored as array
   price float
   introVideoUrl varchar
   teacherId uuid [ref: > Teacher.id]
@@ -17,8 +17,8 @@ Table Teacher {
   name varchar
   photo blob
   biography text
-  certificates json // stocké comme tableau
-  socialMedia json // stocké comme dictionnaire
+  certificates json // stored as array
+  socialMedia json // stored as dictionary
 }
 
 Table Student {

@@ -1,0 +1,98 @@
+erDiagram
+    Course {
+        uuid id PK
+        string title
+        blob image
+        text description
+        json goals
+        json timetable
+        float price
+        string introVideoUrl
+        uuid teacherId FK
+    }
+
+    Teacher {
+        uuid id PK
+        string name
+        blob photo
+        text biography
+        json certificates
+        json socialMedia
+    }
+
+    Student {
+        uuid id PK
+        string name
+        blob photo
+    }
+
+    Feedback {
+        uuid id PK
+        uuid studentId FK
+        uuid courseId FK
+        text comment
+        int rating
+    }
+
+    Subscription {
+        uuid id PK
+        string name
+        string type
+        float price
+        text description
+    }
+
+    CourseSubscription {
+        uuid courseId PK,FK
+        uuid subscriptionId PK,FK
+    }
+
+    Article {
+        uuid id PK
+        string title
+        text content
+        blob image
+        json authors
+        timestamp publishedAt
+        text snippet
+    }
+
+    ArticleCourse {
+        uuid articleId PK,FK
+        uuid courseId PK,FK
+    }
+
+    Event {
+        uuid id PK
+        string title
+        blob image
+        timestamp date
+        text description
+        string location
+        uuid teacherId FK
+    }
+
+    ArticleEvent {
+        uuid articleId PK,FK
+        uuid eventId PK,FK
+    }
+
+    StudentCourse {
+        uuid studentId PK,FK
+        uuid courseId PK,FK
+        timestamp enrollmentDate
+        string status
+    }
+
+    Teacher ||--o{ Course : "enseigne"
+    Student ||--o{ Feedback : "donne"
+    Course ||--o{ Feedback : "reçoit"
+    Course ||--o{ CourseSubscription : "inclus dans"
+    Subscription ||--o{ CourseSubscription : "comprend"
+    Article ||--o{ ArticleCourse : "concerne"
+    Course ||--o{ ArticleCourse : "mentionné dans"
+    Article ||--o{ ArticleEvent : "concerne"
+    Event ||--o{ ArticleEvent : "mentionné dans"
+    Teacher ||--o{ Event : "anime"
+    Student ||--o{ StudentCourse : "inscrit à"
+    Course ||--o{ StudentCourse : "suivie par"
