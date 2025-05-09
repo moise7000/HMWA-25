@@ -1,0 +1,86 @@
+// Docs: https://dbdiagram.io/docs
+
+Table Course {
+  id uuid [pk]
+  title varchar
+  image blob
+  description text
+  goals json // stocké comme tableau
+  timetable json // stocké comme tableau
+  price float
+  introVideoUrl varchar
+  teacherId uuid [ref: > Teacher.id]
+}
+
+Table Teacher {
+  id uuid [pk]
+  name varchar
+  photo blob
+  biography text
+  certificates json // stocké comme tableau
+  socialMedia json // stocké comme dictionnaire
+}
+
+Table Student {
+  id uuid [pk]
+  name varchar
+  photo blob
+}
+
+Table Feedback {
+  id uuid [pk]
+  studentId uuid [ref: > Student.id]
+  courseId uuid [ref: > Course.id]
+  comment text
+  rating int
+}
+
+Table Subscription {
+  id uuid [pk]
+  name varchar
+  type varchar
+  price float
+  description text
+}
+
+Table CourseSubscription {
+  courseId uuid [pk, ref: > Course.id]
+  subscriptionId uuid [pk, ref: > Subscription.id]
+}
+
+Table Article {
+  id uuid [pk]
+  title varchar
+  content text
+  image blob
+  authors json // stocké comme tableau
+  publishedAt timestamp
+  snippet text
+}
+
+Table ArticleCourse {
+  articleId uuid [pk, ref: > Article.id]
+  courseId uuid [pk, ref: > Course.id]
+}
+
+Table Event {
+  id uuid [pk]
+  title varchar
+  image blob
+  date timestamp
+  description text
+  location varchar
+  teacherId uuid [ref: > Teacher.id]
+}
+
+Table ArticleEvent {
+  articleId uuid [pk, ref: > Article.id]
+  eventId uuid [pk, ref: > Event.id]
+}
+
+Table StudentCourse {
+  studentId uuid [pk, ref: > Student.id]
+  courseId uuid [pk, ref: > Course.id]
+  enrollmentDate timestamp
+  status varchar
+}
