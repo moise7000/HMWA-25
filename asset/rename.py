@@ -1,5 +1,6 @@
 import os
 import re
+import argparse
 
 def rename(repo, prefix):
     if not os.path.isdir(repo):
@@ -7,9 +8,8 @@ def rename(repo, prefix):
         return
 
     existing_numbers = set()
-    pattern = re.compile(rf"^{re.escape(prefix)}(\d+)$")
+    pattern = re.compile(rf"^{re.escape(prefix)}(\d+)(\..+)?$")
 
-    
     for file_name in os.listdir(repo):
         match = pattern.fullmatch(file_name)
         if match:
@@ -17,18 +17,18 @@ def rename(repo, prefix):
 
     i = 0
     for file_name in os.listdir(repo):
-        if file_name == "rename.py":
+        if file_name == os.path.basename(__file__):
             continue
 
         file_path = os.path.join(repo, file_name)
 
-        
         if os.path.isfile(file_path) and not pattern.fullmatch(file_name):
-        
             while i in existing_numbers:
                 i += 1
 
-            new_file_name = f"{prefix}{i}"
+            # Conserve l'extension d'origine
+            _, ext = os.path.splitext(file_name)
+            new_file_name = f"{prefix}{i}{ext}"
             new_file_path = os.path.join(repo, new_file_name)
 
             os.rename(file_path, new_file_path)
@@ -36,7 +36,18 @@ def rename(repo, prefix):
             existing_numbers.add(i)
             i += 1
 
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Rename files in a directory with a given prefix.")
+    parser.add_argument("repo", help="Path to the directory containing the files to be renamed.")
+    parser.add_argument("prefix", help="Prefix to use when renaming files.")
 
-repo = '.'
-prefix = 'yoga_course_'
-rename(repo, prefix)
+    args = parser.parse_args()
+    rename(args.repo, args.prefix)
+
+
+
+# How to use
+# In your terminal
+
+#$ python rename.py ./repository_name prefix_name_
+
