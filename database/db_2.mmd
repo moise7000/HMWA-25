@@ -8,7 +8,14 @@ erDiagram
         json timetable
         float price
         string introVideoUrl
+        int max_capacity
         uuid teacherId FK
+        uuid difficulty_id FK
+    }
+
+    Difficulty {
+        uuid id PK
+        string name
     }
 
     Teacher {
@@ -111,4 +118,5 @@ erDiagram
     Student ||--o{ StudentCourse : "register in"
     Course ||--o{ StudentCourse : "follow by"
     Course ||--o{ CourseEquipement : "employ"
+    Course ||--|| Difficulty : "is"
     Equipement ||--o{ CourseEquipement : "used in"
