@@ -3,6 +3,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}
 \usepackage{fancyhdr}
+\usepackage{svg}
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{array}
@@ -473,7 +474,27 @@ it provides insights into the content that can be discussed within each category
 
 \section{Interaction Scenarios}
 
-\section{DB design (ER schema)}
+\section{Database Design}
+
+This section presents the design of the database for the website to be implemented. Indeed, it manages students, teachers, courses, subscriptions, feedback,
+equipment, events, and articles. The schema includes detailed relationships between entities, such as students
+enrolling in courses, courses requiring specific equipment, and subscriptions granting access to various learning materials. JSON fields are used for flexible
+data such as certificates, goals, and social media links.
+
+\subsection{Explanation of Relationship Symbols}
+
+The following notation is used in the Entity-Relationship (ER) diagrams, following the Mermaid syntax conventions that
+you can check on : \href{https://mermaid.js.org/syntax/entityRelationshipDiagram.html}{mermaid.js.org}
+
+\subsection{Entity-Relation Diagram}
+
+\begin{figure}[h]
+        \centering
+        \includesvg[width=0.8\textwidth]{asset/database_e_r_diagram.png}
+        \caption{E-R Diagram}
+\end{figure}
+
+
 
 
 
