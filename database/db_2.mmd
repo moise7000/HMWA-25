@@ -7,10 +7,13 @@ erDiagram
         json goals
         json timetable
         float price
+        int durationMinutes
         string introVideoUrl
         int max_capacity
+        timestamp createdAt
         uuid teacherId FK
         uuid difficulty_id FK
+
     }
 
     Difficulty {
@@ -25,12 +28,18 @@ erDiagram
         text biography
         json certificates
         json socialMedia
+        timestamp createdAt
     }
 
     Student {
         uuid id PK
         string name
+        string email
+        string phone
+        timestamp dateOfBirth
+        string address
         blob photo
+        timestamp createdAt
     }
 
     Feedback {
@@ -39,6 +48,7 @@ erDiagram
         uuid courseId FK
         text comment
         int rating
+        timestamp createdAt
     }
 
     Subscription {
@@ -47,6 +57,9 @@ erDiagram
         string type
         float price
         text description
+        int durationDays
+        bool isActive
+        timestamp createdAt
     }
 
     CourseSubscription {
@@ -62,6 +75,10 @@ erDiagram
         json authors
         timestamp publishedAt
         text snippet
+        json tags
+        bool isPublished
+        int viewsCount
+        timestamp createdAt
     }
 
     ArticleCourse {
@@ -74,8 +91,14 @@ erDiagram
         string title
         blob image
         timestamp date
+        timestamp endDate
         text description
         string location
+        int capacity
+        float price
+        bool isFree
+        bool registrationRequired
+        timestamp createdAt
         uuid teacherId FK
     }
 
@@ -91,16 +114,31 @@ erDiagram
         string status
     }
 
-    Equipement {
+    StudentSubscription {
+        uuid id PK
+        uuid studentId FK
+        uuid subscriptionId FK
+        timestamp startDate
+        timestamp endDate
+        string paymentStatus
+        string paymentMethod
+        bool isActive
+        timestamp createdAt
+
+
+    }
+
+    Equipment {
         uuid id PK
         string name
         blob image
         text description
+        timestamp createdAt
     }
 
-    CourseEquipement {
+    CourseEquipment {
         uuid courseId PK,FK
-        uuid equipementId PK,FK
+        uuid equipmentId PK,FK
         int quantity
         boolean isRequired
     }
@@ -117,6 +155,8 @@ erDiagram
     Teacher ||--o{ Event : "animate"
     Student ||--o{ StudentCourse : "register in"
     Course ||--o{ StudentCourse : "follow by"
-    Course ||--o{ CourseEquipement : "employ"
-    Course ||--|| Difficulty : "is"
-    Equipement ||--o{ CourseEquipement : "used in"
+    Course ||--o{ CourseEquipment : "employ"
+    Course }o--|| Difficulty : "has difficulty"
+    Equipment ||--o{ CourseEquipment : "used in"
+    Student o|--|| StudentSubscription : "has"
+    Subscription ||--|| StudentSubscription : "is for"
