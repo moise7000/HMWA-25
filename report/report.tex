@@ -121,7 +121,7 @@ it provides insights into the content that can be discussed within each category
                 \hline
                 Content: & text (max 1000 chars)\\
                 \hline
-                FounderImages: & List of images \\
+                FounderImages: & List of {Image} \\
                 \hline
 
         \end{tabularx}
@@ -175,7 +175,7 @@ it provides insights into the content that can be discussed within each category
                 \hline
                 Topic: & \textbf{OpeningHours} \\
                 \hline
-                WeeklySchedule: & List of {Day, CourseName, Time}  (max 200 chars)\\
+                WeeklySchedule: & List of {(Day, CourseName, Time)}  (max 200 chars)\\
                 \hline
                 PrivateCourseBookingLink: & URL \\
                 \hline
@@ -194,7 +194,7 @@ it provides insights into the content that can be discussed within each category
                 \hline
                 Content: & text (max 500 chars) \\
                 \hline
-                FeatureList: & List of {Benefit, Description} (max 500 chars)\\
+                FeatureList: & List of {(Benefit, Description)} (max 500 chars)\\
                 \hline
                 RelatedLink: & URL \\
                 \hline
@@ -213,7 +213,7 @@ it provides insights into the content that can be discussed within each category
                 \hline
                 Content: & text (max 500 chars) \\
                 \hline
-                FeatureList: & List of {Benefit, Description} (max 500 chars)\\
+                FeatureList: & List of {(Benefit, Description)} (max 500 chars)\\
                 \hline
                 RelatedLink: & URL \\
                 \hline
@@ -222,9 +222,137 @@ it provides insights into the content that can be discussed within each category
         \caption{Table: Equipement}
 \end{center}
 
+\subsubsection{Kind of Topic}
 
+\begin{center}
+        \begin{tabularx}{\textwidth}{|>{\bfseries}l|X|}
+                \hline
+                Kind of topic: & \textbf{Course} \\
+                \hline
+                Title: & text  (max 200 chars)\\
+                \hline
+                Image: & image \\
+                \hline
+                Description: & text (max 500 chars) \\
+                \hline
+                Goal: & text (max 200 chars) \\
+                \hline
+                Timetable: & List of {(Day, Time)}\\
+                \hline
+                Price: & currency \\
+                \hline
+                IntroVideoUrl: & URL \\
+                \hline
+                TaughtBy: & List of {Teachers, Link} \\
+                \hline
+                PartOfSubscription: & List of {(Subscription, Link)} \\
+                \hline
+                CoveredInArticle: & List of {(Article, Link)}\\
+                \hline
+        \end{tabularx}
+        \caption{Table: Course}
+\end{center}
 
+\begin{center}
+        \begin{tabularx}{\textwidth}{|>{\bfseries}l|X|}
+                \hline
+                Kind of Topic: & \textbf{Subscription} \\
+                \hline
+                Name: & text  (max 200 chars)\\
+                \hline
+                Type: & text (max 200 chars) \\
+                \hline
+                TotalCourse: & integer \\
+                \hline
+                Price: & Currency \\
+                \hline
+                Link: & URL \\
+                \hline
+                ContactLink: & URL \\
+                \hline
+                Details: & text (max 500 chars) \\
+                \hline
+                CoursesIncluded: & List of {(CourseTitle, Link)}\\
+                \hline
+        \end{tabularx}
+        \caption{Table: Equipement}
+\end{center}
 
+\begin{center}
+        \begin{tabularx}{\textwidth}{|>{\bfseries}l|X|}
+                \hline
+                Kind of Topic: & \textbf{Event} \\
+                \hline
+                Title: & text  (max 200 chars)\\
+                \hline
+                Image: & Image \\
+                \hline
+                Date: Timestamp \\
+                \hline
+                Description: & text (max 500 chars) \\
+                \hline
+                Location: & text (max 500 chars) \\
+                \hline
+                BookingLink: & URL \\
+                \hline
+                HostedBy: & List of {(Teachers, Link)} \\
+                \hline
+                CoveredInArticles: List of {(Article, Link)}\\
+                \hline
+
+        \end{tabularx}
+        \caption{Table: Event}
+\end{center}
+
+\begin{center}
+        \begin{tabularx}{\textwidth}{|>{\bfseries}l|X|}
+                \hline
+                Kind of Topic: & \textbf{Teacher} \\
+                \hline
+                Name: & text  (max 200 chars)\\
+                \hline
+                Photo: & Image \\
+                \hline
+                Biography: & text (max 500 chars) \\
+                \hline
+                Certificates: & List of {Image or Text} \\
+                \hline
+                CoursesTaught: & List of {(Course, Link)} \\
+                \hline
+                SocialMedias: & List of {URL} \\
+                \hline
+                HostedEvents: & List of {(Event, Link)}
+                \hline
+                AuthoredArticles: & List of {(Article, Link)} \\
+                \hline
+
+        \end{tabularx}
+        \caption{Table: Teacher}
+\end{center}
+\begin{center}
+        \begin{tabularx}{\textwidth}{|>{\bfseries}l|X|}
+                \hline
+                Kind of Topic: & \textbf{Article} \\
+                \hline
+                Title: & text  (max 200 chars)\\
+                \hline
+                ThumbnailImage: & Image \\
+                \hline
+                Snippet: & text (max 200 chars) \\
+                \hline
+                FullText: & text \\
+                \hline
+                Authors: & List of {Text or (Teachers, Link)}
+                \hline
+                PublishDate: & Date (Timestamp) \\
+                \hline
+                AboutCourses: & List of {Course, Link} \\
+                \hline
+                AboutEvents: & List of {(Event, Link)}
+                \hline
+        \end{tabularx}
+        \caption{Table: Article}
+\end{center}
 
 
 
