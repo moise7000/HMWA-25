@@ -1,4 +1,4 @@
-# Web Design Project - README
+#Politecnico di milano - Hypermedia - 2025 
 <p align="left">
   <img src="report/asset/icon.jpeg" alt="Politecnico di Milano Logo" width="100"/>
   <img src="report/asset/images.jpeg" alt="logo of our team" height="100"/>
