@@ -89,7 +89,7 @@ The comprehensive design report follows the required structure:
 - Annex: Abstract Pages
 
 ## Team Members
-- [Yuto Yamaguchi]((mailto:yuto.yamaguchi@mail.polimi.it)
+- [Yuto Yamaguchi](mailto:yuto.yamaguchi@mail.polimi.it)
 - [Xavier Anicito](mailto:xavierandre.anicito@mail.polimi.it))
 - [Ewan Decima](mailto:ewangabriel.decima@mail.polimi.it))
 
