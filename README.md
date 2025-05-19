@@ -1,4 +1,4 @@
-#Politecnico di milano - Hypermedia - 2025 
+# Politecnico di milano - Hypermedia - 2025 
 <p align="left">
   <img src="report/asset/icon.jpeg" alt="Politecnico di Milano Logo" width="100"/>
   <img src="report/asset/images.jpeg" alt="logo of our team" height="100"/>
@@ -9,11 +9,14 @@
 ## Overview
 This repository contains all materials for the Web Design Project as part of the HYP 2024-2025 course. It includes design documentation, prototypes, and the final implementation of our web application.
 
-###Nuxt Minimal Starter
+## Figma Prototype
+The interactive prototype can be accessed [here](https://www.figma.com/design/grXIBaO2j7GEfZ686v671W/Hyp-App?node-id=0-1&p=f&t=GdOyxDLW52tlILSi-0).
+
+## Nuxt Minimal Starter
 
 Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-#### Setup
+### Setup
 
 Make sure to install dependencies:
 
@@ -22,7 +25,7 @@ Make sure to install dependencies:
 npm install
 ```
 
-#### Development Server
+### Development Server
 
 Start the development server on `http://localhost:3000`:
 
@@ -31,7 +34,7 @@ Start the development server on `http://localhost:3000`:
 npm run dev
 ```
 
-#### Production
+### Production
 
 Build the application for production:
 
@@ -52,7 +55,7 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 
 
 
-### Live Demo
+## Live Demo
 The running application can be accessed at: [Your-deployment-URL]
 
 ## Design Documentation
@@ -86,11 +89,10 @@ The comprehensive design report follows the required structure:
 - Annex: Abstract Pages
 
 ## Team Members
-- [Yuto Yamaguchi] (yuto.yamaguchi@mail.polimi.it(mailto:yuto.yamaguchi@mail.polimi.it)
-- [Xavier Anicito] (xavierandre.anicito@mail.polimi.it(mailto:xavierandre.anicito@mail.polimi.it))
-- [Ewan Decima] (ewangabriel.decima@mail.polimi.it(mailto:ewangabriel.decima@mail.polimi.it))
+- [Yuto Yamaguchi]((mailto:yuto.yamaguchi@mail.polimi.it)
+- [Xavier Anicito](mailto:xavierandre.anicito@mail.polimi.it))
+- [Ewan Decima](mailto:ewangabriel.decima@mail.polimi.it))
 
-## Figma Prototype
-The interactive prototype can be accessed [here](https://www.figma.com/design/grXIBaO2j7GEfZ686v671W/Hyp-App?node-id=0-1&p=f&t=GdOyxDLW52tlILSi-0).
+
 
 
