@@ -3,7 +3,7 @@ import type {Course} from "~/types/Course";
 export interface Feedback {
     id: number;
     course: Course;
-    text: string;
+    comment: string;
     rating: number;
 
     createdAt: Date;
