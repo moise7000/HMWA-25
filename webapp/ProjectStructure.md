@@ -31,16 +31,20 @@ webapp/
 │   │   └── ...
 │   ├── layout/
 │   │   ├── Hero.vue
-│   │   └── Section.vue
-│   └── teachers/
-│       ├── TeacherCard.vue
-│       ├── TeacherProfile.vue
-│       └── TeacherList.vue
+│   │   ├── Section.vue
+│   │   └── ...
+│   ├── teachers/
+│   │   ├── TeacherCard.vue
+│   │   ├── TeacherProfile.vue
+│   │   ├── TeacherList.vue
+│   │   └── ...
+│   └── ...
 ├── composables/           # Reusable logic
 │   ├── useApi.js
 │   ├── useActivities.js
 │   ├── useTeachers.js
-│   └── useNavigation.js
+│   ├── useNavigation.js
+│   └── ...
 ├── layouts/               # Layouts Nuxt
 │   ├── default.vue
 │   └── minimal.vue
@@ -56,7 +60,7 @@ webapp/
 │   ├── teachers/
 │   │   ├── index.vue      # All Teachers (Group page)
 │   │   └── [slug].vue     # Individual Teacher pages
-│   └── highlights.vue     # Highlights page (promoted activities)
+│   └── ...     # Highlights page (promoted activities)
 ├── plugins/               # Plugins Nuxt
 │   ├── supabase.client.js
 │   └── vuetify.js
