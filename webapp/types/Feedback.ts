@@ -1,4 +1,4 @@
-import type {Course} from "~/types/Course";
+import type {Course} from "./Course";
 
 export interface Feedback {
     id: number;

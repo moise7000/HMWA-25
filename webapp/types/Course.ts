@@ -1,5 +1,5 @@
-import type {Teacher} from "~/types/Teacher";
-import type {Equipment} from "~/types/Equipment";
+import type {Teacher} from "./Teacher";
+import type {Equipment} from "./Equipment";
 
 export interface Course {
     id: number;
