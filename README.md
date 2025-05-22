@@ -1,4 +1,4 @@
-#Politecnico di milano - Hypermedia - 2025 
+# Politecnico di milano - Hypermedia - 2025 
 <p align="left">
   <img src="report/asset/icon.jpeg" alt="Politecnico di Milano Logo" width="100"/>
   <img src="report/asset/images.jpeg" alt="logo of our team" height="100"/>
@@ -9,57 +9,53 @@
 ## Overview
 This repository contains all materials for the Web Design Project as part of the HYP 2024-2025 course. It includes design documentation, prototypes, and the final implementation of our web application.
 
-<!--
-## Repository Structure
-```
-├── design-documentation/
-│   ├── c-idm-diagram.png
-│   ├── content-tables.md
-│   ├── abstract-pages/
-│   ├── wireframes/
-│   │   ├── low-fidelity/
-│   │   └── high-fidelity/
-│   ├── interaction-scenarios.md
-│   └── db-design/
-│       └── er-diagram.png
-├── figma-prototype/
-│   └── prototype-link.md
-├── implementation/
-│   ├── frontend/
-│   ├── backend/
-│   └── database/
-├── screenshots/
-│   └── commented-screenshots/
-├── final-report/
-│   └── Group-surname1-surname2-surname3-Design-Report-YYYY-MM-DD.pdf
-└── README.md
+## Figma Prototype
+The interactive prototype can be accessed [here](https://www.figma.com/design/grXIBaO2j7GEfZ686v671W/Hyp-App?node-id=0-1&p=f&t=GdOyxDLW52tlILSi-0).
+
+## Nuxt Minimal Starter
+
+Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+
+### Setup
+
+Make sure to install dependencies:
+
+```bash
+# npm
+npm install
 ```
 
-## Getting Started
+### Development Server
 
-### Prerequisites
-- Node.js (v16+)
-- npm or yarn
-- Database (as specified in implementation)
+Start the development server on `http://localhost:3000`:
 
-### Installation
-1. Clone this repository:
-   ```
-   git clone [repository-url]
-   ```
-2. Install dependencies:
-   ```
-   cd implementation
-   npm install
-   ```
-3. Configure database settings in `implementation/backend/config/db.config.js`
-4. Start the application:
-   ```
-   npm start
-   ```
--->
+```bash
+# npm
+npm run dev
+```
 
-### Live Demo
+### Production
+
+Build the application for production:
+
+```bash
+# npm
+npm run build
+```
+
+Locally preview production build:
+
+```bash
+# npm
+npm run preview
+```
+
+Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+
+
+
+## Live Demo
 The running application can be accessed at: [Your-deployment-URL]
 
 ## Design Documentation
@@ -93,11 +89,10 @@ The comprehensive design report follows the required structure:
 - Annex: Abstract Pages
 
 ## Team Members
-- [Yuto Yamaguchi] ([yuto.yamaguchi@mail.polimi.it](mailto:yuto.yamaguchi@mail.polimi.it))
-- [Xavier Anicito] ([xavierandre.anicito@mail.polimi.it](mailto:xavierandre.anicito@mail.polimi.it))
-- [Ewan Decima] ([ewangabriel.decima@mail.polimi.it](mailto:ewangabriel.decima@mail.polimi.it))
+- [Yuto Yamaguchi](mailto:yuto.yamaguchi@mail.polimi.it)
+- [Xavier Anicito](mailto:xavierandre.anicito@mail.polimi.it)
+- [Ewan Decima](mailto:ewangabriel.decima@mail.polimi.it)
 
-## Figma Prototype
-The interactive prototype can be accessed [here](https://www.figma.com/design/grXIBaO2j7GEfZ686v671W/Hyp-App?node-id=0-1&p=f&t=GdOyxDLW52tlILSi-0).
+
 
 
