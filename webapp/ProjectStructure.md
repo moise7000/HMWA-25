@@ -52,15 +52,25 @@ webapp/
 │   └── auth.js
 ├── pages/                 # Pages (routing automatic Nuxt)
 │   ├── index.vue          # Homepage
-│   ├── about.vue          # About the Center
-│   ├── contact.vue        # Contacts
-│   ├── activities/
-│   │   ├── index.vue      # All Activities (Group page)
-│   │   └── [slug].vue     # Individual Activity pages
-│   ├── teachers/
-│   │   ├── index.vue      # All Teachers (Group page)
-│   │   └── [slug].vue     # Individual Teacher pages
-│   └── ...     # Highlights page (promoted activities)
+│   ├── aboutYoga.vue      
+│   ├── contact.vue        
+│   ├── benefitOfYoga.vue
+│   ├── courseAndSubscription.vue
+│   ├── location.vue
+│   ├── practiceYogaAtHome.vue
+│   ├── story.vue
+│   ├── theTeam.vue
+│   ├── group/
+│   │   ├── articles.vue        
+│   │   ├── courses.vue         
+│   │   ├── equipments.vue      
+│   │   ├── events.vue
+│   │   ├── subscriptions.vue    
+│   │   └── teachers.vue     
+│   └── kind/               # Individual [xxx] pages
+│       ├── [course].vue      
+│       ├── [teacher].vue
+│       └── [event].vue
 ├── plugins/               # Plugins Nuxt
 │   ├── supabase.client.js
 │   └── vuetify.js

@@ -4,6 +4,7 @@ import type {Course} from "~/types/Course";
 import type {Student} from "~/types/Student";
 import type {Feedback} from "~/types/Feedback";
 import type {Article} from "~/types/Article";
+import type {Event} from "~/types/Event";
 
 
 export const MOCK_TEACHER: Teacher = {
