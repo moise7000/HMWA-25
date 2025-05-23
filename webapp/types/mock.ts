@@ -1,12 +1,12 @@
-import {Teacher} from "./Teacher";
-import {Course} from "./Course";
-import {Equipment} from "./Equipment";
-import {Event} from "./Event";
-import {Feedback} from "./Feedback";
-import {Student} from "./Student";
-import {Article} from "./Article";
+import type {Teacher} from "~/types/Teacher";
+import type {Equipment} from "~/types/Equipment";
+import type {Course} from "~/types/Course";
+import type {Student} from "~/types/Student";
+import type {Feedback} from "~/types/Feedback";
+import type {Article} from "~/types/Article";
 
-const MOCK_TEACHER: Teacher = {
+
+export const MOCK_TEACHER: Teacher = {
     id: 1,
     name: "John Doe",
     email: "john@doe.com",
@@ -20,7 +20,7 @@ const MOCK_TEACHER: Teacher = {
     createdAt: new Date("2023-06-15T10:00:00Z")
 }
 
-const MOCK_EQUIPMENT: Equipment = {
+export const MOCK_EQUIPMENT: Equipment = {
     id: 2,
     name: "Floor mats",
     description: "At 20 mm thick, this is our thickest and most comfortable mat, perfect for Pilates and gentle gym sessions.\n" +
@@ -30,7 +30,7 @@ const MOCK_EQUIPMENT: Equipment = {
     createdAt: new Date("2023-06-15T10:00:00Z"),
 }
 
-const MOCK_EVENT: Event = {
+export const MOCK_EVENT: Event = {
     id: 3,
     title: "Yoga all the night",
     date: new Date("2023-06-15T10:00:00Z"),
@@ -45,7 +45,7 @@ const MOCK_EVENT: Event = {
 }
 
 
-const MOCK_COURSE: Course = {
+export const MOCK_COURSE: Course = {
     id: 4,
     title: "Rise & Flow",
     description: "Start your day with intention and energy in this invigorating morning Vinyasa class. Rise & Flow is designed to gently awaken your body through mindful movement, stretching, and breathwork. Perfect for all levels, this class will leave you feeling grounded, refreshed, and ready to take on the day. Whether you’re new to yoga or looking to deepen your practice, this sunrise flow blends strength, flexibility, and calm to help you begin the day in balance.",
@@ -58,23 +58,25 @@ const MOCK_COURSE: Course = {
     createdAt: new Date("2023-06-15T10:00:00Z")
 }
 
-
-const MOCK_FEEDBACK: Feedback = {
+export const MOCK_STUDENT: Student = {
     id: 5,
-    course: MOCK_COURSE,
-    comment: "This course was exactly what I needed! The instructor created a welcoming and calming environment, and I felt more grounded and energized after each session. Highly recommend for anyone looking to deepen their yoga practice.",
-    rating: 5,
-    createdAt: new Date("2023-06-15T10:00:00Z")
-}
-
-const MOCK_STUDENT: Student = {
-    id: 6,
     name: "Jane Doe",
     email: "jane@doe.com",
     createdAt: new Date("2023-06-15T10:00:00Z")
 }
 
-const MOCK_ARTICLE: Article = {
+export const MOCK_FEEDBACK: Feedback = {
+    id: 6,
+    course: MOCK_COURSE,
+    student: MOCK_STUDENT,
+    comment: "This course was exactly what I needed! The instructor created a welcoming and calming environment, and I felt more grounded and energized after each session. Highly recommend for anyone looking to deepen their yoga practice.",
+    rating: 5,
+    createdAt: new Date("2023-06-15T10:00:00Z")
+}
+
+
+
+export const MOCK_ARTICLE: Article = {
     id: 7,
     title: "Learn with Yoga",
     content:"In today’s fast-paced world, finding stillness can feel like a luxury. Between meetings, screens, and endless to-do lists, many of us rarely take a moment to truly connect with our bodies and breath. That’s where yoga steps in — not just as a workout, but as a pathway to presence, balance, and transformation.\n" +

@@ -81,11 +81,16 @@ webapp/
 │   ├── activities.js
 │   ├── teachers.js
 │   └── navigation.js
-├── types/                 # Types TypeScript (si utilisé)
-│   ├── activity.ts
-│   ├── teacher.ts
-│   └── api.ts
-├── utils/                 # Utils
+├── types/                 
+│   ├── Article.ts
+│   ├── Course.ts
+│   ├── Equipment.ts
+│   ├── Event.ts
+│   ├── Feedback.ts
+│   ├── Student.ts
+│   ├── Teacher.ts
+│   └── mock.ts             # Contains mock types for rendering
+├── utils/                
 │   ├── formatters.js
 │   ├── validators.js
 │   └── constants.js
