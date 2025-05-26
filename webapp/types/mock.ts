@@ -47,6 +47,7 @@ export const MOCK_EVENT: Event = {
     price: 20,
     isFree: false,
     registrationRequired: false,
+    teachers: [MOCK_TEACHER, MOCK_TEACHER],
     createdAt: new Date("2023-06-15T10:00:00Z")
 }
 
@@ -70,6 +71,8 @@ export const MOCK_STUDENT: Student = {
     id: 5,
     name: "Jane Doe",
     email: "jane@doe.com",
+    phone: "06 12 34 56 78",
+    courses: [MOCK_COURSE, MOCK_COURSE],
     createdAt: new Date("2023-06-15T10:00:00Z")
 }
 

@@ -1,3 +1,4 @@
+import type {Teacher} from "~/types/Teacher";
 
 export interface Event {
     id: number;
@@ -11,5 +12,5 @@ export interface Event {
     isFree: boolean;
     registrationRequired: boolean;
     createdAt: Date;
-    //teachers: Teacher[];
+    teachers?: Teacher[],
 }
