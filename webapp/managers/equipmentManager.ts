@@ -1,7 +1,7 @@
 export const useEquipment = () => {
     const client = useSupabaseClient()
+    const projectRef = 'xyzcompany'  // Remplace par ton project-ref Supabase
 
-    // Récupérer tous les articles
     const getAllEquipment = async () => {
         const { data, error } = await client
             .from('equipment')
@@ -9,11 +9,19 @@ export const useEquipment = () => {
             .order('created_at', { ascending: false })
 
         if (error) throw error
-        return data
+
+        // Transformer chaque élément pour remplacer image par URL complète
+        const transformed = data.map((equip: any) => ({
+            ...equip,
+            image: equip.image
+                ? `https://lmwpuleyzjxgzecypqdk.supabase.co/storage/v1/object/public/${equip.image}`
+                : null,
+        }))
+
+        return transformed
     }
 
-
     return {
-        getAllEquipment
+        getAllEquipment,
     }
 }
