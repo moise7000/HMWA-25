@@ -1,8 +1,9 @@
-
 export interface Equipment {
-    id: number;
+    id: string;
     name: string;
     description: string;
     vendorUrl: string;
-    createdAt: Date;
+    createdAt: string; // timestamp
 }
+
+
