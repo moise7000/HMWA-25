@@ -58,7 +58,10 @@
 </template>
 
 <script setup lang="ts">
-import {type Article, useArticles} from '~/types/Article'
+import {type Article} from '~/types/Article'
+import {useArticles} from "~/managers/articleManager";
+
+
 
 const { getAllArticles } = useArticles()
 
