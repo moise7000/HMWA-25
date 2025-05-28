@@ -1,5 +1,4 @@
 <template>
-	<p>Hello from Footer</p>
 	<footer class="footer">
 		<div class="nav-links">
 			<div class="grid">
@@ -41,6 +40,8 @@ const links = [[
 </script>
 
 <style scoped>
+
+.footer {padding-top: 40px;}
 
 .nav-links {width: 100% ;}
 
