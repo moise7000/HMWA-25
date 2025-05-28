@@ -1,3 +1,4 @@
+import type {Teacher} from "~/types/Teacher";
 
 export interface Event {
     id: string;
