@@ -26,7 +26,7 @@ const links = [[
 		{name : 'Opening hours', path : '/institute/opening-hours'}, 
 	], [
 		{name : 'About', path : '/about'}, 
-		{name : 'Benefits of yoga', path : '/about/benefits-of-yoga'}, 
+		{name : 'Benefits of yoga', path : '/about/benefits'}, 
 		{name : 'Yoga equipments', path : '/about/equipments'}, 
 		{name : 'Practice at home', path : '/about/practice-at-home'},
 	], [
