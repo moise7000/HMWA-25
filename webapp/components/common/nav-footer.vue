@@ -41,7 +41,7 @@ const links = [[
 
 <style scoped>
 
-.footer {padding-top: 40px;}
+.footer {padding-top: 30px;}
 
 .nav-links {width: 100% ;}
 

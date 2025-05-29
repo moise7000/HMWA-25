@@ -1,13 +1,36 @@
 <template>
-  <div class="text-center my-8">
-    <h1 class="text-5xl font-semibold text-black mb-2" v-html="title" />
-    <p class="text-base text-black" v-html="description" />
-  </div>
+	<div class="wrapper">
+		<h1 class="title main-title" v-html="title" />
+		<p class="description standard-text" v-html="description" />
+	</div>
 </template>
 
-<script setup lang="ts">
-defineProps<{
-  title: string
-  description: string
-}>()
+<script setup>
+
+defineProps({
+	title: String,
+	description: String
+})
+
 </script>
+
+<style scoped>
+
+.wrapper {
+  text-align: center;
+  margin: 2rem 0;
+  width : 100%
+}
+
+.title {
+  color: #000;
+  margin-bottom: 0.5rem;
+  padding-bottom : 30px ;
+}
+
+.description {
+  color: #000;
+  padding-bottom : 30px ;
+}
+
+</style>

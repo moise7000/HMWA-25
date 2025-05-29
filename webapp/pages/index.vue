@@ -5,6 +5,4 @@
 
 <script setup>
 
-import ArticleGrid from "~/components/article/article-grid.vue"
-
 </script>
