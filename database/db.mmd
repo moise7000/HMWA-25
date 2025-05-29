@@ -1,0 +1,184 @@
+erDiagram
+    teachers {
+        uuid id PK
+        string name
+        bytea photo
+        text biography
+        jsonb certificates
+        jsonb social_media
+        timestamp created_at
+    }
+
+    students {
+        uuid id PK
+        string name
+        string email
+        string phone
+        bytea photo
+        date date_of_birth
+        text address
+        jsonb emergency_contact
+        text medical_notes
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    courses {
+        uuid id PK
+        string title
+        bytea image
+        text description
+        jsonb goals
+        jsonb timetable
+        decimal price
+        string intro_video_url
+        string difficulty_level
+        int duration_minutes
+        int max_capacity
+        uuid teacher_id FK
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    equipment {
+        uuid id PK
+        string name
+        bytea image
+        text description
+        int stock_quantity
+        string purchase_link
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    feedbacks {
+        uuid id PK
+        uuid student_id FK
+        uuid course_id FK
+        text comment
+        int rating
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    subscriptions {
+        uuid id PK
+        string name
+        string type
+        decimal price
+        text description
+        int duration_days
+        int max_classes
+        jsonb benefits
+        bool is_active
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    events {
+        uuid id PK
+        string title
+        bytea image
+        timestamp date
+        timestamp end_date
+        text description
+        string location
+        int capacity
+        decimal price
+        bool is_free
+        bool registration_required
+        uuid teacher_id FK
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    articles {
+        uuid id PK
+        string title
+        text content
+        bytea image
+        jsonb authors
+        timestamp published_at
+        text snippet
+        string slug
+        jsonb tags
+        bool is_published
+        int views_count
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    course_subscription {
+        uuid course_id PK,FK
+        uuid subscription_id PK,FK
+    }
+
+    course_equipment {
+        uuid course_id PK,FK
+        uuid equipment_id PK,FK
+        int quantity
+        bool is_required
+    }
+
+    article_course {
+        uuid article_id PK,FK
+        uuid course_id PK,FK
+    }
+
+    article_event {
+        uuid article_id PK,FK
+        uuid event_id PK,FK
+    }
+
+    student_course {
+        uuid student_id PK,FK
+        uuid course_id PK,FK
+        timestamp enrollment_date
+        string status
+        timestamp completion_date
+        int attendance_count
+        text notes
+    }
+
+    student_subscription {
+        uuid id PK
+        uuid student_id FK
+        uuid subscription_id FK
+        timestamp start_date
+        timestamp end_date
+        string payment_status
+        string payment_method
+        bool is_active
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    event_registrations {
+        uuid id PK
+        uuid event_id FK
+        uuid student_id FK
+        timestamp registration_date
+        string status
+        string payment_status
+        decimal payment_amount
+        timestamp payment_date
+    }
+
+    teachers ||--o{ courses : "teaches"
+    teachers ||--o{ events : "leads"
+    students ||--o{ feedbacks : "gives"
+    students ||--o{ student_course : "enrolls_in"
+    students ||--o{ student_subscription : "has"
+    students ||--o{ event_registrations : "registers_for"
+    courses ||--o{ feedbacks : "receives"
+    courses ||--o{ course_subscription : "included_in"
+    courses ||--o{ course_equipment : "requires"
+    courses ||--o{ article_course : "featured_in"
+    courses ||--o{ student_course : "has_students"
+    equipment ||--o{ course_equipment : "used_in"
+    subscriptions ||--o{ course_subscription : "includes"
+    subscriptions ||--o{ student_subscription : "subscribed_to"
+    events ||--o{ article_event : "featured_in"
+    events ||--o{ event_registrations : "has_registrations"
+    articles ||--o{ article_course : "references"
+    articles ||--o{ article_event : "references"
