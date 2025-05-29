@@ -13,8 +13,8 @@
 <script setup>
 
 const links = [[
-		{name : 'Couses', path : '/courses-and-subscriptions'}, 
-		{name : 'Courses types', path : '/courses-and-subscriptions/courses'}, 
+		{name : 'Courses and Subscriptions', path : '/courses-and-subscriptions'}, 
+		{name : 'Courses', path : '/courses-and-subscriptions/courses'}, 
 		{name : 'Subscriptions', path : '/courses-and-subscriptions/subscriptions'}
 	], [
 		{name : 'Events', path : '/events'}
@@ -35,7 +35,7 @@ const links = [[
 		{name : 'Sign in', path : '/sing-in'}, 
 		{name : 'Language', path : '/language'}, 
 		{name : 'Search', path : '/search'}, 
-		{name : 'Contact', path : '/instute/contact'}, 
+		{name : 'Contact', path : '/institute/contact'}, 
 ]]
 
 </script>
