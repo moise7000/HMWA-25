@@ -6,8 +6,8 @@
   <div class="p-6">
 
 
-    <div v-if="loading">Chargement...</div>
-    <div v-else-if="error" class="text-red-500">Erreur : {{ error.message }}</div>
+    <div v-if="loading">Loading...</div>
+    <div v-else-if="error" class="text-red-500">Error : {{ error.message }}</div>
 
     <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       <EquipmentCard

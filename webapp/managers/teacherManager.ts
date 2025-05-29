@@ -11,7 +11,17 @@ export const useTeachers = () => {
             .order('name', { ascending: true })
 
         if (error) throw error
-        return data || []
+
+        const transformed = data
+            .map((teacher: any) => ({
+            ...teacher,
+            photo: teacher.photo
+                ? `https://lmwpuleyzjxgzecypqdk.supabase.co/storage/v1/object/public/${teacher.photo}`
+                : null,
+        }))
+
+        return transformed || []
+
     }
 
 
