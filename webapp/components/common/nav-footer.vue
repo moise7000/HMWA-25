@@ -29,12 +29,13 @@ const links = [[
 		{name : 'Benefits of yoga', path : '/about/benefits'}, 
 		{name : 'Yoga equipments', path : '/about/equipments'}, 
 		{name : 'Practice at home', path : '/about/practice-at-home'},
+		{name : 'Articles', path : '/about/articles'},
 	], [
 		{name : 'Sign up', path : '/sing-up'}, 
 		{name : 'Sign in', path : '/sing-in'}, 
 		{name : 'Language', path : '/language'}, 
 		{name : 'Search', path : '/search'}, 
-		{name : 'Contact', path : '/contact'}, 
+		{name : 'Contact', path : '/instute/contact'}, 
 ]]
 
 </script>
