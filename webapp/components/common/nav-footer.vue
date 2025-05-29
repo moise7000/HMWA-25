@@ -1,9 +1,9 @@
 <template>
-	<footer class="footer">
-		<div class="nav-links">
-			<div class="grid">
-				<div class="column" v-for="(column, index) in links" :key="index">
-					<NuxtLink v-for="(link, index) in column" :key="link.path" :to="link.path" class="nav-link">{{ link.name }}</NuxtLink>
+	<footer class = "footer">
+		<div class = "nav-links">
+			<div class = "grid">
+				<div class = "column" v-for = "(column, index) in links"  :key = "index">
+					<NuxtLink v-for = "(link, index) in column"  :key = "link.path"  :to = "link.path" class = "nav-link">{{link.name}}</NuxtLink>
 				</div>
 			</div>
 		</div>
@@ -42,23 +42,24 @@ const links = [[
 
 <style scoped>
 
-.footer {padding-top: 30px;}
+.footer {padding-top : 30px ;}
 
-.nav-links {width: 100% ;}
+.nav-links {width : 100% ;}
 
-.grid {display: flex; flex-direction : row; width : 100% ; justify-content : flex-end ;}
+.grid {display : flex ; flex-direction : row ; width : 100% ; justify-content : flex-end ;}
 
-.column {display: flex; flex-direction : column ; padding: 10px; width: 12%;}
+.column {display : flex ; flex-direction : column ; padding : 10px ; width : 12% ;}
 
 .nav-link {
-	font-size: 1.25rem;
-	padding-bottom: 20px; 
-	text-decoration: none;
-	color: #4a5568; /* gris moyen */
-	transition: color 0.2s ease;
-	font-weight: 500;
+	font-size : 1.25rem ;
+	padding-bottom : 20px ; 
+	text-decoration : none ;
+	color : #4a5568 ; /* gris moyen */
+	transition : color 0.2s ease ;
+	font-weight : 500 ;
+	height : 90px ;
 }
 
-.nav-link:hover {color: #3182ce;}
+.nav-link :hover {color : #3182ce ;}
 
 </style>

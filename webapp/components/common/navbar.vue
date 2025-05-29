@@ -70,102 +70,102 @@ const linkGroups = [
 <style scoped>
 
 .navbar {
-	background-color: white;
-	padding: 40px 80px;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	font-weight: 600;
-	position: relative;
-	z-index: 10;
+	background-color : white ;
+	padding : 40px 80px ;
+	display : flex ;
+	align-items : center ;
+	justify-content : space-between ;
+	font-weight : 600 ;
+	position : relative ;
+	z-index : 10 ;
 }
 
 .navbar-brand {
-	font-size: 2rem;
-	color: #2d3748;
+	font-size : 2rem ;
+	color : #2d3748 ;
 }
 
 .nav-links {
-	font-size: 1.25rem;
-	display: flex;
-	gap: 40px;
-	align-items: center;
+	font-size : 1.25rem ;
+	display : flex ;
+	gap : 40px ;
+	align-items : center ;
 }
 
 .nav-item {
-	position: relative;
+	position : relative ;
 }
 
 .nav-link {
-	text-decoration: none;
-	color: #4a5568;
-	transition: color 0.2s ease;
+	text-decoration : none ;
+	color : #4a5568 ;
+	transition : color 0.2s ease ;
 }
 
-.nav-link:hover {
-	color: #3182ce;
+.nav-link :hover {
+	color : #3182ce ;
 }
 
 .dropdown-menu {
-	position: absolute;
-	top: 100%;
-	left: 0;
-	background-color: white;
-	display: flex;
-	flex-direction: column;
-	padding: 10px 0;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-	z-index: 9;
+	position : absolute ;
+	top : 100% ;
+	left : 0 ;
+	background-color : white ;
+	display : flex ;
+	flex-direction : column ;
+	padding : 10px 0 ;
+	box-shadow : 0 2px 8px rgba(0, 0, 0, 0.1) ;
+	z-index : 9 ;
 }
 
 .dropdown-link {
-	padding: 8px 20px;
-	white-space: nowrap;
+	padding : 8px 20px ;
+	white-space : nowrap ;
 }
 
-.dropdown-link:hover {
-	background-color: #f7fafc;
+.dropdown-link :hover {
+	background-color : #f7fafc ;
 }
 
 .nav-toggle {
-	display: none;
+	display : none ;
 }
 
-@media (max-width: 768px) {
+@media (max-width : 768px) {
 	.navbar {
-		padding: 20px;
+		padding : 20px ;
 	}
 	.nav-toggle {
-		display: block;
-		background: none;
-		border: none;
-		font-size: 1.5rem;
-		cursor: pointer;
-		color: #4a5568;
-		z-index: 11;
+		display : block ;
+		background : none ;
+		border : none ;
+		font-size : 1.5rem ;
+		cursor : pointer ;
+		color : #4a5568 ;
+		z-index : 11 ;
 	}
 	.nav-links {
-		display: none;
-		flex-direction: column;
+		display : none ;
+		flex-direction : column ;
 	}
 	.nav-links.open {
-		display: flex;
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100vw;
-		height: 100vh;
-		background-color: white;
-		justify-content: center;
-		align-items: center;
-		gap: 30px;
+		display : flex ;
+		position : fixed ;
+		top : 0 ;
+		left : 0 ;
+		width : 100vw ;
+		height : 100vh ;
+		background-color : white ;
+		justify-content : center ;
+		align-items : center ;
+		gap : 30px ;
 	}
 	.nav-links .nav-item {
-		width: 100%;
-		text-align: center;
+		width : 100% ;
+		text-align : center ;
 	}
 	.dropdown-menu {
-		display: none !important;
+		display : none !important ;
 	}
 }
 
