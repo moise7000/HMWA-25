@@ -63,9 +63,7 @@
       </a>
     </div>
 
-    <div class="text-xs text-gray-400 text-center mt-3">
-      Membre depuis {{ formatDate(teacher.createdAt) }}
-    </div>
+
   </div>
 </template>
 
