@@ -1,10 +1,12 @@
 <template>
+	<HeroCard title="Meet the articles" description="<br>Meet our passionate and experienced yoga teachers, each dedicated to guiding you on your journey with care, knowledge, and inspiration. <br> Discover the heart of our studio through the people who bring it to life." />
 	<ArticleGrid :articles = "articles"/>
 </template>
 
 <script setup>
 
 import ArticleGrid from "~/components/article/article-grid.vue"
+import HeroCard from '~/layouts/Hero.vue'
 
 const articles = [
 	{ id: 1, title: 'Yoga for Beginners', date: '12/05/2025', image: '/assets/yoga_courses/yoga_course_1.png', description: 'In a world...', url : "/"},
