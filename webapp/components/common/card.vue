@@ -1,9 +1,10 @@
 <template>
-	<article class = "yoga-card">
+	<article :class = "card">
 		<img :src = "imagePath" :alt = "`Image of course ${title}`" class = "thumbnail"/>
 		<p class = "date">{{date}}</p>
 		<h2 class = "title">{{title}}</h2>
 		<p class = "excerpt">{{description}}</p>
+		<p class = "other">{{other}}</p>
 		<MyButton :url = "url">Read</MyButton>
 	</article>
 </template>
@@ -11,11 +12,12 @@
 <script setup>
 
 defineProps({
-	date : {type : String, required : false, default : "Error loading date"},
+	date : {type : String, required : false, default : ""},
 	title : {type : String, required : false, default : "Error loading title"},
 	description : {type : String, required : false, default : "Error loading description"},
 	url : {type : String, required : false, default : "/"},
-	imagePath : {type : String, required : true}
+	imagePath : {type : String, required : true},
+	other : {type : String, required : false, default : ""}
 })
 
 import MyButton from '~/components/common/button.vue'
@@ -24,17 +26,17 @@ import MyButton from '~/components/common/button.vue'
 
 <style scoped>
 
-.yoga-card {
+.card {
 	margin-left: auto ;
 	margin-right: auto ;
 	width: 100% ;
-	max-width: 20rem ;
+	/* max-width: 20rem ; */
 	background: #ffffff ;
 	padding: 1rem ;
 	transition: transform 0.15s ease ;
 }
 
-.yoga-card:hover {
+.card:hover {
 	transform: translateY(-2px) ;
 }
 
@@ -66,6 +68,13 @@ import MyButton from '~/components/common/button.vue'
 
 .excerpt {
 	font-size: 0.875rem ;
+	line-height: 1.6 ;
+	color: #000000 ;
+	margin-bottom: 1.5rem ;
+}
+
+.other {
+	font-size: 1rem ;
 	line-height: 1.6 ;
 	color: #000000 ;
 	margin-bottom: 1.5rem ;

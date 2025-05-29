@@ -1,5 +1,5 @@
 <template>
-	<section class = "articles-grid">
+	<section class = "articles-grid" :style = "{'padding' : padding, 'grid-template-columns' : gridTemplateColumn}">
 		<Article v-for = "article in visibleArticles" :key = "article.id" :title = "article.title" :date = "article.date" :imagePath = "article.image" :description = "article.description" :url = "article.url"/>
 	</section>
 	<div class = "btn-wrapper" v-if = "visibleArticles.length < articles.length">
@@ -11,12 +11,14 @@
 
 <script setup>
 
-import Article from '~/components/article/article-card.vue'
+import Article from '~/components/common/card.vue'
 import MyButton from '~/components/common/button.vue'
 import { ref, computed, onMounted } from 'vue'
 
 const props = defineProps({
-	articles : {type : Array, required : false, default : [{ id : 1, title : 'No articles found', date : '00/00/0000', image : '', description : 'No articles', url : "/"}]}
+	articles : {type : Array, required : false, default : [{ id : 1, title : 'No articles found', date : '00/00/0000', image : '', description : 'No articles', url : "/"}]},
+	paddingSide : {type : String, required : false, default : "10"},
+	minWidth : {type : String, required : false, default : "10"}
 })
 
 const shown = ref(0)
@@ -40,26 +42,27 @@ function loadMore () {shown.value = Math.min(shown.value + columnCount.value, pr
 
 const visibleArticles = computed(() => props.articles.slice(0, shown.value))
 
+const padding = computed(() => `0 ${props.paddingSide}%`)
+
+const gridTemplateColumn = computed(() => `repeat(auto-fill, minmax(${props.minWidth}px, 1fr))`)
+
 </script>
 
 <style scoped>
 
 .articles-grid {
 	display : grid ;
-	grid-template-columns : repeat(auto-fill, minmax(260px, 1fr)) ;
 	gap : 1.5rem ;
 	margin : 0 ;
-	padding-left : 10% ;
-	padding-right : 10%
 }
 
-@media (min-width : 600px) {
+/* @media (min-width : 600px) {
 	.articles-grid {grid-template-columns : repeat(auto-fill, minmax(280px, 1fr)) ;}
 }
 
 @media (min-width : 900px) {
 	.articles-grid {grid-template-columns : repeat(auto-fill, minmax(300px, 1fr)) ;}
-}
+} */
 
 .articles-grid :deep(img) {
 	width : 100% ;
