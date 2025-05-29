@@ -21,14 +21,14 @@ const links = [[
 	], [
 		{name : 'Insitute', path : '/institute'}, 
 		{name : 'Our story', path : '/institute/story'}, 
-		{name : 'The Team', path : '/institute/all-teachers'}, 
+		{name : 'The Team', path : '/institute/teachers'}, 
 		{name : 'Where to find us', path : '/institute/location'}, 
 		{name : 'Opening hours', path : '/institute/opening-hours'}, 
 	], [
 		{name : 'About', path : '/about'}, 
-		{name : 'Benefits of yoga', path : '/about/benefits'}, 
+		{name : 'Benefits of yoga', path : '/about/benefits-of-yoga'}, 
 		{name : 'Yoga equipments', path : '/about/equipments'}, 
-		{name : 'Practice at home', path : '/about/practice'},
+		{name : 'Practice at home', path : '/about/practice-at-home'},
 	], [
 		{name : 'Sign up', path : '/sing-up'}, 
 		{name : 'Sign in', path : '/sing-in'}, 

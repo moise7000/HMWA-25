@@ -47,6 +47,7 @@ function loadMore () {
 //  shown.value = Math.min(shown.value + props.step, props.bunches.length)
   shown.value = Math.min(shown.value + 1, bunches.length)
 }
+
 </script>
 
 <style scoped>
