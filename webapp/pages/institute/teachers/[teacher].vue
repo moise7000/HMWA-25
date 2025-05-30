@@ -110,7 +110,7 @@
 
       <!-- Teacher's Courses -->
       <div class="bg-white rounded-lg shadow-lg p-8">
-        <h2 class="text-2xl font-bold mb-6">Courses taught by {{ teacher.name }}</h2>
+        <h2 class="text-2xl font-bold mb-6">My courses</h2>
 
         <div v-if="coursesLoading" class="text-center py-8">
           Loading ...
@@ -199,6 +199,7 @@ onMounted(async () => {
       // Charger les cours du professeur
       try {
         teacherCourses.value = await getCoursesByTeacher(foundTeacher.id.toString())
+
       } catch (err: any) {
         coursesError.value = err
       } finally {

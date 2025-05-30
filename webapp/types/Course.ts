@@ -13,7 +13,7 @@ export interface Course {
     difficulty_level: string;
     duration_minutes: number;
     max_capacity: number;
-    teacher_id: string; //
+    teacher_id: string;
     created_at: string;
     updated_at: string;
     // Relation (optionnelle, chargée avec join)

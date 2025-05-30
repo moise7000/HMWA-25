@@ -39,6 +39,7 @@ export const useTeachers = () => {
         return data
     }
 
+
     return {
         getAllTeachers,
         getTeacherById,
