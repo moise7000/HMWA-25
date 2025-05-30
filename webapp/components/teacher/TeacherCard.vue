@@ -1,5 +1,8 @@
 <template>
-  <div class="teacher-card border rounded p-4 shadow-sm">
+  <div
+      class="teacher-card border rounded p-4 shadow-sm cursor-pointer"
+      @click="navigateToTeacher"
+  >
     <div class="mb-3">
       <img
           v-if="teacher.photo"
@@ -40,6 +43,7 @@
           target="_blank"
           class="text-pink-500 hover:text-pink-600 transition-colors"
           title="Instagram"
+          @click.stop
       >
         📷
       </a>
@@ -49,6 +53,7 @@
           target="_blank"
           class="text-blue-600 hover:text-blue-700 transition-colors"
           title="LinkedIn"
+          @click.stop
       >
         💼
       </a>
@@ -58,21 +63,39 @@
           target="_blank"
           class="text-gray-600 hover:text-gray-700 transition-colors"
           title="Website"
+          @click.stop
       >
         🌐
       </a>
     </div>
 
-
+    <!-- Indicateur visuel que la card est cliquable -->
+    <div class="mt-3 text-center">
+      <span class="text-xs text-gray-500">Click to see more →</span>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { Teacher } from '~/types/Teacher'
 
-defineProps<{
+const props = defineProps<{
   teacher: Teacher
 }>()
+
+const router = useRouter()
+
+const navigateToTeacher = () => {
+  // Créer un slug à partir du nom du professeur
+  const slug = props.teacher.name
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '') // Supprimer les accents
+      .replace(/\s+/g, '-') // Remplacer les espaces par des tirets
+      .replace(/[^\w-]/g, '') // Supprimer les caractères spéciaux
+
+  router.push(`/institute/teachers/${slug}`)
+}
 
 const formatDate = (date: Date) => {
   return new Date(date).toLocaleDateString('fr-FR', {
