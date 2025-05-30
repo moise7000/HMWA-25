@@ -94,12 +94,27 @@ export const useCourses = () => {
         return data || []
     }
 
+    const getAllCoursesFromTeacher = async (teacherId: string): Promise<Course[]> => {
+        const { data, error } = await client
+            .from('courses')
+            .select(`
+            *,
+            teacher:teachers(*)
+        `)
+            .eq('teacher_id', teacherId)
+            .order('created_at', { ascending: false })
+
+        if (error) throw error
+        return data || []
+    }
+
 
 
     return {
         getAllCoursesWithTeachers,
         getAllCourses,
         getCourseWithTeacher,
+        getAllCoursesFromTeacher,
         getCourseById,
         getCoursesByTeacher,
         searchCourses,
