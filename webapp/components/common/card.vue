@@ -5,7 +5,7 @@
 		<h2 class = "title">{{title}}</h2>
 		<p class = "excerpt">{{description}}</p>
 		<p class = "other">{{other}}</p>
-		<MyButton :url = "url">Read</MyButton>
+		<MyButton v-if = "buttonDisplay" :url = "url">Read</MyButton>
 	</article>
 </template>
 
@@ -13,8 +13,9 @@
 
 defineProps({
 	date : {type : String, required : false, default : ""},
-	title : {type : String, required : false, default : "Error loading title"},
-	description : {type : String, required : false, default : "Error loading description"},
+	title : {type : String, required : false, default : ""},
+	description : {type : String, required : false, default : ""},
+	buttonDisplay : {type : Boolean, required : false, default : true},
 	url : {type : String, required : false, default : "/"},
 	imagePath : {type : String, required : true},
 	other : {type : String, required : false, default : ""}

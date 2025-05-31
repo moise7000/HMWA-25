@@ -1,8 +1,5 @@
 <template>
-  <HeroCard
-      title="Meet the teachers"
-      description="<br>Meet our passionate and experienced yoga teachers, each dedicated to guiding you on your journey with care, knowledge, and inspiration. <br> Discover the heart of our studio through the people who bring it to life."
-  />
+	<Hero :title= "title" :description = "description" />
   <div class="p-6">
 
     <div v-if="loading">Loading...</div>
@@ -19,7 +16,12 @@
 </template>
 
 <script setup lang="ts">
-import HeroCard from '~/layouts/Hero.vue'
+
+const title = "Meet the teachers"
+
+const description = "Meet our passionate and experienced yoga teachers, each dedicated to guiding you on your journey with care, knowledge, and inspiration. Discover the heart of our studio through the people who bring it to life."
+
+import Hero from '~/layouts/hero.vue'
 import { ref, onMounted } from 'vue'
 import { useTeachers } from '~/managers/teacherManager'
 import TeacherCard from '~/components/teacher/TeacherCard.vue'

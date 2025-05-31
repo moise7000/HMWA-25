@@ -1,12 +1,16 @@
 <template>
-	<HeroCard title="Yoga articles" description="<br>Meet our passionate and experienced yoga teachers, each dedicated to guiding you on your journey with care, knowledge, and inspiration. <br> Discover the heart of our studio through the people who bring it to life." />
+	<Hero :title= "title" :description = "description" />
 	<Grid :articles = "articles" :paddingSide = "15" :minWidth = "400" />
 </template>
 
 <script setup>
 
 import Grid from "~/components/common/grid.vue"
-import HeroCard from '~/layouts/Hero.vue'
+import Hero from '~/layouts/hero.vue'
+
+const title = "Yoga articles"
+
+const description = "Read a selection of articles."
 
 const articles = [
 	{ id: 1, title: 'Yoga for Beginners', date: '12/05/2025', image: '/assets/yoga_courses/yoga_course_0.png', description: "In a 1st world... Unwind and reconnect with your breath in Serenity Flow, a gentle vinyasa-style class designed to soothe the nervous system and restore inner balance. Perfect for all levels, this class emphasizes mindful movement, deep stretching, and calming breathwork to help release tension and cultivate a sense of peace. Whether you're winding down after a busy day or looking for a moment of stillness, Serenity Flow offers a tranquil space to reset and recharge.", url : "/"},

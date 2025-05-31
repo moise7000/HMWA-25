@@ -1,6 +1,6 @@
 <template>
 	<section class = "articles-grid" :style = "{'padding' : padding, 'grid-template-columns' : gridTemplateColumn}">
-		<Article v-for = "article in visibleArticles" :key = "article.id" :title = "article.title" :date = "article.date" :imagePath = "article.image" :description = "article.description" :url = "article.url"/>
+		<Article v-for = "article in visibleArticles" :key = "article.id" :title = "article.title" :date = "article.date" :imagePath = "article.image" :description = "article.description" :url = "article.url" :button-display = "article.buttonDisplay"/>
 	</section>
 	<div class = "btn-wrapper" v-if = "visibleArticles.length < articles.length">
 		<div id = "more-button" v-on:click = "loadMore">
@@ -18,7 +18,9 @@ import { ref, computed, onMounted } from 'vue'
 const props = defineProps({
 	articles : {type : Array, required : false, default : [{ id : 1, title : 'No articles found', date : '00/00/0000', image : '', description : 'No articles', url : "/"}]},
 	paddingSide : {type : String, required : false, default : "10"},
-	minWidth : {type : String, required : false, default : "10"}
+	minWidth : {type : String, required : false, default : "10"},
+	displayAll : {type : Boolean, required : false, default : false},
+	customStep : {type : Number, required : false, default : 0}
 })
 
 const shown = ref(0)
@@ -26,16 +28,17 @@ const shown = ref(0)
 const columnCount = ref(0)
 
 onMounted(() => {
-	const container = document.querySelector('.articles-grid') ;
-	if (container) {
-		const style = window.getComputedStyle(container) ;
-		const gridTemplateColumns = style.getPropertyValue('grid-template-columns') ;
-		columnCount.value = gridTemplateColumns.split(' ').length ;
-		shown.value = columnCount.value ;
-		console.log('Articles per row:', columnCount) ;
+	if (!props.displayAll) {
+		const container = document.querySelector('.articles-grid') ;
+		if (container) {
+			const style = window.getComputedStyle(container) ;
+			const gridTemplateColumns = style.getPropertyValue('grid-template-columns') ;
+			columnCount.value = gridTemplateColumns.split(' ').length ;
+			shown.value = columnCount.value ;
+		}
 	}
-
-	else {console.log('Articles per row : error') ;}
+	else {shown.value = props.articles.length}
+	if (props.customStep != 0) {columnCount.value = props.customStep}
 })
 
 function loadMore () {shown.value = Math.min(shown.value + columnCount.value, props.articles.length)}
