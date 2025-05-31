@@ -1,8 +1,5 @@
 <template>
-  <HeroCard
-      title="Our Yoga Equipment"
-      description="Discover our selection of recommended yoga equipment gear and accessories, <br> with links to our partner sites where you can explore and purchase the items we love and use."
-  />
+  <HeroCard :title="title" :description = "description"/>
   <div class="p-6">
 
 
@@ -20,11 +17,15 @@
 </template>
 
 <script setup lang="ts">
-import HeroCard from '~/layouts/Hero.vue'
+import HeroCard from '~/layouts/hero.vue'
 import { ref, onMounted } from 'vue'
 import { useEquipment } from '~/managers/equipmentManager'
 import EquipmentCard from '~/components/equipment/EquipmentCard.vue'
 import type { Equipment } from '@/types/Equipment'
+
+const title = "Our yoga equipments"
+
+const description = "Discover our selection of recommended yoga equipment gear and accessories, with links to our partner sites where you can explore and purchase the items we love and use."
 
 const { getAllEquipment } = useEquipment()
 const equipmentList = ref<Equipment[]>([])

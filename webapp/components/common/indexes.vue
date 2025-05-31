@@ -1,5 +1,5 @@
 <template>
-	<HeroCard :title = "title" :description = "description" />
+	<Hero :title = "title" :description = "description" />
 	<div class = 'about'>
 		<TopicRight v-for = "topic in topics" :imagePath = "topic.imagePath" :topicDescription = "topic.topicDescription" :linkPath = 'topic.linkPath' :topicTitle = 'topic.topicTitle' :side = "topic.side" />
 	</div>
@@ -8,7 +8,7 @@
 <script setup>
 
 import TopicRight from '~/components/common/topic.vue'
-import HeroCard from '~/layouts/Hero.vue'
+import Hero from '~/layouts/hero.vue'
 
 defineProps({
 	title : {type : String, required : false, default : 'Missing title'},
@@ -21,10 +21,6 @@ defineProps({
 		side : false
 	}]}
 })
-
-// const title = 'About Yoga'
-
-// const description = 'Hello from about Yoga'
 
 </script>
 

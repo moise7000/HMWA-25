@@ -64,17 +64,17 @@ defineProps({
 }
 
 .image-wrapper {
-	flex : 1 ;
+/*	flex : 1 ;
 	display : flex ;
 	align-items : center ;
 	justify-content : center ;
-	overflow : hidden ;
+	overflow : hidden ;*/
 	width : 50% ;
 }
 
-.image-wrapper img {
+img {
 	width : 100% ;
-	height :auto ;
+	height : auto ;
 	object-fit : cover ;
 }
 
