@@ -1,12 +1,12 @@
 <template>
-	<div class = "topic-card">
+	<div class = "topic-card standard-padding">
 		<div class = "image-wrapper" v-if = "side">
 			<img :src = "imagePath" :alt = "topicTitle" />
 		</div>
 		<div class = "content">
 			<h2 class = "title main-title">{{topicTitle}}</h2>
 			<p class = "description standard-text">{{topicDescription}}</p>
-			<NuxtLink :to = "linkPath" class = "link"><em>Read more</em></NuxtLink>
+			<NuxtLink v-if = "!noLink" :to = "linkPath" class = "link"><em>Read more</em></NuxtLink>
 		</div>
 		<div class = "image-wrapper" v-if = "!side">
 			<img :src = "imagePath" :alt = "topicTitle" />
@@ -21,7 +21,8 @@ defineProps({
 	topicDescription : {type : String, required : false, default : 'No description provided.'},
 	linkPath : {type : String, required : false, default : '/'},
 	topicTitle : {type : String, required :  true, default : 'No title provided'},
-	side : {type : Boolean, required : false, default : false}
+	side : {type : Boolean, required : false, default : false},
+	noLink : {type : Boolean, required : false, default : false}
 }) ;
 
 </script>
@@ -32,7 +33,6 @@ defineProps({
 	display : flex ;
 	align-items : stretch ;
 	width : 100% ;
-	padding : 30px 0;
 }
 
 .content {

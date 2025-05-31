@@ -27,7 +27,7 @@ const client = useSupabaseClient()
 }
 
 .standard-padding {
-	padding-bottom : 50px 
+	padding-bottom : 70px 
 }
 
 </style>
