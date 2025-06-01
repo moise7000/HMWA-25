@@ -24,7 +24,7 @@ const topics = [
 		side : false
 	}, {imagePath : 'assets/yoga_courses/yoga_course_0.png',
 		//topicDescription
-		linkPath : '/about/pratice-at-home',
+		linkPath : '/about/practice-at-home',
 		topicTitle : 'Practice at home',
 		side : true
 	}, {imagePath : 'assets/yoga_courses/yoga_course_0.png',

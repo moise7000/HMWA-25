@@ -1,4 +1,5 @@
 <template>
+	<BreadCrumps :breadCrumps= "breadCrumps" />
 	<Hero :title = title :description = "description" />
 	<Hero :subtitle = "subtitleOne" />
 	<Grid :articles = "exercices" padding-side = "35" min-width = "200" :display-all = "true"/>
@@ -22,10 +23,19 @@
 
 import Hero from "~/layouts/hero.vue"
 import Grid from "~/components/common/grid.vue"
+import BreadCrumps from "~/components/common/bread-crumps.vue"
 
 const title = "My title"
 
 const description = "My description"
+
+const breadCrumps = [{
+		name : "About",
+		link : "/about"
+	}, {
+		name : "Practice at home",
+		link : "/about/practice-at-home"
+}]
 
 const subtitleOne = "Exercices"
 

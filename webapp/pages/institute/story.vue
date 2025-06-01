@@ -1,4 +1,5 @@
 <template>
+	<BreadCrumps :breadCrumps= "breadCrumps" />
 	<Hero :title = "title" :description = "description" />
 	<div class = "image-wrapper standard-padding">
 		<img src = "/assets/yoga_courses/yoga_course_0.png">
@@ -10,10 +11,19 @@
 
 import Hero from "~/layouts/hero.vue"
 import TopicCard from "~/components/common/topic.vue"
+import BreadCrumps from "~/components/common/bread-crumps.vue"
 
 const title = "Our story"
 
 const description = "Know about us."
+
+const breadCrumps = [{
+		name : "Insitute",
+		link : "/institute"
+	}, {
+		name : "Story",
+		link : "/institute/story"
+}]
 
 const topics = [{
 		imagePath : "/assets/yoga_courses/yoga_course_0.png",
