@@ -1,7 +1,2 @@
-{
-  "buildCommand": "npm run build",
-  "outputDirectory": ".output",
-  "framework": "nuxt",
-  "rootDirectory": "webapp"
-}
+
 
