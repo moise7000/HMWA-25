@@ -36,6 +36,17 @@ export const useTeachers = () => {
             if (error.code === 'PGRST116') return null // Pas trouvé
             throw error
         }
+
+        // Transformer l'URL de la photo comme dans getAllTeachers
+        if (data) {
+            return {
+                ...data,
+                photo: data.photo
+                    ? `https://lmwpuleyzjxgzecypqdk.supabase.co/storage/v1/object/public/${data.photo}`
+                    : null,
+            }
+        }
+
         return data
     }
 

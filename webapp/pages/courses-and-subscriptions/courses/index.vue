@@ -1,28 +1,247 @@
 <template>
-	<HeroCard :title = "title" :description="description" />
-	<Grid :articles = "articles" :paddingSide = "30" :minWidth = "300" />
+  <div>
+    <Hero :title="title" :description="description" />
+
+    <div class="container mx-auto p-6">
+      <!-- Loading state initial -->
+      <div v-if="loading && allCourses.length === 0" class="flex justify-center items-center min-h-[400px]">
+        <div class="text-lg">Loading courses...</div>
+      </div>
+
+      <!-- Error state -->
+      <div v-else-if="error" class="text-center text-red-500 min-h-[400px] flex items-center justify-center">
+        <div>
+          <h2 class="text-2xl font-bold mb-4">Error</h2>
+          <p>{{ error.message }}</p>
+          <button
+              @click="loadCourses"
+              class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
+          >
+            Try again
+          </button>
+        </div>
+      </div>
+
+      <!-- Courses content -->
+      <div v-else>
+        <!-- Filter/Search section (optionnel pour plus tard) -->
+        <div class="mb-8">
+          <div class="flex flex-col sm:flex-row gap-4 items-center justify-between">
+            <div class="text-gray-600">
+              Showing {{ displayedCourses.length }} of {{ allCourses.length }} courses
+            </div>
+
+            <!-- Filtre par difficulté (optionnel) -->
+            <div class="flex gap-2">
+              <button
+                  @click="filterLevel = 'all'"
+                  :class="filterLevel === 'all' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'"
+                  class="px-3 py-1 rounded-full text-sm transition-colors"
+              >
+                All levels
+              </button>
+              <button
+                  @click="filterLevel = 'beginner'"
+                  :class="filterLevel === 'beginner' ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-700'"
+                  class="px-3 py-1 rounded-full text-sm transition-colors"
+              >
+                Beginner
+              </button>
+              <button
+                  @click="filterLevel = 'intermediate'"
+                  :class="filterLevel === 'intermediate' ? 'bg-orange-500 text-white' : 'bg-gray-200 text-gray-700'"
+                  class="px-3 py-1 rounded-full text-sm transition-colors"
+              >
+                Intermediate
+              </button>
+              <button
+                  @click="filterLevel = 'advanced'"
+                  :class="filterLevel === 'advanced' ? 'bg-red-500 text-white' : 'bg-gray-200 text-gray-700'"
+                  class="px-3 py-1 rounded-full text-sm transition-colors"
+              >
+                Advanced
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- No courses message -->
+        <div v-if="filteredCourses.length === 0" class="text-center py-12">
+          <div class="text-6xl mb-4">🧘‍♀️</div>
+          <h3 class="text-xl font-semibold text-gray-700 mb-2">No courses found</h3>
+          <p class="text-gray-500">
+            <span v-if="filterLevel !== 'all'">
+              No courses available for {{ filterLevel }} level. Try changing the filter.
+            </span>
+            <span v-else>
+              No courses are currently available. Check back soon!
+            </span>
+          </p>
+        </div>
+
+        <!-- Courses grid -->
+        <div v-else>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <CourseCard
+                v-for="course in displayedCourses"
+                :key="course.id"
+                :course="course"
+                class="animate-fade-in"
+            />
+          </div>
+
+          <!-- Load more button -->
+          <div v-if="hasMoreCourses" class="text-center">
+            <button
+                @click="loadMoreCourses"
+                :disabled="loadingMore"
+                class="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-8 py-3 rounded-lg font-medium transition-colors flex items-center gap-2 mx-auto"
+            >
+              <span v-if="loadingMore">Loading...</span>
+              <span v-else>Load More Courses</span>
+              <span v-if="!loadingMore" class="text-sm opacity-75">
+                ({{ remainingCoursesCount }} remaining)
+              </span>
+            </button>
+          </div>
+
+          <!-- End message -->
+          <div v-else-if="displayedCourses.length > 6" class="text-center text-gray-500 py-8">
+            <div class="text-2xl mb-2">✨</div>
+            <p>You've seen all available courses!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import { ref, onMounted, computed, watch } from 'vue'
+import { useCourses } from '~/managers/courseManager'
+import CourseCard from '~/components/course/CourseCard.vue'
+import Hero from '~/layouts/hero.vue'
+import type { Course } from '~/types/Course'
 
-import Grid from "~/components/common/grid.vue"
-import HeroCard from '~/layouts/hero.vue'
+// Configuration
+const COURSES_PER_PAGE = 6
 
-const title = "Our courses"
+// Data
+const title = "All Yoga Courses"
+const description = "Discover our complete collection of yoga courses. From beginner-friendly sessions to advanced practices, find the perfect class to enhance your yoga journey with our experienced instructors."
 
-const description = "Feel free to join."
+const { getAllCoursesWithTeachers } = useCourses()
 
-const articles = [
-	{ id: 1, title: 'Yoga for Beginners', date: '12/05/2025', image: '/assets/yoga_courses/yoga_course_0.png', description: "In a 1st world... Unwind and reconnect with your breath in Serenity Flow, a gentle vinyasa-style class designed to soothe the nervous system and restore inner balance. Perfect for all levels, this class emphasizes mindful movement, deep stretching, and calming breathwork to help release tension and cultivate a sense of peace. Whether you're winding down after a busy day or looking for a moment of stillness, Serenity Flow offers a tranquil space to reset and recharge.", url : "/"},
-	{ id: 2, title: 'Mindful Movement', date: '12/05/2025', image: '/assets/yoga_courses/yoga_course_2.png', description: "In a 2nd world... Unwind and reconnect with your breath in Serenity Flow, a gentle vinyasa-style class designed to soothe the nervous system and restore inner balance. Perfect for all levels, this class emphasizes mindful movement, deep stretching, and calming breathwork to help release tension and cultivate a sense of peace. Whether you're winding down after a busy day or looking for a moment of stillness, Serenity Flow offers a tranquil space to reset and recharge.", url : "/"},
-	{ id: 3, title: 'Spirit & Balance', date: '12/05/2025', image: '/assets/yoga_courses/yoga_course_3.png', description: "In a 3rd world... Unwind and reconnect with your breath in Serenity Flow, a gentle vinyasa-style class designed to soothe the nervous system and restore inner balance. Perfect for all levels, this class emphasizes mindful movement, deep stretching, and calming breathwork to help release tension and cultivate a sense of peace. Whether you're winding down after a busy day or looking for a moment of stillness, Serenity Flow offers a tranquil space to reset and recharge.", url : "/"},
-	{ id: 4, title: 'Yoga for Beginners2', date: '14/05/2025', image: '/assets/yoga_courses/yoga_course_4.png', description: "In a 4th world... Unwind and reconnect with your breath in Serenity Flow, a gentle vinyasa-style class designed to soothe the nervous system and restore inner balance. Perfect for all levels, this class emphasizes mindful movement, deep stretching, and calming breathwork to help release tension and cultivate a sense of peace. Whether you're winding down after a busy day or looking for a moment of stillness, Serenity Flow offers a tranquil space to reset and recharge.", url : "/"},
-	{ id: 5, title: 'Mindful Movement2', date: '14/05/2025', image: '/assets/yoga_courses/yoga_course_5.png', description: "In a 5th world... Unwind and reconnect with your breath in Serenity Flow, a gentle vinyasa-style class designed to soothe the nervous system and restore inner balance. Perfect for all levels, this class emphasizes mindful movement, deep stretching, and calming breathwork to help release tension and cultivate a sense of peace. Whether you're winding down after a busy day or looking for a moment of stillness, Serenity Flow offers a tranquil space to reset and recharge.", url : "/"},
-	{ id: 6, title: 'Spirit & Balance2', date: '14/05/2025', image: '/assets/yoga_courses/yoga_course_6.png', description: "In a 6th world... Unwind and reconnect with your breath in Serenity Flow, a gentle vinyasa-style class designed to soothe the nervous system and restore inner balance. Perfect for all levels, this class emphasizes mindful movement, deep stretching, and calming breathwork to help release tension and cultivate a sense of peace. Whether you're winding down after a busy day or looking for a moment of stillness, Serenity Flow offers a tranquil space to reset and recharge.", url : "/"},
-]
+// Reactive state
+const allCourses = ref<Course[]>([])
+const displayedCoursesCount = ref(COURSES_PER_PAGE)
+const filterLevel = ref<'all' | 'beginner' | 'intermediate' | 'advanced'>('all')
+const loading = ref(true)
+const loadingMore = ref(false)
+const error = ref<Error | null>(null)
 
+// Computed properties
+const filteredCourses = computed(() => {
+  if (filterLevel.value === 'all') {
+    return allCourses.value
+  }
+  return allCourses.value.filter(course => course.difficulty_level === filterLevel.value)
+})
+
+const displayedCourses = computed(() => {
+  return filteredCourses.value.slice(0, displayedCoursesCount.value)
+})
+
+const hasMoreCourses = computed(() => {
+  return displayedCoursesCount.value < filteredCourses.value.length
+})
+
+const remainingCoursesCount = computed(() => {
+  return filteredCourses.value.length - displayedCoursesCount.value
+})
+
+// Methods
+const loadCourses = async () => {
+  try {
+    loading.value = true
+    error.value = null
+    allCourses.value = await getAllCoursesWithTeachers()
+  } catch (err: any) {
+    error.value = err
+    console.error('Error loading courses:', err)
+  } finally {
+    loading.value = false
+  }
+}
+
+const loadMoreCourses = async () => {
+  loadingMore.value = true
+
+  // Simuler un petit délai pour l'UX (optionnel)
+  await new Promise(resolve => setTimeout(resolve, 300))
+
+  displayedCoursesCount.value += COURSES_PER_PAGE
+  loadingMore.value = false
+}
+
+// Watch filter changes to reset pagination
+watch(filterLevel, () => {
+  displayedCoursesCount.value = COURSES_PER_PAGE
+})
+
+// Lifecycle
+onMounted(async () => {
+  await loadCourses()
+})
+
+// SEO Meta
+useHead({
+  title: title,
+  meta: [
+    {
+      name: 'description',
+      content: description
+    },
+    {
+      property: 'og:title',
+      content: title
+    },
+    {
+      property: 'og:description',
+      content: description
+    }
+  ]
+})
 </script>
 
 <style scoped>
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation pour les nouveaux éléments chargés */
+.course-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.course-enter-from {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.course-enter-to {
+  opacity: 1;
+  transform: translateY(0);
+}
 </style>

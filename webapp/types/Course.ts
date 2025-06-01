@@ -4,7 +4,7 @@ import type {Equipment} from "./Equipment";
 export interface Course {
     id: string; // uuid
     title: string;
-    image?: string; // bytea stocké comme URL
+    image?: string;
     description: string;
     goals?: string[]; // jsonb
     timetable?: any; // jsonb (peut être un objet complexe)
