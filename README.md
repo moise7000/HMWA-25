@@ -52,7 +52,7 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 
 
 ## Live Demo
-The running application can be accessed [here](https://hmwa-25-git-main-moise7000s-projects.vercel.app/)]
+The running application can be accessed [here](https://hmwa-25-git-main-moise7000s-projects.vercel.app/)
 
 ## Design Documentation
 The design process follows the methodology specified in the course:
