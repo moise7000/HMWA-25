@@ -12,6 +12,9 @@ This repository contains all materials for the Web Design Project as part of the
 ## Figma Prototype
 The interactive prototype can be accessed [here](https://www.figma.com/design/grXIBaO2j7GEfZ686v671W/Hyp-App?node-id=0-1&p=f&t=GdOyxDLW52tlILSi-0).
 
+## Live Demo
+The running application can be accessed [here](https://hmwa-25-git-main-moise7000s-projects.vercel.app/).
+
 ## Nuxt Minimal Starter
 
 Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
@@ -51,8 +54,7 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 
 
 
-## Live Demo
-The running application can be accessed [here](https://hmwa-25-git-main-moise7000s-projects.vercel.app/)
+
 
 ## Design Documentation
 The design process follows the methodology specified in the course:
