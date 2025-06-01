@@ -21,7 +21,6 @@ Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduct
 Make sure to install dependencies:
 
 ```bash
-# npm
 npm install
 ```
 
@@ -30,7 +29,6 @@ npm install
 Start the development server on `http://localhost:3000`:
 
 ```bash
-# npm
 npm run dev
 ```
 
@@ -39,14 +37,12 @@ npm run dev
 Build the application for production:
 
 ```bash
-# npm
 npm run build
 ```
 
 Locally preview production build:
 
 ```bash
-# npm
 npm run preview
 ```
 
@@ -56,7 +52,7 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 
 
 ## Live Demo
-The running application can be accessed at: [Your-deployment-URL]
+The running application can be accessed [here](https://hmwa-25-git-main-moise7000s-projects.vercel.app/)]
 
 ## Design Documentation
 The design process follows the methodology specified in the course:
