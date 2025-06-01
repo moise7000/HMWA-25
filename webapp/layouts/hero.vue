@@ -1,5 +1,5 @@
 <template>
-	<div class = "wrapper">
+	<div class = "custom-wrapper">
 		<h1 v-if = "showTitle" class = "title main-title standard-padding">{{title}}</h1>
 		<p v-if = "showDescritpion" class = "description standard-text standard-padding">{{description}}</p>
 		<h2 v-if = "showSubtitle" class = "subtitle main-subtitle standard-padding">{{subtitle}}</h2>
@@ -30,9 +30,9 @@ if (props.subtitle != "") {showSubtitle = true}
 
 <style scoped>
 
-.wrapper {
+.custom-wrapper {
 	text-align: center ;
-	width : 100%
+	width : 100% ;
 }
 
 .title {
