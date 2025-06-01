@@ -59,11 +59,17 @@ export const useCourses = () => {
             .eq('id', id)
             .single()
 
-        if (error) {
-            if (error.code === 'PGRST116') return null // Pas trouvé
-            throw error
-        }
-        return data
+        if (error) throw error
+        const transformed = data
+            .map((course: any) => ({
+                ...course,
+                image: course.image
+                    ? `https://lmwpuleyzjxgzecypqdk.supabase.co/storage/v1/object/public/${course.image}`
+                    : null,
+            }))
+
+
+        return transformed || []
     }
 
     // Récupérer un cours par ID sans relation
@@ -74,11 +80,17 @@ export const useCourses = () => {
             .eq('id', id)
             .single()
 
-        if (error) {
-            if (error.code === 'PGRST116') return null // Pas trouvé
-            throw error
-        }
-        return data
+        if (error) throw error
+        const transformed = data
+            .map((course: any) => ({
+                ...course,
+                image: course.image
+                    ? `https://lmwpuleyzjxgzecypqdk.supabase.co/storage/v1/object/public/${course.image}`
+                    : null,
+            }))
+
+
+        return transformed || []
     }
 
     // Récupérer tous les cours d'un professeur spécifique
@@ -93,7 +105,16 @@ export const useCourses = () => {
             .order('created_at', { ascending: false })
 
         if (error) throw error
-        return data || []
+        const transformed = data
+            .map((course: any) => ({
+                ...course,
+                image: course.image
+                    ? `https://lmwpuleyzjxgzecypqdk.supabase.co/storage/v1/object/public/${course.image}`
+                    : null,
+            }))
+
+
+        return transformed || []
     }
 
 

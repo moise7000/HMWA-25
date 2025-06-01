@@ -124,30 +124,13 @@
           No course.
         </div>
 
+        <!-- Utilisation du composant CourseCard -->
         <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div
+          <CourseCard
               v-for="course in teacherCourses"
               :key="course.id"
-              class="border rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow"
-          >
-            <img
-                v-if="course.image"
-                :src="course.image"
-                :alt="course.title"
-                class="w-full h-32 object-cover rounded mb-3"
-            />
-            <h3 class="font-semibold mb-2">{{ course.title }}</h3>
-            <p class="text-sm text-gray-600 mb-2 line-clamp-2">{{ course.description }}</p>
-            <div class="flex justify-between items-center text-sm">
-              <span class="text-green-600 font-medium">{{ course.price }}€</span>
-              <span class="text-gray-500">{{ course.duration_minutes }}min</span>
-            </div>
-            <div class="mt-2">
-              <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
-                {{ course.difficulty_level }}
-              </span>
-            </div>
-          </div>
+              :course="course"
+          />
         </div>
       </div>
     </div>
