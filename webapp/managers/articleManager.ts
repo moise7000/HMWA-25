@@ -9,7 +9,16 @@ export const useArticles = () => {
             .order('created_at', { ascending: false })
 
         if (error) throw error
-        return data
+        const transformed = data
+            .map((article: any) => ({
+                ...article,
+                image: article.image
+                    ? `https://lmwpuleyzjxgzecypqdk.supabase.co/storage/v1/object/public/${article.image}`
+                    : null,
+            }))
+
+
+        return transformed || []
     }
 
 
