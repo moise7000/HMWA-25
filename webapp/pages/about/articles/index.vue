@@ -1,38 +1,96 @@
 <template>
-	<BreadCrumps :breadCrumps= "breadCrumps" />
-	<Hero :title= "title" :description = "description" />
-	<Grid :articles = "articles" :paddingSide = "15" :minWidth = "400" />
+  <BreadCrumps :breadCrumps="breadCrumps" />
+  <Hero :title="title" :description="description" />
+  <div class="p-6">
+    <div v-if="loading">Loading...</div>
+    <div v-else-if="error" class="text-red-500">Error: {{ error.message }}</div>
+
+    <div v-else>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+        <ArticleCard
+            v-for="article in displayedArticles"
+            :key="article.id"
+            :article="article"
+        />
+      </div>
+
+      <!-- Bouton More -->
+      <div v-if="hasMoreArticles" class="flex justify-center">
+        <button
+            @click="loadMoreArticles"
+            :disabled="loadingMore"
+            class="bg-white border-2 border-black text-gray-700 px-8 py-3 rounded-lg hover:border-gray-400 hover:bg-gray-50 transition-colors duration-200 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+
+        >
+          {{ loadingMore ? 'Loading...' : 'More' }}
+        </button>
+      </div>
+    </div>
+  </div>
 </template>
 
-<script setup>
-
-import Grid from "~/components/common/grid.vue"
-import Hero from '~/layouts/hero.vue'
-import BreadCrumps from "~/components/common/bread-crumps.vue"
-
-const title = "Yoga articles"
-
-const description = "Read a selection of articles."
+<script setup lang="ts">
+const title = "Latest Articles"
+const description = "Discover our latest articles about yoga, wellness, and mindfulness. Explore insights, tips, and inspiration from our experienced teachers and practitioners."
 
 const breadCrumps = [{
-		name : "About",
-		link : "/about"
-	}, {
-		name : "Articles",
-		link : "/about/articles"
+  name: "Institute",
+  link: "/institute"
+}, {
+  name: "Articles",
+  link: "/institute/articles"
 }]
 
-const articles = [
-	{ id: 1, title: 'Yoga for Beginners', date: '12/05/2025', image: '/assets/yoga_courses/yoga_course_0.png', description: "In a 1st world... Unwind and reconnect with your breath in Serenity Flow, a gentle vinyasa-style class designed to soothe the nervous system and restore inner balance. Perfect for all levels, this class emphasizes mindful movement, deep stretching, and calming breathwork to help release tension and cultivate a sense of peace. Whether you're winding down after a busy day or looking for a moment of stillness, Serenity Flow offers a tranquil space to reset and recharge.", url : "/"},
-	{ id: 2, title: 'Mindful Movement', date: '12/05/2025', image: '/assets/yoga_courses/yoga_course_2.png', description: "In a 2nd world... Unwind and reconnect with your breath in Serenity Flow, a gentle vinyasa-style class designed to soothe the nervous system and restore inner balance. Perfect for all levels, this class emphasizes mindful movement, deep stretching, and calming breathwork to help release tension and cultivate a sense of peace. Whether you're winding down after a busy day or looking for a moment of stillness, Serenity Flow offers a tranquil space to reset and recharge.", url : "/"},
-	{ id: 3, title: 'Spirit & Balance', date: '12/05/2025', image: '/assets/yoga_courses/yoga_course_3.png', description: "In a 3rd world... Unwind and reconnect with your breath in Serenity Flow, a gentle vinyasa-style class designed to soothe the nervous system and restore inner balance. Perfect for all levels, this class emphasizes mindful movement, deep stretching, and calming breathwork to help release tension and cultivate a sense of peace. Whether you're winding down after a busy day or looking for a moment of stillness, Serenity Flow offers a tranquil space to reset and recharge.", url : "/"},
-	{ id: 4, title: 'Yoga for Beginners2', date: '14/05/2025', image: '/assets/yoga_courses/yoga_course_4.png', description: "In a 4th world... Unwind and reconnect with your breath in Serenity Flow, a gentle vinyasa-style class designed to soothe the nervous system and restore inner balance. Perfect for all levels, this class emphasizes mindful movement, deep stretching, and calming breathwork to help release tension and cultivate a sense of peace. Whether you're winding down after a busy day or looking for a moment of stillness, Serenity Flow offers a tranquil space to reset and recharge.", url : "/"},
-	{ id: 5, title: 'Mindful Movement2', date: '14/05/2025', image: '/assets/yoga_courses/yoga_course_5.png', description: "In a 5th world... Unwind and reconnect with your breath in Serenity Flow, a gentle vinyasa-style class designed to soothe the nervous system and restore inner balance. Perfect for all levels, this class emphasizes mindful movement, deep stretching, and calming breathwork to help release tension and cultivate a sense of peace. Whether you're winding down after a busy day or looking for a moment of stillness, Serenity Flow offers a tranquil space to reset and recharge.", url : "/"},
-	{ id: 6, title: 'Spirit & Balance2', date: '14/05/2025', image: '/assets/yoga_courses/yoga_course_6.png', description: "In a 6th world... Unwind and reconnect with your breath in Serenity Flow, a gentle vinyasa-style class designed to soothe the nervous system and restore inner balance. Perfect for all levels, this class emphasizes mindful movement, deep stretching, and calming breathwork to help release tension and cultivate a sense of peace. Whether you're winding down after a busy day or looking for a moment of stillness, Serenity Flow offers a tranquil space to reset and recharge.", url : "/"},
-]
+import BreadCrumps from '~/components/common/bread-crumps.vue'
+import Hero from '~/layouts/hero.vue'
+import { ref, onMounted, computed } from 'vue'
+import { useArticles } from '~/managers/articleManager'
+import ArticleCard from '~/components/article/ArticleCard.vue'
+import type { Article } from '@/types/Article'
 
+const { getAllArticles } = useArticles()
+const articlesList = ref<Article[]>([])
+const displayedArticles = ref<Article[]>([])
+const loading = ref(true)
+const loadingMore = ref(false)
+const error = ref<Error | null>(null)
+
+
+const articlesPerPage = 4
+const currentPage = ref(1)
+
+
+const hasMoreArticles = computed(() => {
+  return displayedArticles.value.length < articlesList.value.length
+})
+
+// Fonction pour charger plus d'articles
+const loadMoreArticles = () => {
+  if (loadingMore.value || !hasMoreArticles.value) return
+
+  loadingMore.value = true
+
+  // Simuler un petit délai pour l'UX
+  setTimeout(() => {
+    currentPage.value++
+    const startIndex = (currentPage.value - 1) * articlesPerPage
+    const endIndex = startIndex + articlesPerPage
+    const newArticles = articlesList.value.slice(startIndex, endIndex)
+
+    displayedArticles.value = [...displayedArticles.value, ...newArticles]
+    loadingMore.value = false
+  }, 500)
+}
+
+onMounted(async () => {
+  try {
+    articlesList.value = await getAllArticles()
+    // Afficher les premiers articles
+    displayedArticles.value = articlesList.value.slice(0, articlesPerPage)
+  } catch (err: any) {
+    error.value = err
+  } finally {
+    loading.value = false
+  }
+})
 </script>
-
-<style scoped>
-
-</style>
