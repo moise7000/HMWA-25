@@ -24,6 +24,13 @@ webapp/
 │   │   ├── Navigation.vue
 │   │   ├── Breadcrumb.vue
 │   │   └── ...
+│   ├── contact/
+│   ├── course/
+│   ├── equipment/
+│   ├── event/
+│   ├── faq/
+│   ├── form/
+│   ├── teacher/
 │   ├── ui/
 │   │   ├── Button.vue
 │   │   ├── Card.vue
