@@ -1,5 +1,5 @@
 <template>
-	<div class = "wrapper standard-padding">
+	<div class = "custom">
 		<NuxtLink class = "link standard-text" :to = "breadCrumps[0].link">{{breadCrumps[0].name}}</NuxtLink>
 		<p class = "separator standard-text"> > </p>
 		<NuxtLink class = "link standard-text" :to = "breadCrumps[1].link">{{breadCrumps[1].name}}</NuxtLink>
@@ -18,11 +18,11 @@ defineProps({
 
 <style>
 
-.wrapper {
+.custom {
 	display : flex ;
 	flex-direction : row ;
-	width : 100% ;
-	margin-left : 10%
+
+	margin-left : 2%
 }
 
 .separator {
