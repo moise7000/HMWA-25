@@ -23,8 +23,8 @@
     </div>
   </div>
 
-  <section class="access-section">
-    <div class="access-text">
+  <section class="access-section ">
+    <div class="access-text border rounded p-4 shadow-sm">
       <h2>Access</h2>
       <p>
         Yoga Center Milano is nestled in the heart of the city’s fashion district, easily accessible by public transport or on foot. Whether you’re a local resident or a visitor exploring Milan, finding inner peace at our studio is simple and convenient.
@@ -35,7 +35,7 @@
     　　</p>
     </div>
 
-    <div class="benefits">
+    <div class="benefits border rounded p-4 shadow-sm">
       <div class="benefit-item">
         <span class="benefit-icon">🌐</span>
         <div class="benefit-content">
@@ -68,7 +68,7 @@
     </div>
   </section>
 
- <section class="amenities-section">
+ <section class="amenities-section border rounded p-4 shadow-sm">
     <h2>Nearby AMENITIES</h2>
     <div class="amenities-grid">
       <div class="amenity-item">
