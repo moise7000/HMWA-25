@@ -6,8 +6,8 @@
 		<div class = "content">
 			<h2 class = "title main-title">{{topicTitle}}</h2>
 			<p class = "description standard-text">{{topicDescription}}</p>
-			<NuxtLink v-if = "!noLink" :to = "linkPath" class = "link"><em>Read more</em></NuxtLink>
-		</div>
+      <NuxtLink v-if="!noLink" :to="linkPath" class="link"><em>{{ linkText }}</em></NuxtLink>
+    </div>
 		<div class = "image-wrapper" v-if = "!side">
 			<img :src = "imagePath" :alt = "topicTitle" />
 		</div>
@@ -17,13 +17,15 @@
 <script setup>
 
 defineProps({
-	imagePath : {type : String, required : true},
-	topicDescription : {type : String, required : false, default : 'No description provided.'},
-	linkPath : {type : String, required : false, default : '/'},
-	topicTitle : {type : String, required :  true, default : 'No title provided'},
-	side : {type : Boolean, required : false, default : false},
-	noLink : {type : Boolean, required : false, default : false}
-}) ;
+  imagePath: { type: String, required: true },
+  topicDescription: { type: String, required: false, default: 'No description provided.' },
+  linkPath: { type: String, required: false, default: '/' },
+  topicTitle: { type: String, required: true, default: 'No title provided' },
+  side: { type: Boolean, required: false, default: false },
+  noLink: { type: Boolean, required: false, default: false },
+  linkText: { type: String, required: false, default: 'Read more' }
+});
+
 
 </script>
 
@@ -49,7 +51,7 @@ defineProps({
 
 .description {
 	line-height : 1.6 ;
-	margin-bottom : 1.5rem ;
+	margin : 1.5rem ;
 }
 
 .link {
@@ -76,6 +78,7 @@ img {
 	width : 100% ;
 	height : auto ;
 	object-fit : cover ;
+  border-radius: 12px;
 }
 
 </style>

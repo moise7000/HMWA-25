@@ -14,17 +14,19 @@ const description = 'Whether you\'re just beginning or looking to deepen your pr
 
 const topics = [
 	{
-		imagePath : 'assets/yoga_courses/yoga_course_0.png',
-		topicDescription : 'FLAG{r54bh6v18vrs8_8v6t17b8b17v_v716}',
+		imagePath: 'assets/yoga_courses/yoga_course_11.png',
+		topicDescription: 'Our yoga courses are designed for all levels, from beginners to advanced practitioners. Each class focuses on improving flexibility, strength, and mindfulness through guided postures, breathing techniques, and meditation. Join us to nurture your body and mind in a supportive and peaceful environment.',
 		linkPath : '/courses-and-subscriptions/courses',
 		topicTitle : 'Courses',
-		side : true
+		side : true,
+    linkText:"See all courses"
 	}, {
-		imagePath : 'assets/yoga_courses/yoga_course_0.png',
-		//topicDescription
+		imagePath: 'assets/yoga_courses/yoga_course_12.png',
+		topicDescription: "Our yoga subscriptions offer unlimited access to a variety of classes, workshops, and exclusive content. Enjoy the flexibility to practice anytime, anywhere, and stay motivated with personalized plans and community support. Perfect for deepening your practice at your own pace.",
 		linkPath : '/courses-and-subscriptions/subscriptions',
 		topicTitle : 'Subscriptions',
-		side : false
+		side : false,
+    linkText: "See all subscriptions"
 	}
 ]	
 
