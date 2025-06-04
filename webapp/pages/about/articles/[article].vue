@@ -120,17 +120,17 @@ const formatDate = (dateString: string): string => {
   })
 }
 
-// Liens relatifs (exemple - vous pouvez les adapter selon vos besoins)
+
 const relatedLinks = ref([
-  { name: 'Link courses/events', url: '/courses' },
-  { name: 'Link courses/events', url: '/events' },
-  { name: 'Link courses/events', url: '/workshops' }
+  // { name: 'Link courses/events', url: '/courses' },
+  // { name: 'Link courses/events', url: '/events' },
+  // { name: 'Link courses/events', url: '/workshops' }
 ])
 
-// Breadcrumbs dynamiques
+
 const breadCrumps = ref([
-  { name: "Institute", link: "/institute" },
-  { name: "Articles", link: "/institute/articles" },
+  { name: "About", link: "/about" },
+  { name: "Articles", link: "/about/articles" },
   { name: "Article", link: "#" }
 ])
 
