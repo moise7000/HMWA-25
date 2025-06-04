@@ -1,13 +1,12 @@
 <template>
-	<div class = "custom-wrapper">
-		<h1 v-if = "showTitle" class = "title main-title standard-padding">{{title}}</h1>
-		<p v-if = "showDescritpion" class = "description standard-text standard-padding">{{description}}</p>
-		<h2 v-if = "showSubtitle" class = "subtitle main-subtitle standard-padding">{{subtitle}}</h2>
+	<div class="custom-wrapper">
+		<h1 v-if="showTitle" class = "title main-title standard-padding" v-html="title"/>
+		<p v-if="showDescritpion" class = "description standard-text standard-padding" v-html="description"/>
+		<h2 v-if="showSubtitle" class = "subtitle main-subtitle standard-padding" v-html="subtitle"/>
 	</div>
 </template>
 
 <script setup>
-
 const props = defineProps({
 	title : {type : String, required : false, default : ""},
 	description : {type : String, required : false, default : ''},
