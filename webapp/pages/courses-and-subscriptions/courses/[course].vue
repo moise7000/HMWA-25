@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto p-6">
+  <div class="container mx-auto p-6 max-w-6xl">
     <!-- Loading state -->
     <div v-if="loading" class="flex justify-center items-center min-h-screen">
       <div class="text-lg">Loading...</div>
@@ -29,194 +29,176 @@
     <!-- Course details -->
     <div v-else>
       <!-- Breadcrumb -->
-      <nav class="mb-6">
+      <nav class="mb-8">
         <NuxtLink to="/courses-and-subscriptions/courses" class="text-blue-500 hover:text-blue-600">← Back to courses</NuxtLink>
       </nav>
 
-      <!-- Course Header -->
-      <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <!-- Image et vidéo -->
-          <div class="space-y-4">
-            <!-- Image principale -->
-            <div class="relative rounded-lg overflow-hidden">
-              <img
-                  v-if="course.image"
-                  :src="course.image"
-                  :alt="course.title"
-                  class="w-full h-64 lg:h-80 object-cover"
-              />
-              <div v-else class="w-full h-64 lg:h-80 flex items-center justify-center bg-gray-200 text-gray-500 text-6xl rounded-lg">
-                🧘‍♀️
-              </div>
 
-              <!-- Badge de difficulté -->
-              <div class="absolute top-4 right-4">
-                <span class="px-3 py-1 bg-white/90 backdrop-blur-sm font-medium rounded-full shadow-sm"
-                      :class="{
-                        'text-green-700 bg-green-50/90': course.difficulty_level === 'beginner',
-                        'text-orange-700 bg-orange-50/90': course.difficulty_level === 'intermediate',
-                        'text-red-700 bg-red-50/90': course.difficulty_level === 'advanced'
-                      }">
-                  {{ formatDifficulty(course.difficulty_level) }}
-                </span>
-              </div>
-            </div>
-
-            <!-- Vidéo d'introduction -->
-            <div v-if="course.intro_video_url" class="rounded-lg overflow-hidden">
-              <iframe
-                  :src="course.intro_video_url"
-                  class="w-full h-48 lg:h-64"
-                  frameborder="0"
-                  allowfullscreen
-                  title="Course introduction video"
-              ></iframe>
+      <!-- Course Content Layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+        <!-- Left Column - Image -->
+        <div class="flex justify-center">
+          <div class="relative w-full max-w-md">
+            <img
+                v-if="course.image"
+                :src="course.image"
+                :alt="course.title"
+                class="w-full h-80 object-cover rounded-lg shadow-lg"
+            />
+            <div v-else class="w-full h-80 flex items-center justify-center bg-gray-200 text-gray-500 text-6xl rounded-lg shadow-lg">
+              🧘‍♀️
             </div>
           </div>
+        </div>
 
-          <!-- Informations du cours -->
-          <div class="space-y-6">
-            <div>
-              <h1 class="text-3xl lg:text-4xl font-bold mb-4">{{ course.title }}</h1>
+        <!-- Right Column - Course Info -->
+        <div class="space-y-6">
+          <!-- Course Title -->
+          <h2 class="text-2xl font-bold mb-4">{{ course.title }}</h2>
 
-              <!-- Professeur -->
-              <div v-if="teacher && !teacherLoading" class="flex items-center mb-6">
+          <!-- Course Description -->
+          <div class="bg-gray-50 p-6 rounded-lg">
+            <h3 class="font-semibold mb-3">Course Description</h3>
+            <p class="text-gray-700 text-sm leading-relaxed mb-4">{{ course.description }}</p>
+
+            <!-- Teacher Info -->
+            <div v-if="teacher && !teacherLoading" class="border-t pt-4">
+              <div class="flex items-center">
                 <img
                     v-if="teacher.photo"
                     :src="teacher.photo"
                     :alt="`Photo de ${teacher.name}`"
-                    class="w-12 h-12 rounded-full object-cover mr-3"
+                    class="w-10 h-10 rounded-full object-cover mr-3"
                 />
-                <div v-else class="w-12 h-12 flex items-center justify-center bg-gray-200 text-gray-500 rounded-full mr-3">
+                <div v-else class="w-10 h-10 flex items-center justify-center bg-gray-300 text-gray-600 rounded-full mr-3 text-sm">
                   👤
                 </div>
                 <div>
-                  <p class="font-medium text-gray-900">{{ teacher.name }}</p>
-                  <p class="text-sm text-gray-600">Instructor</p>
+                  <p class="font-medium text-sm">{{ teacher.name }}</p>
+                  <p class="text-xs text-gray-600">{{ formatDifficulty(course.difficulty_level) }} • {{ course.duration_minutes }} min</p>
                 </div>
               </div>
+            </div>
+          </div>
 
-              <!-- Loading teacher -->
-              <div v-else-if="teacherLoading" class="flex items-center mb-6">
-                <div class="w-12 h-12 bg-gray-200 rounded-full mr-3 animate-pulse"></div>
-                <div>
-                  <div class="h-4 bg-gray-200 rounded w-24 mb-1 animate-pulse"></div>
-                  <div class="h-3 bg-gray-200 rounded w-16 animate-pulse"></div>
-                </div>
+          <!-- Price and Action -->
+          <div class="bg-white rounded-lg p-6">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-2xl font-bold">$ {{ course.price }}.00</span>
+                <p class="text-xs text-gray-500 mt-1">Starting at the subscription price</p>
               </div>
-
-              <!-- Prix et bouton -->
-              <div class="bg-gray-50 rounded-lg p-6 mb-6">
-                <div class="flex items-center justify-between mb-4">
-                  <span class="text-3xl font-bold text-green-600">{{ course.price }}€</span>
-                  <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
-                    Book now
-                  </button>
-                </div>
-
-                <!-- Détails rapides -->
-                <div class="grid grid-cols-2 gap-4 text-sm">
-                  <div class="flex items-center">
-                    <span class="mr-2">⏱️</span>
-                    <span>{{ course.duration_minutes }} minutes</span>
-                  </div>
-                  <div class="flex items-center">
-                    <span class="mr-2">👥</span>
-                    <span>Max {{ course.max_capacity }} people</span>
-                  </div>
-                </div>
-              </div>
+              <button class="bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-6 py-2 rounded font-medium transition-colors">
+                Add to cart
+              </button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Course Content -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <!-- Main content -->
-        <div class="lg:col-span-2 space-y-8">
-          <!-- Description -->
-          <div class="bg-white rounded-lg shadow-lg p-8">
-            <h2 class="text-2xl font-bold mb-4">About this course</h2>
-            <p class="text-gray-700 leading-relaxed whitespace-pre-line">{{ course.description }}</p>
+      <!-- Features Section -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Feature 1 -->
+        <div class="text-center">
+          <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl">🎯</span>
           </div>
+          <h3 class="font-semibold mb-2">First</h3>
+          <p class="text-sm text-gray-600">Body text for whatever you'd like to say. Add main takeaway points, quotes, anecdotes, or even a very short story.</p>
+        </div>
 
-          <!-- Objectifs -->
-          <div v-if="course.goals && course.goals.length > 0" class="bg-white rounded-lg shadow-lg p-8">
-            <h2 class="text-2xl font-bold mb-4">What you'll achieve</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-              <div
-                  v-for="goal in course.goals"
-                  :key="goal"
-                  class="flex items-center p-3 bg-blue-50 rounded-lg"
-              >
-                <span class="text-blue-600 mr-3">✓</span>
-                <span class="text-gray-700">{{ goal }}</span>
-              </div>
-            </div>
+        <!-- Feature 2 -->
+        <div class="text-center">
+          <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl">⚡</span>
           </div>
+          <h3 class="font-semibold mb-2">Second</h3>
+          <p class="text-sm text-gray-600">Body text for whatever you'd like to suggest. Add motivational points, quotes, anecdotes, or even a very short story.</p>
+        </div>
 
-          <!-- Horaires -->
-          <div v-if="course.timetable" class="bg-white rounded-lg shadow-lg p-8">
-            <h2 class="text-2xl font-bold mb-4">Schedule</h2>
-            <div class="bg-gray-50 p-4 rounded-lg">
-              <pre class="text-sm text-gray-700">{{ formatTimetable(course.timetable) }}</pre>
+        <!-- Feature 3 -->
+        <div class="text-center">
+          <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl">🔒</span>
+          </div>
+          <h3 class="font-semibold mb-2">Third</h3>
+          <p class="text-sm text-gray-600">Body text for whatever you'd like to claim. Add main takeaway points, quotes, anecdotes, or even a very short story.</p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="text-center">
+          <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl">📈</span>
+          </div>
+          <h3 class="font-semibold mb-2">Fourth</h3>
+          <p class="text-sm text-gray-600">Body text for whatever you'd like to claim. Add main takeaway points, quotes, anecdotes, or even a very short story.</p>
+        </div>
+      </div>
+
+      <!-- Additional Course Info (collapsible/expandable sections) -->
+      <div class="mt-16 space-y-6">
+        <!-- Goals Section -->
+        <div v-if="course.goals && course.goals.length > 0" class="bg-white rounded-lg border p-6">
+          <h3 class="text-lg font-semibold mb-4">What you'll achieve</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div
+                v-for="goal in course.goals"
+                :key="goal"
+                class="flex items-center p-3 bg-blue-50 rounded-lg"
+            >
+              <span class="text-blue-600 mr-3">✓</span>
+              <span class="text-gray-700 text-sm">{{ goal }}</span>
             </div>
           </div>
         </div>
 
-        <!-- Sidebar -->
-        <div class="space-y-6">
-          <!-- Course details card -->
-          <div class="bg-white rounded-lg shadow-lg p-6">
-            <h3 class="text-lg font-semibold mb-4">Course Details</h3>
-            <div class="space-y-3 text-sm">
-              <div class="flex justify-between">
-                <span class="text-gray-600">Duration:</span>
-                <span class="font-medium">{{ course.duration_minutes }} min</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-gray-600">Level:</span>
-                <span class="font-medium">{{ formatDifficulty(course.difficulty_level) }}</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-gray-600">Capacity:</span>
-                <span class="font-medium">{{ course.max_capacity }} people</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-gray-600">Price:</span>
-                <span class="font-medium text-green-600">{{ course.price }}€</span>
-              </div>
+        <!-- Schedule Section
+        <div v-if="course.timetable" class="bg-white rounded-lg border p-6">
+          <h3 class="text-lg font-semibold mb-4">Schedule</h3>
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <pre class="text-sm text-gray-700">{{ formatTimetable(course.timetable) }}</pre>
+          </div>
+        </div> -->
+
+        <!-- Course Details -->
+        <div class="bg-white rounded-lg border p-6">
+          <h3 class="text-lg font-semibold mb-4">Course Details</h3>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+            <div>
+              <span class="text-gray-600">Duration:</span>
+              <p class="font-medium">{{ course.duration_minutes }} min</p>
+            </div>
+            <div>
+              <span class="text-gray-600">Level:</span>
+              <p class="font-medium">{{ formatDifficulty(course.difficulty_level) }}</p>
+            </div>
+            <div>
+              <span class="text-gray-600">Capacity:</span>
+              <p class="font-medium">{{ course.max_capacity }} people</p>
+            </div>
+            <div>
+              <span class="text-gray-600">Price:</span>
+              <p class="font-medium text-600">${{ course.price }}.00</p>
             </div>
           </div>
+        </div>
 
-          <!-- Teacher card -->
-          <div v-if="teacher && !teacherLoading" class="bg-white rounded-lg shadow-lg p-6">
-            <h3 class="text-lg font-semibold mb-4">Your Instructor</h3>
-            <div class="text-center">
-              <img
-                  v-if="teacher.photo"
-                  :src="teacher.photo"
-                  :alt="`Photo de ${teacher.name}`"
-                  class="w-20 h-20 rounded-full object-cover mx-auto mb-3"
-              />
-              <div v-else class="w-20 h-20 flex items-center justify-center bg-gray-200 text-gray-500 rounded-full mx-auto mb-3 text-2xl">
-                👤
-              </div>
+        <!-- Teacher Bio (if available) -->
+        <div v-if="teacher && !teacherLoading && teacher.biography" class="bg-white rounded-lg border p-6">
+          <h3 class="text-lg font-semibold mb-4">About Your Instructor</h3>
+          <div class="flex items-start space-x-4">
+            <img
+                v-if="teacher.photo"
+                :src="teacher.photo"
+                :alt="`Photo de ${teacher.name}`"
+                class="w-16 h-16 rounded-full object-cover flex-shrink-0"
+            />
+            <div v-else class="w-16 h-16 flex items-center justify-center bg-gray-200 text-gray-500 rounded-full flex-shrink-0">
+              👤
+            </div>
+            <div>
               <h4 class="font-medium text-gray-900 mb-2">{{ teacher.name }}</h4>
-              <p class="text-sm text-gray-600 mb-3 line-clamp-3">{{ teacher.biography }}</p>
-            </div>
-          </div>
-
-          <!-- Loading teacher card -->
-          <div v-else-if="teacherLoading" class="bg-white rounded-lg shadow-lg p-6">
-            <h3 class="text-lg font-semibold mb-4">Your Instructor</h3>
-            <div class="text-center">
-              <div class="w-20 h-20 bg-gray-200 rounded-full mx-auto mb-3 animate-pulse"></div>
-              <div class="h-4 bg-gray-200 rounded w-32 mx-auto mb-2 animate-pulse"></div>
-              <div class="h-3 bg-gray-200 rounded w-full mb-1 animate-pulse"></div>
-              <div class="h-3 bg-gray-200 rounded w-3/4 mx-auto animate-pulse"></div>
+              <p class="text-sm text-gray-600">{{ teacher.biography }}</p>
             </div>
           </div>
         </div>
@@ -281,7 +263,7 @@ const loadTeacher = async (teacherId: string) => {
 }
 
 onMounted(async () => {
-  const routeSlug = route.params.course as string // Correction de la syntaxe
+  const routeSlug = route.params.course as string
 
   try {
     const allCourses = await getAllCoursesWithTeachers()
@@ -322,10 +304,5 @@ useHead({
 </script>
 
 <style scoped>
-.line-clamp-3 {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
+/* Custom styles if needed */
 </style>
