@@ -15,7 +15,7 @@
 
     </div>
 
-    <!-- Contenu de la card -->
+
     <div class="p-6">
       <p class="text-gray-400 text-xs  mb-4 ">
         {{ formatDate(article.created_at) }}
@@ -26,22 +26,18 @@
       </h3>
 
 
-
-
-
-      <!-- Extrait/Description -->
       <p class="text-gray-600 mb-4 line-clamp-3">
-        {{ article.content?.substring(0,30) + '...' }}
+        {{ article.content?.substring(0,250) + '...' }}
       </p>
 
-      <!-- Catégorie/Tags si disponibles -->
+
       <div v-if="article.category" class="mb-4">
         <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full">
           {{ article.category }}
         </span>
       </div>
 
-      <!-- Auteur si disponible -->
+
       <div v-if="article.author" class="flex items-center mb-4 text-sm text-gray-600">
         <span class="mr-2">✍️</span>
         <span>By {{ article.author }}</span>
@@ -67,17 +63,17 @@ interface Props {
 
 const props = defineProps<Props>()
 
-// Fonction pour créer un slug à partir du titre
+
 const createSlug = (title: string): string => {
   return title
       .toLowerCase()
       .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '') // Supprimer les accents
-      .replace(/\s+/g, '-') // Remplacer les espaces par des tirets
-      .replace(/[^\w-]/g, '') // Supprimer les caractères spéciaux
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/[^\w-]/g, '')
 }
 
-// Fonction pour formater la date
+
 const formatDate = (dateString: string): string => {
   const date = new Date(dateString)
   return date.toLocaleDateString('fr-FR', {
