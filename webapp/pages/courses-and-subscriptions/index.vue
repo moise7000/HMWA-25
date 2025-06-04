@@ -6,9 +6,11 @@
 
 import MultiTopic from '~/components/common/indexes.vue'
 
-const title = 'Courses & Subscriptions'
+const title = "Courses & Subscriptions"
 
-const description = 'Hello from C&S'
+const description = 'Whether you\'re just beginning or looking to deepen your practice, our Courses are designed for you. <br>' +
+
+    'Explore our Subscriptions for unlimited classes, exclusive content, and personalized support to help you stay consistent and inspired.'
 
 const topics = [
 	{
