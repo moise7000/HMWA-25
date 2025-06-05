@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import YouTubeEmbed from '~/components/video/YouTubeEmbed.vue'
+import YouTubeEmbed from '~/components/video/YoutubeEmbed.vue'
 
 export default {
   components: {
