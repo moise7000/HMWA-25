@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BreadCrumbs :breadcrumbs="breadcrumps" />
+    <BreadCrumps :breadCrumps= "breadCrumps" />
     <Hero :title="title" :description="description" />
     <Hero :subtitle="subtitleOne" />
     <Grid
@@ -11,34 +11,13 @@
     />
     <Hero :subtitle="subtitleTwo" />
 
-    <div class="video-wrapper standard-padding">
-      <div class="video-links">
-        <p class="description standard-text">Here's some videos:</p>
-        <div v-for="link in links" :key="link.name">
-          <p>- <a :href="link.link" class="link standard-text">{{ link.name }}</a></p>
-        </div>
-      </div>
-      <div class="image-wrapper">
-        <img
-            src="/assets/yoga_courses/yoga_course_0.png"
-            alt="Yoga course illustration"
-        />
-      </div>
-    </div>
+
+    <YoutubeEmbedGrid/>
 
     <Hero :subtitle="subtitleThree" />
     <Hero class="little-text" :description="safetyGuidelines" />
 
     <div class="container mx-auto p-6 max-w-6xl">
-      <!-- Header -->
-      <div class="text-center mb-12">
-        <h1 class="text-4xl font-bold text-gray-900 mb-4">Safety & Guidelines</h1>
-        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-          Please read and follow these important safety guidelines to ensure a safe and enjoyable yoga experience.
-        </p>
-      </div>
-
-      <!-- Safety Rules Section -->
       <section class="mb-12">
         <h2 class="text-2xl font-bold text-gray-900 mb-6">Safety Rules and Tips</h2>
         <SafetyGrid :items="safetyRules" />
@@ -52,29 +31,21 @@
 import { ref } from 'vue'
 import Hero from "~/layouts/hero.vue"
 import Grid from "~/components/common/grid.vue"
-import BreadCrumbs from "~/components/common/bread-crumps.vue"
 import SafetyGrid from '~/components/safety/SafetyGrid.vue'
+import YoutubeEmbedGrid from "~/components/video/YoutubeEmbedGrid.vue";
+import BreadCrumps from "~/components/common/bread-crumps.vue";
 
-// Page content
-const title = "My title"
-const description = "My description"
 
-const breadcrumps = [
-  {
-    name: "About",
-    link: "/about"
-  },
-  {
-    name: "Practice at home",
-    link: "/about/practice-at-home"
-  }
-]
+const title = "Practice yoga at home"
+const description = "Enjoy the freedom and comfort of practicing yoga in your own space. Whether you're a beginner or experienced, our guided sessions and tips help you stay consistent, safe, and connected — anytime, anywhere."
+
+
 
 const subtitleOne = "Exercises"
 const subtitleTwo = "Videos"
-const subtitleThree = "Safety guidelines"
+const subtitleThree = "Safety & guidelines"
 
-const safetyGuidelines = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec."
+const safetyGuidelines = "Please read and follow these important safety guidelines to ensure a safe and enjoyable yoga experience."
 
 const exercises = [
   {
@@ -85,38 +56,22 @@ const exercises = [
   {
     description: "Mountain Pose - Building strength and stability from the ground up",
     buttonDisplay: false,
-    image: "/assets/yoga_courses/yoga_course_0.png"
+    image: "/assets/exercices/mountain_pose.jpg"
   },
   {
     description: "Warrior Pose - Developing focus, strength and confidence",
     buttonDisplay: false,
-    image: "/assets/yoga_courses/yoga_course_0.png"
+    image: "/assets/exercices/warrior_pose.jpg"
   },
   {
     description: "Child's Pose - A restorative pose for rest and reflection",
     buttonDisplay: false,
-    image: "/assets/yoga_courses/yoga_course_0.png"
+    image: "/assets/exercices/child_pose.jpg"
   }
 ]
 
-const links = [
-  {
-    name: "Morning Yoga Flow",
-    link: "https://www.youtube.com/watch?v=example1"
-  },
-  {
-    name: "Beginner's Guide to Yoga",
-    link: "https://www.youtube.com/watch?v=example2"
-  },
-  {
-    name: "Relaxation Meditation",
-    link: "https://www.youtube.com/watch?v=example3"
-  },
-  {
-    name: "Advanced Poses Tutorial",
-    link: "https://www.youtube.com/watch?v=example4"
-  }
-]
+
+
 
 const safetyRules = ref([
   {
@@ -171,7 +126,13 @@ const safetyRules = ref([
 
 
 
-
+const breadCrumps = [{
+  name : "About",
+  link : "/about"
+}, {
+  name : "Practice at home",
+  link : "/about/practice-at-home"
+}]
 
 // SEO Meta
 useHead({
