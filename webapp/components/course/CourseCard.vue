@@ -93,7 +93,9 @@
 <script setup lang="ts">
 
 import type { Course } from '~/types/Course'
+
 import { useCourseCardLogic } from '~/scripts/course/courseCardLogic'
+
 
 const props = defineProps<{
   course: Course
