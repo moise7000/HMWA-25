@@ -1,11 +1,13 @@
-<script setup lang="ts">
+<template>
+  <div class="max-w-4xl">
+    <p>Welcome in comments section</p>
+  </div>
+</template>
+
+<script setup>
 
 </script>
 
-<template>
-  $END$
-</template>
-
 <style scoped>
-
+/* Styles spécifiques aux commentaires */
 </style>

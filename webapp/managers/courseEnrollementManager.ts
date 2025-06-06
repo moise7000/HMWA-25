@@ -19,7 +19,7 @@ export const useCourseEnrollments = () => {
         const { error } = await client
             .from('course_enrollments')
             .delete()
-            .match({ user_id: profileId, course_id: courseId }) // ✅ ici aussi
+            .match({ user_id: profileId, course_id: courseId })
 
         if (error) throw error
     }
@@ -28,12 +28,21 @@ export const useCourseEnrollments = () => {
         const { data, error } = await client
             .from('course_enrollments')
             .select('courses(*)')
-            .eq('user_id', profileId) // ✅ ici
+            .eq('user_id', profileId)
 
         if (error) throw error
 
-        return data.map((row: any) => row.courses)
+        return data.map((row: any) => {
+            const course = row.courses
+            return {
+                ...course,
+                image: course.image
+                    ? `https://lmwpuleyzjxgzecypqdk.supabase.co/storage/v1/object/public/${course.image}`
+                    : null,
+            }
+        })
     }
+
 
     const getProfilesForCourse = async (courseId: string): Promise<Profile[]> => {
         const { data, error } = await client

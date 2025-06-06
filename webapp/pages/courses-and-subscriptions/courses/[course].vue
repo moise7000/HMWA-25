@@ -80,33 +80,59 @@
             </div>
           </div>
 
+
           <!-- Price and Action -->
           <div class="bg-white rounded-lg p-6">
-            <div class="flex items-center justify-between">
+            <div class="flex items-center justify-between space-x-4">
               <div>
                 <span class="text-2xl font-bold">$ {{ course.price }}.00</span>
                 <p class="text-xs text-gray-500 mt-1">Starting at the subscription price</p>
               </div>
-              <button
-                  @click="handleEnrollClick"
-                  :disabled="isEnrolling || isAlreadyEnrolled"
-                  class="px-6 py-2 rounded font-medium transition-colors"
-                  :class="isAlreadyEnrolled
-                    ? 'bg-green-100 text-green-700 border border-green-300 cursor-not-allowed'
-                    : 'bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed'"
-              >
-                <span v-if="isEnrolling" class="flex items-center">
-                  <svg class="animate-spin -ml-1 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  Enrolling...
-                </span>
-                <span v-else-if="isAlreadyEnrolled">✓ Already Enrolled</span>
-                <span v-else>Enroll</span>
-              </button>
+              <div class="flex items-center space-x-2">
+                <button
+                    @click="handleEnrollClick"
+                    :disabled="isEnrolling || isAlreadyEnrolled"
+                    class="px-6 py-2 rounded font-medium transition-colors"
+                    :class="isAlreadyEnrolled
+            ? 'bg-green-100 text-green-700 border border-green-300 cursor-not-allowed'
+            : 'bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed'"
+                >
+        <span v-if="isEnrolling" class="flex items-center">
+          <svg class="animate-spin -ml-1 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          Enrolling...
+        </span>
+                  <span v-else-if="isAlreadyEnrolled">✓ Already Enrolled</span>
+                  <span v-else>Enroll</span>
+                </button>
+
+                <!-- Bouton Unenroll -->
+                <button
+                    v-if="isAlreadyEnrolled"
+                    @click="handleUnenrollClick"
+                    :disabled="isUnenrolling"
+                    class="px-4 py-2 rounded bg-red-100 text-red-700 border border-red-300 cursor-pointer hover:bg-red-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+  <span v-if="isUnenrolling" class="flex items-center">
+    <svg class="animate-spin -ml-1 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+    </svg>
+    Unenrolling...
+  </span>
+                  <span v-else>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="20" height="20" fill="currentColor">
+      <path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z"/>
+    </svg>
+  </span>
+                </button>
+
+              </div>
             </div>
           </div>
+
         </div>
       </div>
 
@@ -222,7 +248,7 @@
         <h2 class="text-xl font-bold mb-2 text-gray-900">Successfully Enrolled!</h2>
         <p class="text-gray-600 mb-4">You have been enrolled in "{{ course?.title }}". You can access your courses from your dashboard.</p>
         <div class="flex justify-center gap-4">
-          <NuxtLink to="/dashboard" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+          <NuxtLink to="/auth/dashboard" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
             Go to Dashboard
           </NuxtLink>
           <button @click="showSuccessModal = false" class="px-4 py-2 border rounded text-gray-700 hover:bg-gray-100">
@@ -266,7 +292,7 @@ const route = useRoute()
 const router = useRouter()
 const { getAllCoursesWithTeachers } = useCourses()
 const { getTeacherById } = useTeachers()
-const { enrollProfileToCourse, getCoursesForProfile } = useCourseEnrollments()
+const { enrollProfileToCourse, getCoursesForProfile, removeProfileFromCourse } = useCourseEnrollments()
 
 // Accès à l'utilisateur Supabase
 const user = useSupabaseUser()
@@ -406,6 +432,27 @@ onMounted(async () => {
     loading.value = false
   }
 })
+
+const isUnenrolling = ref(false)
+
+const handleUnenrollClick = async () => {
+  if (!user.value || !course.value) return
+  isUnenrolling.value = true
+  enrollmentError.value = ''
+
+  try {
+    // Appel à la fonction du manager pour se désinscrire
+    await removeProfileFromCourse(user.value.id, course.value.id)
+    isAlreadyEnrolled.value = false
+
+  } catch (err: any) {
+    enrollmentError.value = err.message || 'Failed to unenroll. Please try again.'
+    showErrorModal.value = true
+  } finally {
+    isUnenrolling.value = false
+  }
+}
+
 
 // Surveiller les changements de l'utilisateur pour vérifier le statut d'inscription
 watch(user, async (newUser) => {
