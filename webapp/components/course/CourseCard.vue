@@ -91,35 +91,18 @@
 </template>
 
 <script setup lang="ts">
+
 import type { Course } from '~/types/Course'
+import { useCourseCardLogic } from '~/scripts/course/CourseCardLogic'
 
 const props = defineProps<{
   course: Course
 }>()
 
-const router = useRouter()
-
-const navigateToCourse = () => {
-
-  const slug = props.course.title
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '') // Supprimer les accents
-      .replace(/\s+/g, '-') // Remplacer les espaces par des tirets
-      .replace(/[^\w-]/g, '') // Supprimer les caractères spéciaux
-
-  router.push(`/courses-and-subscriptions/courses/${slug}`)
-}
-
-const formatDifficulty = (level: string) => {
-  const levels: { [key: string]: string } = {
-    'beginner': 'Beginner',
-    'intermediate': 'Intermediate',
-    'advanced': 'Advanced'
-  }
-  return levels[level] || level
-}
+const { navigateToCourse, formatDifficulty } = useCourseCardLogic(props.course)
 </script>
+
+
 
 <style scoped>
 .course-card {

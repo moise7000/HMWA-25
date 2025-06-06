@@ -105,7 +105,7 @@
 
 <script setup>
 import CourseCard from '~/components/course/CourseCard.vue'
-import { useCourses } from '~/scripts/dashbordCourse.js'
+import { useCourses } from '~/scripts/dashbord/dashbordCourse.js'
 
 const { enrolledCourses, loading, error, totalDuration, totalPrice } = useCourses()
 </script>
