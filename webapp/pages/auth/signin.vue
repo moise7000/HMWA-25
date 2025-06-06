@@ -83,7 +83,7 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
-
+const supabase = useSupabaseClient()
 
 const router = useRouter()
 
@@ -97,6 +97,27 @@ const formData = reactive({
 const showPassword = ref(false)
 const loading = ref(false)
 const error = ref('')
+
+
+const handleSignIn = async () => {
+  error.value = ''
+  loading.value = true
+
+  const { data, error: signInError } = await supabase.auth.signInWithPassword({
+    email: formData.email,
+    password: formData.password
+  })
+
+  loading.value = false
+
+  if (signInError) {
+    error.value = signInError.message
+    return
+  }
+
+
+  router.push('/about') //Todo: redirect to dashboard
+}
 
 
 </script>
