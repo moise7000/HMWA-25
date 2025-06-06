@@ -16,42 +16,11 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import YouTubeEmbed from '~/components/video/YoutubeEmbed.vue'
+import { useVideos } from '~/scripts/video/youtubeEmbedGridLogic'
 
-export default {
-  components: {
-    YouTubeEmbed
-  },
-  data() {
-    return {
-
-      videoIds: [
-        'WvK3WwatW8k',
-        'j97SSGsnCAQ',
-        'RjHH2er8DkM',
-        'kH12QrSGedM'
-      ],
-
-      // Liste avec plus d'informations
-      videosWithTitles: [
-        {id: 'WvK3WwatW8k', title: 'Vidéo 1'},
-        {id: 'j97SSGsnCAQ', title: 'Vidéo 2'},
-        {id: 'RjHH2er8DkM', title: 'Vidéo 3'},
-        {id: 'kH12QrSGedM', title: 'Vidéo 4'},
-      ]
-    }
-  },
-  methods: {
-    addVideo(videoId, title = 'Nouvelle vidéo') {
-      this.videosWithTitles.push({id: videoId, title})
-    },
-
-    removeVideo(index) {
-      this.videosWithTitles.splice(index, 1)
-    }
-  }
-}
+const { videosWithTitles, addVideo, removeVideo } = useVideos()
 </script>
 
 <style scoped>

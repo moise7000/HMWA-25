@@ -30,15 +30,13 @@
 
 <script setup lang="ts">
 import type { Equipment } from '~/types/Equipment'
+import { formatDate } from '~/scripts/equipment/equipmentCardLogic'
 
 defineProps<{
   equipment: Equipment
 }>()
-
-const formatDate = (dateStr: string) => {
-  return new Date(dateStr).toLocaleDateString('en-EN')
-}
 </script>
+
 
 <style scoped>
 .equipment-card {

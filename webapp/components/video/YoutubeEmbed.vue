@@ -13,88 +13,41 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'YouTubeEmbed',
-  props: {
-    videoId: {
-      type: String,
-      required: true
-    },
-    width: {
-      type: [String, Number],
-      default: '560'
-    },
-    height: {
-      type: [String, Number],
-      default: '315'
-    },
-    autoplay: {
-      type: Boolean,
-      default: false
-    },
-    mute: {
-      type: Boolean,
-      default: false
-    },
-    loop: {
-      type: Boolean,
-      default: false
-    },
-    start: {
-      type: Number,
-      default: null
-    },
-    end: {
-      type: Number,
-      default: null
-    },
-    title: {
-      type: String,
-      default: 'YouTube video player'
-    },
-    responsive: {
-      type: Boolean,
-      default: false
-    },
-    borderRadius: {
-      type: [String, Number],
-      default: '0'
-    }
-  },
-  computed: {
-    embedUrl() {
-      let url = `https://www.youtube.com/embed/${this.videoId}?`
-      const params = []
+<script setup lang="ts">
+import { computed } from 'vue'
+import { buildEmbedUrl, getContainerStyle } from '~/scripts/video/youtubeEmbedLogic'
 
-      if (this.autoplay) params.push('autoplay=1')
-      if (this.mute) params.push('mute=1')
-      if (this.loop) params.push('loop=1&playlist=' + this.videoId)
-      if (this.start) params.push(`start=${this.start}`)
-      if (this.end) params.push(`end=${this.end}`)
+const props = defineProps({
+  videoId: { type: String, required: true },
+  width: { type: [String, Number], default: '560' },
+  height: { type: [String, Number], default: '315' },
+  autoplay: { type: Boolean, default: false },
+  mute: { type: Boolean, default: false },
+  loop: { type: Boolean, default: false },
+  start: { type: Number, default: null },
+  end: { type: Number, default: null },
+  title: { type: String, default: 'YouTube video player' },
+  responsive: { type: Boolean, default: false },
+  borderRadius: { type: [String, Number], default: '0' }
+})
 
-      return url + params.join('&')
-    },
-    containerStyle() {
-      const baseStyle = {
-        borderRadius: typeof this.borderRadius === 'number' ?
-            `${this.borderRadius}px` : this.borderRadius,
-        overflow: 'hidden' // Important pour que le border-radius fonctionne
-      }
+const embedUrl = computed(() =>
+    buildEmbedUrl({
+      videoId: props.videoId,
+      autoplay: props.autoplay,
+      mute: props.mute,
+      loop: props.loop,
+      start: props.start,
+      end: props.end
+    })
+)
 
-      if (this.responsive) {
-        return {
-          ...baseStyle,
-          position: 'relative',
-          paddingBottom: '56.25%', // Ratio 16:9
-          height: 0
-        }
-      }
-      return baseStyle
-    }
-  }
-}
+const containerStyle = computed(() =>
+    getContainerStyle(props.borderRadius, props.responsive)
+)
 </script>
+
+
 
 <style scoped>
 
