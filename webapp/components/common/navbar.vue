@@ -13,7 +13,9 @@
 					<NuxtLink v-for="link in linkGroup.sides" :key="link.name" :to="link.path" class="dropdown-link">{{link.name}}</NuxtLink>
 				</div>
 			</div>
+      <NuxtLink to="/auth/signin" class="sign-button default variant-1" @click="closeMenu">Sign In</NuxtLink>
 		</div>
+
 	</nav>
 </template>
 
@@ -33,7 +35,7 @@ const linkGroups = [
 		category : "Courses",
 		main : {name : 'Couses and Subscriptions', path : '/courses-and-subscriptions'},
 		sides : [
-			{name : 'Courses', path : '/courses-and-subscriptions/courses'}, 
+			{name : 'Courses', path : '/courses-and-subscriptions/courses'},
  			{name : 'Subscriptions', path : '/courses-and-subscriptions/subscriptions'}
 		]
 	}, {
@@ -44,17 +46,17 @@ const linkGroups = [
 		category : "Insitute",
 		main : {name : 'Insitute', path : '/institute'},
 		sides : [
-			{name : 'Our story', path : '/institute/story'}, 
-			{name : 'The Team', path : '/institute/teachers'}, 
-			{name : 'Where to find us', path : '/institute/location'}, 
+			{name : 'Our story', path : '/institute/story'},
+			{name : 'The Team', path : '/institute/teachers'},
+			{name : 'Where to find us', path : '/institute/location'},
 	 		{name : 'Opening hours', path : '/institute/opening-hours'}
 		]
 	}, {
 		category : "About",
 		main : {name : 'About', path : '/about'},
 		sides : [
-			{name : 'Benefits of yoga', path : '/about/benefits'}, 
-			{name : 'Yoga equipments', path : '/about/equipments'}, 
+			{name : 'Benefits of yoga', path : '/about/benefits'},
+			{name : 'Yoga equipments', path : '/about/equipments'},
 			{name : 'Practice at home', path : '/about/practice-at-home'},
 			{name : 'Articles', path : '/about/articles'},
 		]
@@ -168,5 +170,37 @@ const linkGroups = [
 		display : none !important ;
 	}
 }
+
+
+.default {
+  display: block;
+
+  padding: 0.75rem 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 0.375rem;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.default:hover {
+  transform: translateY(-1px);
+}
+
+.default:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+.variant-1 {
+  color: #ffffff;
+  background: #000000;
+}
+
+.variant-1:hover {
+  background: #111111;
+}
+
+
 
 </style>
