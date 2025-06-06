@@ -1,8 +1,8 @@
 <template>
   <div class="flex min-h-screen bg-gray-50">
     <!-- Sidebar -->
-    <div class="w-64 bg-white shadow-sm border-r border-gray-200">
-      <div class="p-6">
+    <div class="w-64 bg-white shadow-sm border-r border-gray-200 flex flex-col">
+      <div class="p-6 flex-1">
         <!-- Profile Image -->
         <div class="mb-8">
           <img
@@ -39,7 +39,22 @@
             Profile
           </a>
         </nav>
+        <div class="p-6 border-t border-gray-200">
+          <button
+              @click="logout"
+              :disabled="isLoggingOut"
+              class="w-full flex items-center justify-center px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+            </svg>
+            {{ isLoggingOut ? 'Loging out...' : 'Log out' }}
+          </button>
+        </div>
       </div>
+
+      <!-- Logout Button -->
+
     </div>
 
     <!-- Main Content -->
@@ -145,6 +160,7 @@ const user = useSupabaseUser()
 const supabase = useSupabaseClient()
 
 const activeTab = ref('profile')
+const isLoggingOut = ref(false)
 
 const profile = reactive({
   displayName:'',
@@ -179,7 +195,6 @@ watch(user, async (newUser) => {
   profile.phone = data.phone || ''
   profile.address = data.address || ''
 }, { immediate: true })
-
 
 const saveProfile = async () => {
   if (!user.value) {
@@ -216,6 +231,27 @@ const saveProfile = async () => {
     alert('Erreur réseau ou serveur : ' + e.message)
   } finally {
     isSaving.value = false
+  }
+}
+
+const logout = async () => {
+  isLoggingOut.value = true
+
+  try {
+    const { error } = await supabase.auth.signOut()
+
+    if (error) {
+      console.error('Erreur lors de la déconnexion:', error)
+      alert('Erreur lors de la déconnexion : ' + error.message)
+    } else {
+      // Redirection vers la page de connexion ou d'accueil
+      await navigateTo('/auth/signin') // ou '/' selon votre structure
+    }
+  } catch (e) {
+    console.error('Erreur:', e)
+    alert('Erreur réseau : ' + e.message)
+  } finally {
+    isLoggingOut.value = false
   }
 }
 
