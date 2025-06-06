@@ -12,7 +12,7 @@
 \title{
         \vspace{-2cm}
         \begin{center}
-                \includegraphics[width=0.4\textwidth]{asset/logo.png} % ← change le nom et la taille selon ton image
+                \includegraphics[width=0.4\textwidth]{../asset/logo.png}
         \end{center}
         \vspace{1cm}
         \textbf{Hypermedia Applicaton \\ Design Report}
@@ -43,15 +43,10 @@ Ewan Decima \href{mailto:ewangabriel.decima@mail.polimi.it}{ewangabriel.decima@m
 \tableofcontents
 \newpage
 
-\section{Abstract}
-
-The purpose of this design report is to provide a comprehensive overview of the key elements and decisions made
-during the website implementation for a yoga center. The report meticulously outlines the primary design choices
-made throughout the project, supported by relevant models, schemas, and use case scenarios. Furthermore,
-it presents the conceptual and logical structure of the database, which underpins user interaction,
-class scheduling, subscription management, and content delivery functionalities.
+\include{content/abstract}
 
 \newpage
+
 
 \section{Conceptual design}
 This section presents an exhaustive summary of the conceptual design principles applied to the website.
@@ -67,7 +62,7 @@ it provides insights into the content that can be discussed within each category
 
 \begin{figure}[h]
         \centering
-        \includegraphics[width=0.8\textwidth]{asset/c_idm_scheme}
+        \includegraphics[width=0.8\textwidth]{../asset/c_idm_scheme}
         \caption{C-IDM Diagram}
 \end{figure}
 
@@ -472,7 +467,7 @@ it provides insights into the content that can be discussed within each category
 
 \section{Final Commented Screenshots}
 
-\section{Interaction Scenarios}
+\input{content/interaction_scenarios}
 
 \section{Database Design}
 
@@ -490,7 +485,7 @@ you can check on : \href{https://mermaid.js.org/syntax/entityRelationshipDiagram
 
 \begin{figure}[h]
         \centering
-        \includegraphics[width=0.8\textwidth]{asset/database_e_r_diagram.png}
+        \includegraphics[width=0.8\textwidth]{../asset/database_e_r_diagram.png}
         \caption{E-R Diagram}
 \end{figure}
 
