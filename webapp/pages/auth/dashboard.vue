@@ -39,21 +39,22 @@
             Profile
           </a>
         </nav>
+        <div class="p-6 border-t border-gray-200">
+          <button
+              @click="logout"
+              :disabled="isLoggingOut"
+              class="w-full flex items-center justify-center px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+            </svg>
+            {{ isLoggingOut ? 'Logging out...' : 'Log out' }}
+          </button>
+        </div>
       </div>
 
-      <!-- Logout Button -->
-      <div class="p-6 border-t border-gray-200">
-        <button
-            @click="logout"
-            :disabled="isLoggingOut"
-            class="w-full flex items-center justify-center px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
-          </svg>
-          {{ isLoggingOut ? 'Logging out...' : 'Log out' }}
-        </button>
-      </div>
+
+
     </div>
 
     <!-- Main Content -->
