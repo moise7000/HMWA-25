@@ -83,7 +83,7 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
-// import { supabase } from '@/lib/supabase' // Adjust import path as needed
+
 
 const router = useRouter()
 
@@ -98,31 +98,6 @@ const showPassword = ref(false)
 const loading = ref(false)
 const error = ref('')
 
-// Sign in handler
-// const handleSignIn = async () => {
-//   error.value = ''
-//   loading.value = true
-//
-//   try {
-//     const { data, error: signInError } = await supabase.auth.signInWithPassword({
-//       email: formData.email,
-//       password: formData.password
-//     })
-//
-//     if (signInError) {
-//       error.value = signInError.message
-//       return
-//     }
-//
-//     if (data.user) {
-//       router.push('/dashboard')
-//     }
-//   } catch (err) {
-//     error.value = 'An unexpected error occurred'
-//     console.error('Sign in error:', err)
-//   } finally {
-//     loading.value = false
-//   }
-// }
+
 </script>
 
