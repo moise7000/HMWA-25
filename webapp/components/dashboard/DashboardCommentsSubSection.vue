@@ -1,17 +1,81 @@
 <template>
-  <div>
-    <h1>My comments</h1>
+  <div class="max-w-4xl mx-auto p-4">
+    <div class="mb-8 text-center">
+      <h1 class="text-3xl font-extrabold text-gray-900 mb-1">My comments</h1>
+      <p class="text-gray-600">Manage your course comments here</p>
+    </div>
 
-    <div v-if="loading">Loading...</div>
-    <div v-else-if="error">{{ error }}</div>
+    <!-- Formulaire ajout commentaire -->
+    <div class="bg-white rounded-lg shadow border border-gray-200 p-6 mb-8">
+      <h2 class="text-xl font-semibold mb-4">Add a comment</h2>
+
+      <form @submit.prevent="handleAddComment" class="space-y-4">
+        <div>
+          <label for="course" class="block text-gray-700 font-medium mb-1">Select course</label>
+          <select
+              id="course"
+              v-model="newComment.course_id"
+              required
+              class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option disabled value="">-- Choose a course --</option>
+            <option
+                v-for="course in enrolledCourses"
+                :key="course.id"
+                :value="course.id"
+            >
+              {{ course.title }}
+            </option>
+          </select>
+        </div>
+
+        <div>
+          <label for="comment" class="block text-gray-700 font-medium mb-1">Your comment</label>
+          <textarea
+              id="comment"
+              v-model="newComment.comment"
+              rows="4"
+              required
+              class="w-full border border-gray-300 rounded-md p-2 resize-y focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Write your comment here..."
+          ></textarea>
+        </div>
+
+        <button
+            type="submit"
+            class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition"
+            :disabled="adding"
+        >
+          {{ adding ? 'Adding...' : 'Add Comment' }}
+        </button>
+      </form>
+    </div>
+
+    <!-- Affichage des commentaires -->
+    <div v-if="loading" class="text-center py-8 text-gray-600">
+      Loading your comments...
+    </div>
+
+    <div v-else-if="error" class="bg-red-50 border border-red-200 rounded-lg p-4 mb-6 max-w-md mx-auto text-red-700">
+      {{ error }}
+    </div>
+
     <div v-else>
-      <div v-if="feedbacks.length === 0">No comments found.</div>
+      <div v-if="feedbacks.length === 0" class="text-center py-12 text-gray-600">
+        <div class="text-7xl mb-4">💬</div>
+        <h3 class="text-xl font-semibold mb-2">No comments found.</h3>
+        <p>You have not added any comments yet.</p>
+      </div>
 
-      <div v-for="fb in feedbacks" :key="fb.id" class="feedback-item">
-        <h2>{{ fb.course.title }}</h2>
-        <textarea v-model="fb.comment" rows="3"></textarea>
-        <button @click="handleSave(fb)">Save</button>
-        <button @click="handleDelete(fb)">Delete</button>
+      <div class="grid gap-6">
+        <div
+            v-for="fb in feedbacks"
+            :key="fb.id"
+            class="bg-white rounded-lg shadow border border-gray-200 p-6"
+        >
+          <h2 class="text-xl font-semibold text-gray-900 mb-3">{{ fb.course.title }}</h2>
+          <p class="whitespace-pre-wrap text-gray-800">{{ fb.comment }}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -20,19 +84,28 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
 import { useUserFeedbacks } from '~/managers/userFeedbackManager'
+import { useCourses } from '~/scripts/dashbord/dashbordCourse.js' // supposé te donner les cours inscrits
 
 const user = useSupabaseUser()
-const { getFeedbacksForUser, upsertFeedback, deleteFeedback } = useUserFeedbacks()
+const { getFeedbacksForUser, upsertFeedback } = useUserFeedbacks()
+const { enrolledCourses } = useCourses()
 
-const feedbacks = ref<Array<{ id: string; course: { title: string }; comment: string; course_id: string }>>([])
+const feedbacks = ref([])
 const loading = ref(true)
-const error = ref<string | null>(null)
+const error = ref(null)
+
+const newComment = ref({
+  course_id: '',
+  comment: '',
+})
+
+const adding = ref(false)
 
 const fetchFeedbacks = async () => {
   if (!user.value?.id) {
-    error.value = 'Utilisateur non connecté'
-    feedbacks.value = []
+    error.value = 'User not logged in'
     loading.value = false
+    feedbacks.value = []
     return
   }
 
@@ -42,36 +115,33 @@ const fetchFeedbacks = async () => {
     const data = await getFeedbacksForUser(user.value.id)
     feedbacks.value = data
   } catch (err) {
-    console.error('Erreur chargement feedbacks:', err)
-    error.value = 'Impossible de charger les commentaires'
+    console.error(err)
+    error.value = 'Failed to load comments'
   } finally {
     loading.value = false
   }
 }
 
-const handleSave = async (fb: { course_id: string; comment: string }) => {
+const handleAddComment = async () => {
   if (!user.value?.id) return
+  if (!newComment.value.course_id || !newComment.value.comment) return
+
+  adding.value = true
   try {
-    await upsertFeedback(user.value.id, fb.course_id, fb.comment)
-    alert('Commentaire enregistré')
+    // on appelle l'API pour ajouter un commentaire
+    await upsertFeedback(user.value.id, newComment.value.course_id, newComment.value.comment)
+
+    // reset form
+    newComment.value.course_id = ''
+    newComment.value.comment = ''
+
+    // recharge la liste des commentaires
     await fetchFeedbacks()
   } catch (e) {
-    alert('Erreur lors de l’enregistrement')
+    alert('Error adding comment')
     console.error(e)
-  }
-}
-
-const handleDelete = async (fb: { course_id: string }) => {
-  if (!user.value?.id) return
-  if (!confirm('Confirmer la suppression ?')) return
-
-  try {
-    await deleteFeedback(user.value.id, fb.course_id)
-    alert('Commentaire supprimé')
-    await fetchFeedbacks()
-  } catch (e) {
-    alert('Erreur lors de la suppression')
-    console.error(e)
+  } finally {
+    adding.value = false
   }
 }
 
@@ -90,125 +160,3 @@ watch(
     }
 )
 </script>
-
-
-<style scoped>
-h1 {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
-  color: #2c3e50;
-  text-align: center;
-  font-weight: 700;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.feedback-item {
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 1rem 1.5rem;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  transition: box-shadow 0.3s ease;
-}
-
-.feedback-item:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-}
-
-.feedback-item h2 {
-  margin-top: 0;
-  margin-bottom: 0.75rem;
-  font-size: 1.25rem;
-  color: #34495e;
-}
-
-textarea {
-  width: 100%;
-  min-height: 80px;
-  padding: 0.5rem;
-  font-size: 1rem;
-  border: 1px solid #bbb;
-  border-radius: 6px;
-  resize: vertical;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  transition: border-color 0.3s ease;
-}
-
-textarea:focus {
-  border-color: #3498db;
-  outline: none;
-  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
-}
-
-button {
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 0.9rem;
-  padding: 0.4rem 1rem;
-  margin-top: 0.75rem;
-  margin-right: 0.5rem;
-  border: none;
-  border-radius: 6px;
-  transition: background-color 0.25s ease, color 0.25s ease;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-button:hover {
-  filter: brightness(0.9);
-}
-
-button:focus {
-  outline: 2px solid #2980b9;
-  outline-offset: 2px;
-}
-
-button:first-of-type {
-  background-color: #27ae60;
-  color: white;
-}
-
-button:first-of-type:hover {
-  background-color: #219150;
-}
-
-button:last-of-type {
-  background-color: #e74c3c;
-  color: white;
-}
-
-button:last-of-type:hover {
-  background-color: #c0392b;
-}
-
-/* Message d'erreur et chargement */
-div[v-cloak] {
-  display: none;
-}
-
-.loading,
-.error {
-  text-align: center;
-  font-size: 1.1rem;
-  margin: 1rem 0;
-  color: #555;
-}
-
-.error {
-  color: #e74c3c;
-  font-weight: 600;
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-  .feedback-item {
-    padding: 1rem;
-  }
-
-  button {
-    width: 100%;
-    margin-right: 0;
-    margin-bottom: 0.5rem;
-  }
-}
-</style>
