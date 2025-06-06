@@ -31,8 +31,8 @@ const links = [[
 		{name : 'Practice at home', path : '/about/practice-at-home'},
 		{name : 'Articles', path : '/about/articles'},
 	], [
-		{name : 'Sign up', path : '/sing-up'}, 
-		{name : 'Sign in', path : '/sing-in'}, 
+		{name : 'Sign up', path : '/auth/signup'},
+		{name : 'Sign in', path : '/auth/signin'},
 		{name : 'Language', path : '/language'}, 
 		{name : 'Search', path : '/search'}, 
 		{name : 'Contact', path : '/institute/contact'}, 
