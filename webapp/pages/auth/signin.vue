@@ -116,7 +116,7 @@ const handleSignIn = async () => {
   }
 
 
-  router.push('/about') //Todo: redirect to dashboard
+  router.push('/auth/dashboard')
 }
 
 

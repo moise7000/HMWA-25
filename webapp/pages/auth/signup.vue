@@ -155,7 +155,7 @@ const handleSignUp = async () => {
   }
 
 
-  router.push('/') //todo: replace by the future dashboard
+  router.push('/auth/dashboard')
 }
 
 
