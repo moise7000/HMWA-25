@@ -14,6 +14,7 @@
 
         <!-- Navigation Menu -->
         <nav class="space-y-2">
+
           <a
               href="#"
               class="flex items-center px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 rounded-md"
@@ -22,6 +23,7 @@
           >
             Course
           </a>
+
           <a
               href="#"
               class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-md"
@@ -30,6 +32,7 @@
           >
             Comments
           </a>
+
           <a
               href="#"
               class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-md"
