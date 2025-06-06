@@ -78,6 +78,7 @@
 
 <script setup lang="ts">
 import type { Teacher } from '~/types/Teacher'
+import { createSlug, formatDate } from '~/scripts/teacher/teacherCardLogic'
 
 const props = defineProps<{
   teacher: Teacher
@@ -86,24 +87,11 @@ const props = defineProps<{
 const router = useRouter()
 
 const navigateToTeacher = () => {
-  // Créer un slug à partir du nom du professeur
-  const slug = props.teacher.name
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '') // Supprimer les accents
-      .replace(/\s+/g, '-') // Remplacer les espaces par des tirets
-      .replace(/[^\w-]/g, '') // Supprimer les caractères spéciaux
-
+  const slug = createSlug(props.teacher.name)
   router.push(`/institute/teachers/${slug}`)
 }
-
-const formatDate = (date: Date) => {
-  return new Date(date).toLocaleDateString('fr-FR', {
-    year: 'numeric',
-    month: 'long'
-  })
-}
 </script>
+
 
 <style scoped>
 .teacher-card {
