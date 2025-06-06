@@ -35,8 +35,6 @@ export const useCourses = () => {
             .order('created_at', { ascending: false })
 
         if (error) throw error
-
-
         const transformed = data
             .map((course: any) => ({
                 ...course,
@@ -45,7 +43,11 @@ export const useCourses = () => {
                     : null,
             }))
 
+
         return transformed || []
+
+
+
     }
 
     // Récupérer un cours par ID avec son professeur
@@ -131,7 +133,16 @@ export const useCourses = () => {
             .order('created_at', { ascending: false })
 
         if (error) throw error
-        return data || []
+        const transformed = data
+            .map((course: any) => ({
+                ...course,
+                image: course.image
+                    ? `https://lmwpuleyzjxgzecypqdk.supabase.co/storage/v1/object/public/${course.image}`
+                    : null,
+            }))
+
+
+        return transformed || []
     }
 
     const getAllCoursesFromTeacher = async (teacherId: string): Promise<Course[]> => {
@@ -145,7 +156,16 @@ export const useCourses = () => {
             .order('created_at', { ascending: false })
 
         if (error) throw error
-        return data || []
+        const transformed = data
+            .map((course: any) => ({
+                ...course,
+                image: course.image
+                    ? `https://lmwpuleyzjxgzecypqdk.supabase.co/storage/v1/object/public/${course.image}`
+                    : null,
+            }))
+
+
+        return transformed || []
     }
 
 
