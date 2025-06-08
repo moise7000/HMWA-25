@@ -1,7 +1,10 @@
 <template>
   <nav class="navbar">
     <div class="navbar-brand">
-      <NuxtLink to="/" class="nav-link">Yoga center</NuxtLink>
+
+      <NuxtLink to="/" class="nav-link">
+        <img src="/assets/logo.png" alt="Logo" class="nav-logo" />
+      </NuxtLink>
     </div>
 
     <button class="nav-toggle" @click="isOpen = !isOpen">☰</button>
@@ -217,5 +220,9 @@ const linkGroups = [
 .variant-1:hover {
   background: #111111;
 }
-
+.nav-logo {
+  height: 80px;
+  width: auto;
+  object-fit: contain;
+}
 </style>
