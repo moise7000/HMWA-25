@@ -96,10 +96,12 @@
 						<button
 								@click="loadMoreCourses"
 								:disabled="loadingMore"
-								class="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-8 py-3 rounded-lg font-medium transition-colors flex items-center gap-2 mx-auto"
+                class="px-4 py-3 text-center text-sm font-semibold rounded-md transition-transform transition-colors duration-200 ease-in-out
+         hover:-translate-y-[1px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black/30
+         text-black bg-white border-2 border-black hover:bg-neutral-200"
 						>
 							<span v-if="loadingMore">Loading...</span>
-							<span v-else>Load More Courses</span>
+							<span v-else>More</span>
 							<span v-if="!loadingMore" class="text-sm opacity-75">
 								({{ remainingCoursesCount }} remaining)
 							</span>

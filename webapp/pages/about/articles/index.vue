@@ -34,8 +34,8 @@ const title = "Latest Articles"
 const description = "Discover our latest articles about yoga, wellness, and mindfulness. Explore insights, tips, and inspiration from our experienced teachers and practitioners."
 
 const breadCrumps = [{
-  name: "Institute",
-  link: "/institute"
+  name: "About",
+  link: "/about"
 }, {
   name: "Articles",
   link: "/institute/articles"
