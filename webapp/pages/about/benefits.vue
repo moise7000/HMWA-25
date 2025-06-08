@@ -28,16 +28,33 @@
     />
 
 
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <Hero title="Related Articles"/>
+      <NuxtLink
+          to="/about/articles"
+          class="text-[1.7rem] underline text-[#1a1a1a] cursor-pointer"
+      >
+        See all
+      </NuxtLink>
 
 
 
+      <div v-if="articlesLoading" class="flex justify-center py-8">
+        <div class="text-gray-500">Loading articles...</div>
+      </div>
 
+      <div v-else-if="displayedArticles.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+        <ArticleCard
+            v-for="article in displayedArticles"
+            :key="article.id"
+            :article="article"
+        />
+      </div>
 
-
-
-
-
-
+      <div v-else class="bg-gray-50 rounded-lg border p-6 text-center mb-8">
+        <p class="text-gray-500">No articles available at the moment.</p>
+      </div>
+    </div>
 
     <Hero subtitle="Some testimonies"/>
     <!-- Section Feedbacks -->
@@ -56,61 +73,14 @@
         />
       </div>
 
-
-
-
-
     </div>
-
 
     <div v-else-if="!feedbacksLoading" class="bg-gray-50 rounded-lg border p-6 text-center">
       <p class="text-gray-500">No feedbacks available at the moment.</p>
     </div>
   </div>
 
-
-
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-    <div class="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-
-      <!-- Image Container -->
-      <div class="relative group">
-        <img
-            src="/assets/yoga_courses/yoga_course_13.png"
-            alt="Cours de yoga "
-            class="w-full h-auto rounded-xl  object-cover transition-transform duration-300 group-hover:scale-105"
-            loading="lazy"
-        />
-        <!-- Overlay subtle pour l'effet -->
-
-      </div>
-
-      <!-- Content Container -->
-      <div class="lg:pl-8 text-center ">
-        <h1 class="text-4xl sm:text-xl lg:text-6xl  text-gray-900 leading-tight tracking-tight mb-6">
-          Join your first course
-        </h1>
-
-        <p class="text-center sm:text-xl text-gray-600  mb-8 ">
-          Discover our complete collection of yoga courses.
-        </p>
-
-        <NuxtLink
-            to="/courses-and-subscriptions/courses"
-            class="inline-block bg-black text-white px-8 py-4 rounded-lg font-semibold text-base hover:bg-gray-800 active:bg-gray-900 transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-gray-300"
-        >
-          See all courses
-        </NuxtLink>
-      </div>
-
-    </div>
-  </div>
-
-
-
-
-
-
+  <JoinYourFirstCourse/>
 
 </template>
 
@@ -120,6 +90,9 @@ import BreadCrumps from '~/components/common/bread-crumps.vue'
 import Hero from '~/layouts/hero.vue'
 import FeedbackCard from "~/components/FeedbackCard.vue"
 import {useUserFeedbacks} from '~/managers/userFeedbackManager'
+import {useArticles} from "~/managers/articleManager";
+import ArticleCard from "~/components/article/ArticleCard.vue";
+import JoinYourFirstCourse from "~/components/benefit/JoinYourFirstCourse.vue";
 
 const loading = ref(true)
 const error = ref(null)
@@ -162,21 +135,40 @@ const benefits = [
   }
 ]
 
-// Variables pour les feedbacks
+// Articles
+const articles = ref([])
+const displayedArticles = ref([])
+const articlesLoading = ref(false)
+const articleLimit = 4
+
+const {getAllArticles} = useArticles()
+
+const loadArticles = async () => {
+  articlesLoading.value = true
+  try {
+    const allArticles = await getAllArticles()
+    articles.value = allArticles
+    // Limiter à 4 articles
+    displayedArticles.value = allArticles.slice(0, articleLimit)
+  } catch (err) {
+    console.error('Error loading articles:', err)
+    articles.value = []
+    displayedArticles.value = []
+  } finally {
+    articlesLoading.value = false
+  }
+}
+
+// Feedbacks
 const feedbacks = ref([])
 const feedbacksLoading = ref(false)
-const loadingMoreFeedbacks = ref(false)
 const feedbackLimit = ref(4)
 
-// Destructurer les fonctions depuis le manager
-const {getAllFeedbacks, getFeedbacksForCourse} = useUserFeedbacks()
+const {getAllFeedbacks} = useUserFeedbacks()
 
-// Fonction pour charger tous les feedbacks (si vous voulez afficher tous les feedbacks, pas seulement ceux d'un cours)
 const loadAllFeedbacks = async () => {
   feedbacksLoading.value = true
   try {
-    // Supposons qu'il existe une fonction getAllFeedbacks dans votre manager
-    // Sinon, vous pouvez adapter selon votre logique métier
     const allFeedbacks = await getAllFeedbacks(feedbackLimit.value)
     feedbacks.value = allFeedbacks
   } catch (err) {
@@ -187,30 +179,12 @@ const loadAllFeedbacks = async () => {
   }
 }
 
-// Fonction pour charger plus de feedbacks
-const loadMoreFeedbacks = async () => {
-  loadingMoreFeedbacks.value = true
-  try {
-    const newLimit = feedbackLimit.value + 6
-    const moreFeedbacks = await getAllFeedbacks(newLimit)
-    feedbacks.value = moreFeedbacks
-    feedbackLimit.value = newLimit
-  } catch (err) {
-    console.error('Error loading more feedbacks:', err)
-  } finally {
-    loadingMoreFeedbacks.value = false
-  }
-}
-
-// Fonction pour gérer le clic sur un benefit (si nécessaire)
-const handleBenefitClick = (benefit) => {
-  console.log('Benefit clicked:', benefit)
-  // Ajoutez votre logique ici si nécessaire
-}
-
 onMounted(async () => {
   try {
-    await loadAllFeedbacks()
+    await Promise.all([
+      loadArticles(),
+      loadAllFeedbacks()
+    ])
   } catch (e) {
     error.value = e
   } finally {
@@ -225,7 +199,6 @@ onMounted(async () => {
   margin: 0 auto;
   padding: 2rem;
 }
-
 
 .animate-fade-in {
   animation: fadeIn 0.5s ease-in-out;
