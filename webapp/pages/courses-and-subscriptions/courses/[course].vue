@@ -180,8 +180,8 @@
 
 
         <!-- Feedbacks Section ===================================-->
-        <div v-if="feedbacks.length > 0" class="bg-white rounded-lg border p-6">
-          <h3 class="text-lg font-semibold mb-6">What Students Say</h3>
+        <div v-if="feedbacks.length > 0" class="">
+
 
           <!-- Loading state for feedbacks -->
           <div v-if="feedbacksLoading" class="flex justify-center py-8">

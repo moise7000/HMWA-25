@@ -1,13 +1,13 @@
 <template>
   <div
-      class="benefit-card border rounded-lg p-4 shadow-sm cursor-pointer hover:shadow-lg transition-all duration-200"
+      class="benefit-card border rounded-lg p-4 shadow-sm hover:shadow-lg transition-all duration-200"
 
   >
     <!-- Icône du benefit -->
     <div class="mb-4">
       <div class="w-12 h-12 flex items-center justify-center rounded-lg bg-gray-100 text-gray-600">
         <slot name="icon">
-          <!-- Si une icône emoji est fournie, on l'affiche -->
+
           <span v-if="icon" class="text-2xl">{{ icon }}</span>
           <!-- Sinon, icône SVG par défaut -->
           <svg v-else width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white rounded-lg p-6 shadow-sm border">
+  <div class="bg-white rounded-lg p-6 shadow-sm border shadow-sm hover:shadow-lg transition-all duration-200">
     <!-- Quote icon -->
 
 
