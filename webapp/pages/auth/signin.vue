@@ -1,5 +1,5 @@
 <template>
-  <div class="  flex flex-col justify-center ">
+  <div class="  flex flex-col justify-center animate-fade-in">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
       <h2 class=" text-center text-3xl font-bold text-gray-900">
         Sign in
@@ -121,4 +121,21 @@ const handleSignIn = async () => {
 
 
 </script>
+
+<style>
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
 

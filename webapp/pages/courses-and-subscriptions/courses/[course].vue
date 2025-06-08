@@ -27,7 +27,7 @@
     </div>
 
     <!-- Course details -->
-    <div v-else>
+    <div v-else class="animate-fade-in">
       <!-- Breadcrumb -->
       <nav class="mb-8">
         <NuxtLink to="/courses-and-subscriptions/courses" class="text-blue-500 hover:text-blue-600">← Back to courses</NuxtLink>
@@ -604,5 +604,18 @@ useHead({
 </script>
 
 <style scoped>
-/* Custom styles if needed */
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 </style>

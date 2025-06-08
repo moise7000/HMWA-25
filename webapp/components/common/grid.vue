@@ -1,5 +1,5 @@
 <template>
-	<section class = "articles-grid" :style = "{'padding' : padding, 'grid-template-columns' : gridTemplateColumn}">
+	<section class = "articles-grid animate-fade-in" :style = "{'padding' : padding, 'grid-template-columns' : gridTemplateColumn}">
 		<Article v-for = "article in visibleArticles" :key = "article.id" :title = "article.title" :date = "article.date" :imagePath = "article.image" :description = "article.description" :url = "article.url" :button-display = "article.buttonDisplay"/>
 	</section>
 	<div class = "btn-wrapper" v-if = "visibleArticles.length < articles.length">
@@ -84,4 +84,18 @@ const gridTemplateColumn = computed(() => `repeat(auto-fill, minmax(${props.minW
 
 #more-button:hover {cursor : pointer}
 
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 </style>

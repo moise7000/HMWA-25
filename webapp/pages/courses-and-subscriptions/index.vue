@@ -103,10 +103,5 @@ useHead({
   loading: lazy;
 }
 
-/* Optimisation pour les écrans haute densité */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .courses-subscriptions-page {
-    /* Styles spécifiques pour écrans Retina */
-  }
-}
+
 </style>

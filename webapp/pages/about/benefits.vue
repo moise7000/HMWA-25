@@ -8,7 +8,7 @@
 
   <div v-else >
 
-    <div class="center benefits-grid place-items-center grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-16">
+    <div class="center benefits-grid place-items-center grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-16   animate-fade-in">
       <BenefitCard
           v-for="benefit in benefits"
           :key="benefit.id"
@@ -23,7 +23,7 @@
     <img
         src="public/assets/yoga_courses/yoga_course_23.png"
         alt="Cours de yoga"
-        class="w-full h-[300px] object-cover object-bottom rounded-xl"
+        class="w-full h-[300px] object-cover object-bottom rounded-xl animate-fade-in"
         loading="lazy"
     />
 
@@ -144,7 +144,7 @@ const benefits = [
   },
   {
     id: 2,
-    title: "Improved Flexibility & Strength",
+    title: "Flexibility & Strength",
     description: "Through regular practice, yoga gently stretches and strengthens muscles, increasing mobility and balance.",
     icon: "💪"
   },
@@ -224,5 +224,21 @@ onMounted(async () => {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
+}
+
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>

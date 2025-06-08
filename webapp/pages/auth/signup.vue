@@ -1,5 +1,5 @@
 <template>
-  <div class="  flex flex-col justify-center ">
+  <div class="  flex flex-col justify-center animate-fade-in ">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
       <h2 class="mt-6 text-center text-3xl font-bold text-gray-900">
         Sign up
@@ -77,21 +77,22 @@
           </div>
 
           <!-- Payment Credentials (Optional field) -->
-          <div class="relative">
-            <input
-                v-model="formData.paymentCredentials"
-                :type="showPaymentCredentials ? 'text' : 'password'"
-                placeholder="Payment credentials"
-                class="appearance-none block w-full px-3 py-4 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm pr-12"
-            />
-            <button
-                type="button"
-                @click="showPaymentCredentials = !showPaymentCredentials"
-                class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm text-gray-600 hover:text-gray-800"
-            >
-              {{ showPaymentCredentials ? 'hide' : 'show' }}
-            </button>
-          </div>
+<!--          <div class="relative">-->
+<!--            <input-->
+<!--                v-model="formData.paymentCredentials"-->
+<!--                :type="showPaymentCredentials ? 'text' : 'password'"-->
+<!--                placeholder="Payment credentials"-->
+<!--                class="appearance-none block w-full px-3 py-4 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm pr-12"-->
+<!--            />-->
+<!--            <button-->
+<!--                type="button"-->
+<!--                @click="showPaymentCredentials = !showPaymentCredentials"-->
+<!--                class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm text-gray-600 hover:text-gray-800"-->
+<!--            >-->
+<!--              {{ showPaymentCredentials ? 'hide' : 'show' }}-->
+<!--            </button>-->
+<!--          </div>-->
+
 
           <!-- Error Message -->
           <div v-if="error" class="text-red-600 text-sm">
@@ -207,3 +208,20 @@ const handleSignUp = async () => {
   }
 }
 </script>
+
+<style>
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>

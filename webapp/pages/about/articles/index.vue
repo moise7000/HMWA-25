@@ -1,7 +1,7 @@
 <template>
   <BreadCrumps :breadCrumps="breadCrumps" />
   <Hero :title="title" :description="description" />
-  <div class="p-6">
+  <div class="p-6 animate-fade-in">
     <div v-if="loading">Loading...</div>
     <div v-else-if="error" class="text-red-500">Error: {{ error.message }}</div>
 
@@ -94,3 +94,20 @@ onMounted(async () => {
   }
 })
 </script>
+
+<style>
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>

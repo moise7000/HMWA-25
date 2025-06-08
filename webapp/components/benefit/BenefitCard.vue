@@ -26,7 +26,7 @@
       </h3>
 
       <!-- Description -->
-      <p class="text-sm text-gray-600 line-clamp-3">
+      <p class="text-sm text-gray-600 ">
         {{ description }}
       </p>
     </div>

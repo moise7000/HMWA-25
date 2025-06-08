@@ -1,5 +1,5 @@
 <template>
-  <div class="flex min-h-screen ">
+  <div class="flex min-h-screen animate-fade-in ">
     <!-- Sidebar -->
     <div class="w-64 bg-white shadow-sm border-r border-gray-200 flex flex-col">
       <div class="p-6 flex-1">
@@ -108,5 +108,18 @@ const logout = async () => {
 </script>
 
 <style scoped>
-/* Styles du dashboard principal */
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 </style>

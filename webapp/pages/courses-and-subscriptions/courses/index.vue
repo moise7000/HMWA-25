@@ -242,7 +242,7 @@ useHead({
 	}
 }
 
-/* Animation pour les nouveaux éléments chargés */
+
 .course-enter-active {
 	transition: all 0.3s ease-out;
 }
