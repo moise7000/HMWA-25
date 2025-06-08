@@ -11,7 +11,20 @@ export const useEvents = () => {
             .order('date', { ascending: true })
 
         if (error) throw error
-        return data || []
+
+
+        const transformed = data
+            .map((event: any) => ({
+                ...event,
+                image: event.image
+                    ? `https://lmwpuleyzjxgzecypqdk.supabase.co/storage/v1/object/public/${event.image}`
+                    : null,
+            }))
+
+
+        return transformed || []
+
+
     }
 
     // Récupérer un événement par ID
@@ -23,9 +36,13 @@ export const useEvents = () => {
             .single()
 
         if (error) {
-            if (error.code === 'PGRST116') return null // Pas trouvé
+            if (error.code === 'PGRST116') return null
             throw error
         }
+        if (data && data.image) {
+            data.image = `https://lmwpuleyzjxgzecypqdk.supabase.co/storage/v1/object/public/${data.image}`
+        }
+
         return data
     }
 
@@ -40,7 +57,16 @@ export const useEvents = () => {
             .order('date', { ascending: true })
 
         if (error) throw error
-        return data
+        const transformed = data
+            .map((event: any) => ({
+                ...event,
+                image: event.image
+                    ? `https://lmwpuleyzjxgzecypqdk.supabase.co/storage/v1/object/public/${event.image}`
+                    : null,
+            }))
+
+
+        return transformed || []
     }
 
     // Récupérer les événements d'un teacher spécifique
@@ -52,7 +78,16 @@ export const useEvents = () => {
             .order('date', { ascending: true })
 
         if (error) throw error
-        return data || []
+        const transformed = data
+            .map((event: any) => ({
+                ...event,
+                image: event.image
+                    ? `https://lmwpuleyzjxgzecypqdk.supabase.co/storage/v1/object/public/${event.image}`
+                    : null,
+            }))
+
+
+        return transformed || []
     }
 
     // Récupérer les événements à venir
@@ -65,7 +100,16 @@ export const useEvents = () => {
             .order('date', { ascending: true })
 
         if (error) throw error
-        return data || []
+        const transformed = data
+            .map((event: any) => ({
+                ...event,
+                image: event.image
+                    ? `https://lmwpuleyzjxgzecypqdk.supabase.co/storage/v1/object/public/${event.image}`
+                    : null,
+            }))
+
+
+        return transformed || []
     }
 
     // Récupérer les événements passés
@@ -78,7 +122,16 @@ export const useEvents = () => {
             .order('date', { ascending: false })
 
         if (error) throw error
-        return data || []
+        const transformed = data
+            .map((event: any) => ({
+                ...event,
+                image: event.image
+                    ? `https://lmwpuleyzjxgzecypqdk.supabase.co/storage/v1/object/public/${event.image}`
+                    : null,
+            }))
+
+
+        return transformed || []
     }
 
     // Récupérer les événements gratuits
@@ -90,7 +143,16 @@ export const useEvents = () => {
             .order('date', { ascending: true })
 
         if (error) throw error
-        return data || []
+        const transformed = data
+            .map((event: any) => ({
+                ...event,
+                image: event.image
+                    ? `https://lmwpuleyzjxgzecypqdk.supabase.co/storage/v1/object/public/${event.image}`
+                    : null,
+            }))
+
+
+        return transformed || []
     }
 
     // Récupérer les événements par lieu
@@ -102,7 +164,16 @@ export const useEvents = () => {
             .order('date', { ascending: true })
 
         if (error) throw error
-        return data || []
+        const transformed = data
+            .map((event: any) => ({
+                ...event,
+                image: event.image
+                    ? `https://lmwpuleyzjxgzecypqdk.supabase.co/storage/v1/object/public/${event.image}`
+                    : null,
+            }))
+
+
+        return transformed || []
     }
 
 
@@ -119,7 +190,16 @@ export const useEvents = () => {
             .order('date', { ascending: true })
 
         if (error) throw error
-        return data || []
+        const transformed = data
+            .map((event: any) => ({
+                ...event,
+                image: event.image
+                    ? `https://lmwpuleyzjxgzecypqdk.supabase.co/storage/v1/object/public/${event.image}`
+                    : null,
+            }))
+
+
+        return transformed || []
     }
 
     // Récupérer les événements dans une plage de dates
@@ -132,7 +212,16 @@ export const useEvents = () => {
             .order('date', { ascending: true })
 
         if (error) throw error
-        return data || []
+        const transformed = data
+            .map((event: any) => ({
+                ...event,
+                image: event.image
+                    ? `https://lmwpuleyzjxgzecypqdk.supabase.co/storage/v1/object/public/${event.image}`
+                    : null,
+            }))
+
+
+        return transformed || []
     }
 
     return {
