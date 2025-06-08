@@ -3,6 +3,18 @@
 export function useUserFeedbacks() {
     const client = useSupabaseClient()
 
+
+    const getAllFeedbacks = async (limit: number = 6) => {
+        const { data, error } = await client
+            .from('user_feedbacks')
+            .select('*')
+            .limit(limit)
+
+
+        if (error) throw error
+        return data || []
+    }
+
     const getFeedbacksForUser = async (userId: string) => {
         const { data, error } = await client
             .from('user_feedbacks')
@@ -12,6 +24,8 @@ export function useUserFeedbacks() {
         if (error) throw error
         return data || []
     }
+
+
 
 
     const getFeedbacksForCourse = async (courseId: string, limit: number = 10) => {
@@ -51,6 +65,7 @@ export function useUserFeedbacks() {
     }
 
     return {
+        getAllFeedbacks,
         getFeedbacksForUser,
         upsertFeedback,
         deleteFeedback,

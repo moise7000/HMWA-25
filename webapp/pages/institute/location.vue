@@ -3,7 +3,7 @@
 <template>
   <Hero :title="title" :description="description" />
 
-  <div class="contact-section">
+  <div class="contact-section animate-fade-in">
     <div class="contact-info">
       <p>Address: Piazza Leonardo da Vinci, 32, 20133 Milano MI, Italy</p>
       <p>Phone: +39 02 23991</p>
@@ -234,4 +234,20 @@ const description = "Discover this vibrant location and its hidden gems.";
   line-height: 1.5;
   color: #555;
 }
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 </style>

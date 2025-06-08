@@ -27,7 +27,7 @@
     </div>
 
     <!-- Course details -->
-    <div v-else>
+    <div v-else class="animate-fade-in">
       <!-- Breadcrumb -->
       <nav class="mb-8">
         <NuxtLink to="/courses-and-subscriptions/courses" class="text-blue-500 hover:text-blue-600">← Back to courses</NuxtLink>
@@ -180,8 +180,8 @@
 
 
         <!-- Feedbacks Section ===================================-->
-        <div v-if="feedbacks.length > 0" class="bg-white rounded-lg border p-6">
-          <h3 class="text-lg font-semibold mb-6">What Students Say</h3>
+        <div v-if="feedbacks.length > 0" class="">
+
 
           <!-- Loading state for feedbacks -->
           <div v-if="feedbacksLoading" class="flex justify-center py-8">
@@ -604,5 +604,18 @@ useHead({
 </script>
 
 <style scoped>
-/* Custom styles if needed */
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 </style>

@@ -82,7 +82,7 @@
 
 				<!-- Courses grid -->
 				<div v-else>
-					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+					<div class="grid place-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
 						<CourseCard
 								v-for="course in displayedCourses"
 								:key="course.id"
@@ -242,7 +242,7 @@ useHead({
 	}
 }
 
-/* Animation pour les nouveaux éléments chargés */
+
 .course-enter-active {
 	transition: all 0.3s ease-out;
 }

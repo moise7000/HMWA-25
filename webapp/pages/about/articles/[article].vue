@@ -10,7 +10,7 @@
       <div class="text-red-500 text-lg">Error: {{ error.message }}</div>
     </div>
 
-    <div v-else-if="article" class="max-w-6xl mx-auto px-6 py-8">
+    <div v-else-if="article" class="max-w-6xl mx-auto px-6 py-8 animate-fade-in">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Colonne de gauche - Informations de l'article -->
         <div class="lg:col-span-1">
@@ -176,5 +176,20 @@ useHead(() => ({
 
 .prose p {
   margin-bottom: 1.5rem;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>

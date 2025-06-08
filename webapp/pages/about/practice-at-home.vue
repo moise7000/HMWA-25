@@ -17,7 +17,7 @@
     <Hero :subtitle="subtitleThree" />
     <Hero class="little-text" :description="safetyGuidelines" />
 
-    <div class="container mx-auto p-6 max-w-6xl">
+    <div class="container mx-auto p-6 max-w-6xl animate-fade-in">
       <section class="mb-12">
         <h2 class="text-2xl font-bold text-gray-900 mb-6">Safety Rules and Tips</h2>
         <SafetyGrid :items="safetyRules" />
@@ -197,6 +197,21 @@ useHead({
 
   .video-links {
     margin-left: 0;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 </style>
