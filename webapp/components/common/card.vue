@@ -3,7 +3,7 @@
 		<img :src = "imagePath" :alt = "`Image of course ${title}`" class = "thumbnail"/>
 		<p class = "date">{{date}}</p>
 		<h2 class = "title">{{title}}</h2>
-		<p class = "excerpt">{{description}}</p>
+		<p class = "excerpt">{{description.substring(0,250) + '...'}}</p>
 		<p class = "other">{{other}}</p>
 		<MyButton v-if = "buttonDisplay" :url = "url">Read</MyButton>
 	</article>
