@@ -2,7 +2,18 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
   devtools: { enabled: true },
-  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/supabase'],
+  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/supabase', 'nuxt-simple-sitemap'],
+
+  sitemap: {
+    siteUrl: 'https://hmwa-25-git-main-moise7000s-projects.vercel.app',
+    trailingSlash: false,
+    routes: [
+      '/',
+      '/about',
+      '/contact'
+    ]
+  },
+
   supabase: {
     redirect: false,
     cookieOptions: {
