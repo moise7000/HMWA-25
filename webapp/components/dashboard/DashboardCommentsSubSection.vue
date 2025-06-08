@@ -37,7 +37,9 @@
       <button
           @click="handleAddComment"
           :disabled="adding || !newComment.course_id || !newComment.comment"
-          class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors disabled:opacity-50"
+          class="px-4 py-3 text-center text-sm font-semibold rounded-md transition-transform transition-colors duration-200 ease-in-out
+         hover:-translate-y-[1px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black/30
+         bg-black text-white hover:bg-neutral-900"
       >
         {{ adding ? 'Adding...' : 'Add' }}
       </button>
@@ -55,8 +57,8 @@
     <div v-else>
       <div v-if="feedbacks.length === 0" class="text-center py-12 text-gray-600">
         <div class="text-7xl mb-4">💬</div>
-        <h3 class="text-xl font-semibold mb-2">Aucun commentaire trouvé.</h3>
-        <p>Vous n'avez ajouté aucun commentaire pour le moment.</p>
+        <h3 class="text-xl font-semibold mb-2">No comments found.</h3>
+        <p>You have not added any comments yet.</p>
       </div>
 
       <div class="grid gap-6">

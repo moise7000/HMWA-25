@@ -177,6 +177,44 @@
 
       <!-- Additional Course Info (collapsible/expandable sections) -->
       <div class="mt-16 space-y-6">
+
+
+        <!-- Feedbacks Section ===================================-->
+        <div v-if="feedbacks.length > 0" class="bg-white rounded-lg border p-6">
+          <h3 class="text-lg font-semibold mb-6">What Students Say</h3>
+
+          <!-- Loading state for feedbacks -->
+          <div v-if="feedbacksLoading" class="flex justify-center py-8">
+            <div class="text-gray-500">Loading feedbacks...</div>
+          </div>
+
+          <!-- Feedbacks Grid -->
+          <div v-else class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <FeedbackCard
+                v-for="feedback in feedbacks"
+                :key="feedback.id"
+                :feedback="feedback"
+            />
+          </div>
+
+          <!-- Show more button if there are more feedbacks -->
+          <div v-if="feedbacks.length >= feedbackLimit" class="text-center mt-6">
+            <button
+                @click="loadMoreFeedbacks"
+                :disabled="loadingMoreFeedbacks"
+                class="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <span v-if="loadingMoreFeedbacks">Loading more...</span>
+              <span v-else>Show More Reviews</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Feedbacks Section ===================================-->
+
+
+
+
         <!-- Goals Section -->
         <div v-if="course.goals && course.goals.length > 0" class="bg-white rounded-lg border p-6">
           <h3 class="text-lg font-semibold mb-4">What you'll achieve</h3>
@@ -462,6 +500,96 @@ watch(user, async (newUser) => {
     isAlreadyEnrolled.value = false
   }
 })
+
+
+
+// Ajoutez cet import avec les autres imports
+import { useUserFeedbacks } from '~/managers/userFeedbackManager'
+// Import du composant FeedbackCard
+import FeedbackCard from '~/components/FeedbackCard.vue'
+
+// Ajoutez ces variables avec les autres variables ref()
+const feedbacks = ref([])
+const feedbacksLoading = ref(false)
+const loadingMoreFeedbacks = ref(false)
+const feedbackLimit = ref(6) // Nombre initial de feedbacks à charger
+
+// Destructurer la fonction depuis le manager
+const { getFeedbacksForCourse } = useUserFeedbacks()
+
+// Fonction pour charger les feedbacks du cours
+const loadCourseFeedbacks = async () => {
+  if (!course.value) return
+
+  feedbacksLoading.value = true
+  try {
+    const courseFeedbacks = await getFeedbacksForCourse(course.value.id.toString(), feedbackLimit.value)
+    feedbacks.value = courseFeedbacks
+  } catch (err) {
+    console.error('Error loading course feedbacks:', err)
+    feedbacks.value = []
+  } finally {
+    feedbacksLoading.value = false
+  }
+}
+
+// Fonction pour charger plus de feedbacks
+const loadMoreFeedbacks = async () => {
+  if (!course.value) return
+
+  loadingMoreFeedbacks.value = true
+  try {
+    const newLimit = feedbackLimit.value + 6
+    const moreFeedbacks = await getFeedbacksForCourse(course.value.id.toString(), newLimit)
+    feedbacks.value = moreFeedbacks
+    feedbackLimit.value = newLimit
+  } catch (err) {
+    console.error('Error loading more feedbacks:', err)
+  } finally {
+    loadingMoreFeedbacks.value = false
+  }
+}
+
+// Dans la fonction onMounted, ajoutez cet appel après avoir chargé le cours
+// Modifiez votre onMounted existant pour inclure ceci :
+onMounted(async () => {
+  const routeSlug = route.params.course as string
+
+  try {
+    const allCourses = await getAllCoursesWithTeachers()
+
+    const foundCourse = allCourses.find(c => {
+      const courseSlug = createSlug(c.title)
+      return courseSlug === routeSlug
+    })
+
+    if (foundCourse) {
+      course.value = foundCourse
+
+      // Charger les détails du professeur si teacher_id existe
+      if (foundCourse.teacher_id) {
+        await loadTeacher(foundCourse.teacher_id.toString())
+      }
+
+      // Vérifier le statut d'inscription si l'utilisateur est connecté
+      if (user.value) {
+        await checkEnrollmentStatus()
+      }
+
+      // AJOUTEZ CETTE LIGNE - Charger les feedbacks du cours
+      await loadCourseFeedbacks()
+
+    } else {
+      course.value = null
+    }
+  } catch (err: any) {
+    error.value = err
+  } finally {
+    loading.value = false
+  }
+})
+
+
 
 // SEO Meta
 useHead({

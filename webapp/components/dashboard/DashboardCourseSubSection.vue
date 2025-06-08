@@ -65,13 +65,15 @@
         <!-- Empty State -->
         <div v-if="enrolledCourses.length === 0" class="text-center py-12">
           <div class="text-6xl mb-4">📚</div>
-          <h3 class="text-lg font-medium text-gray-900 mb-2">Aucun cours inscrit</h3>
-          <p class="text-gray-600 mb-6">Vous n'êtes inscrit à aucun cours pour le moment.</p>
+          <h3 class="text-lg font-medium text-gray-900 mb-2">No courses registered</h3>
+          <p class="text-gray-600 mb-6">You are not registered for any courses at the moment.</p>
           <button
               @click="$router.push('/courses-and-subscriptions/courses')"
-              class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+              class="px-4 py-3 text-center text-sm font-semibold rounded-md transition-transform transition-colors duration-200 ease-in-out
+         hover:-translate-y-[1px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black/30
+         bg-black text-white hover:bg-neutral-900"
           >
-            Découvrir les cours
+            Discover the courses
           </button>
         </div>
 
