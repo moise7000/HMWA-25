@@ -62,7 +62,7 @@
 
     <!-- Main Content -->
     <div class="flex-1 p-8">
-      <!-- Rendu conditionnel des composants selon l'onglet actif -->
+
       <DashboardCourseSubSection v-if="activeTab === 'course'" />
       <DashboardCommentsSubSection v-if="activeTab === 'comments'" />
       <DashboardProfileSubsection v-if="activeTab === 'profile'" />
