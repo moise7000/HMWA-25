@@ -13,6 +13,20 @@ export function useUserFeedbacks() {
         return data || []
     }
 
+
+    const getFeedbacksForCourse = async (courseId: string, limit: number = 10) => {
+        const { data, error } = await client
+            .from('user_feedbacks')
+            .select(`*`)
+            .eq('course_id', courseId)
+            .order('created_at', { ascending: false })
+            .limit(limit)
+
+        if (error) throw error
+        return data || []
+    }
+
+
     const upsertFeedback = async (userId: string, courseId: string, comment: string) => {
         const { error } = await client
             .from('user_feedbacks')
@@ -40,5 +54,6 @@ export function useUserFeedbacks() {
         getFeedbacksForUser,
         upsertFeedback,
         deleteFeedback,
+        getFeedbacksForCourse
     }
 }
