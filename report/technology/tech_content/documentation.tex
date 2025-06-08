@@ -1,0 +1,79 @@
+\section{Documentation}
+\subsection{Theme}
+We have decided to develop a website for \textit{Yoga center}, a yoga and wellness center located in Milan, Italy.
+
+
+\subsection{Technology}
+In order to meet both the functional and technical requirements of the project, we carefully selected the following technologies and approaches:
+\begin{itemize}
+    \item \textit{Server-Side Development}: We implemented our backend using \textbf{Nuxt}, adhering to the project’s requirement.
+    \item \textit{Application Hosting}: We selected \textbf{Vercel} as our hosting platform over GitHub Pages. Vercel offers more
+            advanced features than GitHub Pages, especially for modern web development. It supports dynamic frameworks
+            like Nuxt, automatic deployments with preview URLs for each branch or pull request, built-in serverless
+            functions. In contrast, GitHub Pages is limited to static sites and requires
+            more manual setup.
+
+    \item \textit{Database Hosting}: We utilized \textbf{Supabase}, which provides a PostgreSQL-based relational model.
+            This choice was natural, as the data encompasses multiple interrelated entities. Additionally, Supabase was used to handle user authentication, offering a seamless and secure way to manage sign-up, login, and session management.
+    \item \textit{Scripting Language}: We adopted \textbf{TypeScript} over JavaScript to enhance code robustness,
+            maintainability, and scalability. TypeScript’s static typing allowed us to define precise types for our
+            database entities, and UI components, which significantly improved the developer experience. It also enabled
+            better tooling support, safer refactoring, and early detection of potential bugs, ultimately reducing
+            runtime errors and improving overall code quality.
+\end{itemize}
+
+%Rendering Mode: We opted for Server-Side Rendering (SSR). Given the significance of search engine visibility for an organization’s website, SSR facilitates improved SEO performance by ensuring that content is rendered and indexed more effectively by web crawlers. We promptly eliminated Client-Side Rendering (CSR) as the website does not necessitate intricate interactivity.
+
+\subsection{Structure}
+\subsubsection{Pages}
+
+\begin{center}
+    \begin{tabularx}{\textwidth}{|X|X|X|}
+        \hline
+        \textbf{Page} & \textbf{URL} & \textbf{Description} \\
+        \hline
+        Home & / & It is \textit{Yoga center}’s home page. It summarizes content from other pages and provides various
+        links to them.\\
+        \hline
+        About & /about & \\
+        \hline
+        Benefits & about/benefits & \\
+        \hline
+        Yoga equipments & /about/equipments & \\
+        \hline
+        Practice at home & /about/practice-at-home & \\
+        \hline
+        Articles & /about/articles & \\
+        \hline
+        Article & /about/articles/[slug] & \\
+        \hline
+        Contact & /contact & \\
+        \hline
+        Institute & /institute & \\
+        \hline
+        Story & /institute/story & \\
+        \hline
+        Teachers & /institute/teachers & \\
+        \hline
+        Teacher & /institute/teachers/[slug] & \\
+        \hline
+        Location & /institute/location & \\
+        \hline
+        Events & /events & \\
+        \hline
+        Event & /events/[slug] & \\
+        \hline
+        Courses and Subscriptions & /courses-and-subscriptions & \\
+        \hline
+        Courses & /courses-and-subscriptions/courses & \\
+        \hline
+        Course & /courses-and-subscriptions/courses/[slug] & \\
+        \hline
+        Subscriptions & /courses-and-subscriptions/subscriptions & \\
+        \hline
+
+
+
+    \end{tabularx}
+\end{center}
+

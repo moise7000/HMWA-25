@@ -17,6 +17,7 @@ webapp/
 │   │   ├── center/        
 │   │   └── common/        # Logos, icons, etc.
 │   └── fonts/
+├── managers/
 ├── components/            # Reusable vue components
 │   ├── common/
 │   │   ├── Header.vue
