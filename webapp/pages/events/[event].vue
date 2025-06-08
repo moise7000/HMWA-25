@@ -176,16 +176,16 @@ const { data: event, pending, error } = await useLazyAsyncData(
     () => getEventById(eventId)
 )
 
-// Récupération des événements similaires
+
 const { data: allEvents } = await useLazyAsyncData('related-events', () => getUpcomingEvents())
 
-// Événements similaires (excluant l'événement actuel)
+
 const relatedEvents = computed(() => {
   if (!allEvents.value || !event.value) return []
   return allEvents.value.filter(e => e.id !== event.value.id)
 })
 
-// Fonctions utilitaires pour le formatage des dates
+
 const formatDate = (dateString: string) => {
   return new Date(dateString).toLocaleDateString('en-EN', {
     weekday: 'long',
@@ -202,11 +202,10 @@ const formatTime = (dateString: string) => {
   })
 }
 
-// Gestion de la réservation
+
 const handleReservation = () => {
-  // Ici vous pouvez implémenter la logique de réservation
-  // Par exemple, rediriger vers un formulaire ou ouvrir une modal
-  alert('Fonctionnalité de réservation à implémenter')
+  
+  alert('Feature to be implemented')
 }
 
 // Gestion des erreurs et redirection 404
