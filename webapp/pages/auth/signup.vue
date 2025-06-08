@@ -20,6 +20,26 @@
             />
           </div>
 
+          <!-- First Name -->
+          <div>
+            <input
+                v-model="formData.firstName"
+                type="text"
+                placeholder="First Name"
+                class="appearance-none block w-full px-3 py-4 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            />
+          </div>
+
+          <!-- Last Name -->
+          <div>
+            <input
+                v-model="formData.lastName"
+                type="text"
+                placeholder="Last Name"
+                class="appearance-none block w-full px-3 py-4 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            />
+          </div>
+
           <!-- Password -->
           <div class="relative">
             <input
@@ -115,6 +135,8 @@ const router = useRouter()
 // Form state
 const formData = reactive({
   email: '',
+  firstName: '',
+  lastName: '',
   password: '',
   confirmPassword: '',
   paymentCredentials: ''
@@ -137,27 +159,52 @@ const handleSignUp = async () => {
     return
   }
 
-  const { data, error: signUpError } = await supabase.auth.signUp({
-    email: formData.email,
-    password: formData.password,
-    options: {
-      data: {
-        payment_credentials: formData.paymentCredentials || null,
+  try {
+    // 1. Créer l'utilisateur avec Supabase Auth
+    const { data: authData, error: signUpError } = await supabase.auth.signUp({
+      email: formData.email,
+      password: formData.password,
+      options: {
+        data: {
+          payment_credentials: formData.paymentCredentials || null,
+        }
+      }
+    })
+
+    if (signUpError) {
+      error.value = signUpError.message
+      loading.value = false
+      return
+    }
+
+    // 2. Si l'utilisateur est créé avec succès, créer son profil
+    if (authData.user) {
+      const { error: profileError } = await supabase
+          .from('profiles')
+          .insert({
+            user_id: authData.user.id,
+            first_name: formData.firstName || null,
+            last_name: formData.lastName || null,
+            email: formData.email
+          })
+
+      if (profileError) {
+        console.error('Erreur lors de la création du profil:', profileError)
+        // Optionnel: vous pouvez choisir de supprimer l'utilisateur créé si le profil échoue
+        // await supabase.auth.admin.deleteUser(authData.user.id)
+        error.value = 'Erreur lors de la création du profil utilisateur'
+        loading.value = false
+        return
       }
     }
-  })
 
-  loading.value = false
+    loading.value = false
+    router.push('/auth/dashboard')
 
-  if (signUpError) {
-    error.value = signUpError.message
-    return
+  } catch (err) {
+    console.error('Erreur inattendue:', err)
+    error.value = 'Une erreur inattendue s\'est produite'
+    loading.value = false
   }
-
-
-  router.push('/auth/dashboard')
 }
-
-
-
 </script>
