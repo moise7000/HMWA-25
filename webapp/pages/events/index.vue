@@ -6,18 +6,18 @@
       :paddingSide="5"
       :minWidth="600"
   />
-  <div v-else-if="pending" class="flex justify-center items-center py-12">
-    <div class="text-lg">Chargement des événements...</div>
+  <div v-else-if="pending" class="flex justify-center items-center py-12 animate-fade-in">
+    <div class="text-lg">Charging of events...</div>
   </div>
-  <div v-else class="flex justify-center items-center py-12">
-    <div class="text-lg text-gray-500">Aucun événement disponible</div>
+  <div v-else class="flex justify-center items-center py-12 animate-fade-in">
+    <div class="text-lg text-gray-500">No event available</div>
   </div>
 </template>
 
 <script setup>
 import Grid from "~/components/common/grid.vue"
 import HeroCard from '~/layouts/hero.vue'
-import {useEvents} from "~/managers/eventManager.js";
+import {useEvents} from "~/managers/eventManager";
 
 const title = "Event not to be missed"
 const description = 'Discover our events to come and rejoice for unique moments of happiness and connection.'
@@ -25,10 +25,10 @@ const description = 'Discover our events to come and rejoice for unique moments 
 
 const { getAllEvents } = useEvents()
 
-// Récupération des données avec gestion d'état
+
 const { data: eventsData, pending, error } = await useLazyAsyncData('events', () => getAllEvents())
 
-// Transformation des données pour correspondre au format attendu par le composant Grid
+
 const events = computed(() => {
   if (!eventsData.value) return []
 
@@ -36,9 +36,9 @@ const events = computed(() => {
     id: event.id,
     title: event.title,
     date: new Date(event.date).toLocaleDateString('fr-FR'),
-    image: event.image || '/assets/yoga_courses/yoga_course_0.png', // Image par défaut si pas d'image
+    image: event.image || '/assets/yoga_courses/yoga_course_0.png',
     description: event.description,
-    url: `/events/${event.id}` // URL vers la page détail de l'événement
+    url: `/events/${event.id}`
   }))
 })
 

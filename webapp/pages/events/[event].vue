@@ -1,10 +1,10 @@
 <template>
   <BreadCrumps :breadCrumps="breadCrumps" />
-  <div v-if="pending" class="flex justify-center items-center min-h-screen">
+  <div v-if="pending" class="flex justify-center items-center min-h-screen animate-fade-in">
     <div class="text-xl">Charging the event...</div>
   </div>
 
-  <div v-else-if="!event" class="flex flex-col justify-center items-center min-h-screen">
+  <div v-else-if="!event" class="flex flex-col justify-center items-center min-h-screen animate-fade-in">
     <h1 class="text-2xl font-bold text-gray-800 mb-4">Event not found</h1>
     <p class="text-gray-600 mb-6">In case you want to check it, it doesn't exist or is more available.</p>
     <NuxtLink to="/events" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg transition-colors">
@@ -12,7 +12,7 @@
     </NuxtLink>
   </div>
 
-  <div v-else class="container mx-auto px-4 py-8">
+  <div v-else class="container mx-auto px-4 py-8 animate-fade-in">
 
     <div class="mb-8">
 
