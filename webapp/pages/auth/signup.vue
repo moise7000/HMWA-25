@@ -160,7 +160,7 @@ const handleSignUp = async () => {
   }
 
   try {
-    // 1. Créer l'utilisateur avec Supabase Auth
+
     const { data: authData, error: signUpError } = await supabase.auth.signUp({
       email: formData.email,
       password: formData.password,
@@ -177,7 +177,7 @@ const handleSignUp = async () => {
       return
     }
 
-    // 2. Si l'utilisateur est créé avec succès, créer son profil
+
     if (authData.user) {
       const { error: profileError } = await supabase
           .from('profiles')
@@ -189,10 +189,9 @@ const handleSignUp = async () => {
           })
 
       if (profileError) {
-        console.error('Erreur lors de la création du profil:', profileError)
-        // Optionnel: vous pouvez choisir de supprimer l'utilisateur créé si le profil échoue
-        // await supabase.auth.admin.deleteUser(authData.user.id)
-        error.value = 'Erreur lors de la création du profil utilisateur'
+        console.error('Error creating profile:', profileError)
+
+        error.value = 'Error creating user profile'
         loading.value = false
         return
       }
@@ -202,8 +201,8 @@ const handleSignUp = async () => {
     router.push('/auth/dashboard')
 
   } catch (err) {
-    console.error('Erreur inattendue:', err)
-    error.value = 'Une erreur inattendue s\'est produite'
+    console.error('Unexpected error:', err)
+    error.value = 'An unexpected error has occurred'
     loading.value = false
   }
 }
