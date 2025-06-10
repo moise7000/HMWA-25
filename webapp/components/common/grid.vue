@@ -4,7 +4,9 @@
 	</section>
 	<div class = "btn-wrapper" v-if = "visibleArticles.length < articles.length">
 		<div id = "more-button" v-on:click = "loadMore">
-			<MyButton classTypeInt = 2 :fake = "true">More</MyButton>
+      <BaseButton as-button :variant="2">
+        <span>More</span>
+      </BaseButton>
 		</div>
 	</div>
 </template>
@@ -14,6 +16,7 @@
 import Article from '~/components/common/card.vue'
 import MyButton from '~/components/common/button.vue'
 import { ref, computed, onMounted } from 'vue'
+import BaseButton from "~/components/common/BaseButton.vue";
 
 const props = defineProps({
 	articles : {type : Array, required : false, default : [{ id : 1, title : 'No articles found', date : '00/00/0000', image : '', description : 'No articles', url : "/"}]},
