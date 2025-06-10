@@ -22,7 +22,7 @@
 
     <img
         src="public/assets/yoga_courses/yoga_course_23.png"
-        alt="Cours de yoga"
+        alt="Women who practice yoga outdoor – love you well"
         class="w-full h-[300px] object-cover object-bottom rounded-xl animate-fade-in"
         loading="lazy"
     />
@@ -85,6 +85,29 @@
 </template>
 
 <script setup>
+
+import { useHead } from '#imports'
+
+useHead({
+  title: 'Yoga Benefits - Improve Your Life with Yoga | YourSiteName',
+  meta: [
+    {
+      name: 'description',
+      content: 'Discover the physical and mental benefits of yoga, from stress relief and flexibility to better sleep and enhanced focus. Start your transformation today.'
+    },
+    { property: 'og:title', content: 'Yoga Benefits - Improve Your Life with Yoga' },
+    { property: 'og:description', content: 'Discover the physical and mental benefits of yoga. Learn how a consistent practice can transform your life.' },
+    { property: 'og:image', content: '/assets/yoga_courses/yoga_course_23.png' },
+    { property: 'og:type', content: 'website' },
+    { name: 'twitter:card', content: 'summary_large_image' }
+  ],
+  link: [
+    { rel: 'canonical', href: 'https://hmwa-25-git-main-moise7000s-projects.vercel.app/about/benefits' }
+  ]
+})
+
+
+
 import {ref, onMounted} from 'vue'
 import BreadCrumps from '~/components/common/bread-crumps.vue'
 import Hero from '~/layouts/hero.vue'

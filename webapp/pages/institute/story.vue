@@ -12,10 +12,49 @@
 import Hero from "~/layouts/hero.vue"
 import TopicCard from "~/components/common/topic.vue"
 import BreadCrumps from "~/components/common/bread-crumps.vue"
+import {useHead} from "#app";
 
 const title = "Our story"
 
 const description = "Know about us."
+
+useHead({
+  title: title,
+  meta: [
+    {
+      name: 'description',
+      content: description
+    },
+    {
+      property: 'og:title',
+      content: title
+    },
+    {
+      property: 'og:description',
+      content: description
+    },
+    {
+      property: 'og:type',
+      content: 'website'
+    },
+    {
+      property: 'og:url',
+      content: 'https://hmwa-25-git-main-moise7000s-projects.vercel.app/institute/story',
+    },
+    {
+      name: 'twitter:card',
+      content: 'summary'
+    },
+    {
+      name: 'twitter:title',
+      content: title
+    },
+    {
+      name: 'twitter:description',
+      content: description
+    }
+  ]
+})
 
 const breadCrumps = [{
 		name : "Insitute",

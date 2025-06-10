@@ -81,6 +81,48 @@
 </template>
 
 <script setup lang="ts">
+
+import { useHead } from '#app'
+
+useHead({
+  title: 'Sign in ',
+  meta: [
+    {
+      name: 'description',
+      content: 'Create an account to enroll in courses, leaves comments and so on!'
+    },
+    {
+      property: 'og:title',
+      content: 'Yoga Student Dashboard'
+    },
+    {
+      property: 'og:description',
+      content: 'Create an account to enroll in courses, leaves comments and so on!'
+    },
+    {
+      property: 'og:type',
+      content: 'website'
+    },
+    {
+      property: 'og:url',
+      content: 'https://hmwa-25-git-main-moise7000s-projects.vercel.app/auth/signin'
+    },
+    {
+      name: 'twitter:card',
+      content: 'summary'
+    },
+    {
+      name: 'twitter:title',
+      content: 'Sign in'
+    },
+    {
+      name: 'twitter:description',
+      content: 'Create an account to enroll in courses, leaves comments and so on!'
+    }
+  ]
+})
+
+
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 const supabase = useSupabaseClient()

@@ -71,6 +71,49 @@
 </template>
 
 <script setup>
+
+import { useHead } from '#app'
+
+useHead({
+  title: 'Yoga Student Dashboard',
+  meta: [
+    {
+      name: 'description',
+      content: 'Discover our selection of recommended yoga equipment gear and accessories, with links to our partner sites where you can explore and purchase the items we love and use.'
+    },
+    {
+      property: 'og:title',
+      content: 'Yoga Student Dashboard'
+    },
+    {
+      property: 'og:description',
+      content: 'See all your courses registered in one place. Add comments on the courses you take'
+    },
+    {
+      property: 'og:type',
+      content: 'website'
+    },
+    {
+      property: 'og:url',
+      content: 'https://hmwa-25-git-main-moise7000s-projects.vercel.app/auth/dashboard'
+    },
+    {
+      name: 'twitter:card',
+      content: 'summary'
+    },
+    {
+      name: 'twitter:title',
+      content: 'Yoga Student Dashboard'
+    },
+    {
+      name: 'twitter:description',
+      content: 'See all your courses registered in one place. Add comments on the courses you take'
+    }
+  ]
+})
+
+
+
 import { ref } from 'vue'
 import DashboardCourseSubSection from '~/components/dashboard/DashboardCourseSubSection.vue'
 import DashboardCommentsSubSection from '~/components/dashboard/DashboardCommentsSubSection.vue'

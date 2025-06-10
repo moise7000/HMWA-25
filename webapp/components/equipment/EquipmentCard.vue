@@ -4,8 +4,10 @@
       <img
           v-if="equipment.image"
           :src="equipment.image"
-          alt="Equipment image"
+          :alt="`Image of ${equipment.name}`"
           class="w-48 h-auto rounded"
+
+
       />
       <div v-else class="w-48 h-32 flex items-center justify-center bg-gray-200 text-gray-500 rounded">
 
