@@ -17,10 +17,52 @@
 </template>
 
 <script setup lang="ts">
+import { useHead } from '#app'
 
 const title = "Meet the teachers"
 
 const description = "Meet our passionate and experienced yoga teachers, each dedicated to guiding you on your journey with care, knowledge, and inspiration. Discover the heart of our studio through the people who bring it to life."
+
+useHead({
+  title: title,
+  meta: [
+    {
+      name: 'description',
+      content: description
+    },
+    {
+      property: 'og:title',
+      content: title
+    },
+    {
+      property: 'og:description',
+      content: description
+    },
+    {
+      property: 'og:type',
+      content: 'website'
+    },
+    {
+      property: 'og:url',
+      content: 'https://hmwa-25-git-main-moise7000s-projects.vercel.app/institute/teachers',
+    },
+    {
+      name: 'twitter:card',
+      content: 'summary'
+    },
+    {
+      name: 'twitter:title',
+      content: title
+    },
+    {
+      name: 'twitter:description',
+      content: description
+    }
+  ]
+})
+
+
+
 
 const breadCrumps = [{
 		name : "Insitute",

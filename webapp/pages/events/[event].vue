@@ -156,7 +156,45 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue";
+import { useHead } from '#app'
+
+useHead({
+  title: 'Event not to be missed',
+  meta: [
+    {
+      name: 'description',
+      content: 'Discover our events to come and rejoice for unique moments of happiness and connection.'
+    },
+    {
+      property: 'og:title',
+      content: 'Event not to be missed'
+    },
+    {
+      property: 'og:description',
+      content: 'Discover our events to come and rejoice for unique moments of happiness and connection.'
+    },
+    {
+      property: 'og:type',
+      content: 'website'
+    },
+    {
+      property: 'og:url',
+      content: 'https://hmwa-25-git-main-moise7000s-projects.vercel.app/events'
+    },
+    {
+      name: 'twitter:card',
+      content: 'summary'
+    },
+    {
+      name: 'twitter:title',
+      content: 'Event not to be missed'
+    },
+    {
+      name: 'twitter:description',
+      content: 'Discover our events to come and rejoice for unique moments of happiness and connection.'
+    }
+  ]
+})
 
 const route = useRoute()
 const eventId = route.params.event as string
