@@ -4,6 +4,48 @@
 
 <script setup>
 
+
+
+import { useHead } from '#app'
+
+useHead({
+  title: 'About Yoga',
+  meta: [
+    {
+      name: 'description',
+      content: 'Discover the essence of yoga — a journey toward balance, strength, and inner peace. Explore its benefits, learn how to practice at home, and dive into tips, resources, and guides to support your path.'
+    },
+    {
+      property: 'og:title',
+      content: 'About Yoga'
+    },
+    {
+      property: 'og:description',
+      content: 'Discover the essence of yoga — a journey toward balance, strength, and inner peace.'
+    },
+    {
+      property: 'og:type',
+      content: 'website'
+    },
+    {
+      property: 'og:url',
+      content: 'https://hmwa-25-git-main-moise7000s-projects.vercel.app/about/'
+    },
+    {
+      name: 'twitter:card',
+      content: 'summary'
+    },
+    {
+      name: 'twitter:title',
+      content: 'About Yoga'
+    },
+    {
+      name: 'twitter:description',
+      content: 'Discover the essence of yoga — a journey toward balance, strength, and inner peace.'
+    }
+  ]
+})
+
 import MultiTopic from '~/components/common/indexes.vue'
 
 const title = 'About Yoga'
