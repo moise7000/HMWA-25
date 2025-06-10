@@ -6,7 +6,7 @@
       <div class="flex-shrink-0">
         <img
             src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=400&fit=crop&crop=face"
-            alt="Profile"
+            alt="Profile picture of the user"
             class="w-48 h-64 rounded-lg object-cover shadow-md"
         >
       </div>
