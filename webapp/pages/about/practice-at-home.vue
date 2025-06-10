@@ -28,6 +28,49 @@
 </template>
 
 <script setup>
+
+import { useHead } from '#app'
+
+useHead({
+  title: 'Practice Yoga at Home',
+  meta: [
+    {
+      name: 'description',
+      content: 'Enjoy the freedom and comfort of practicing yoga in your own space. Whether you\'re a beginner or experienced, our guided sessions and tips help you stay consistent, safe, and connected — anytime, anywhere.'
+    },
+    {
+      property: 'og:title',
+      content: 'Practice Yoga at Home'
+    },
+    {
+      property: 'og:description',
+      content: 'Enjoy the freedom and comfort of practicing yoga in your own space.'
+    },
+    {
+      property: 'og:type',
+      content: 'website'
+    },
+    {
+      property: 'og:url',
+      content: 'https://hmwa-25-git-main-moise7000s-projects.vercel.app/about/practice-at-home'
+    },
+    {
+      name: 'twitter:card',
+      content: 'Enjoy the freedom and comfort of practicing yoga in your own space.'
+    },
+    {
+      name: 'twitter:title',
+      content: 'Practice Yoga at Home'
+    },
+    {
+      name: 'twitter:description',
+      content: 'Enjoy the freedom and comfort of practicing yoga in your own space.'
+    }
+  ]
+})
+
+
+
 import { ref } from 'vue'
 import Hero from "~/layouts/hero.vue"
 import Grid from "~/components/common/grid.vue"
