@@ -127,6 +127,48 @@
 </template>
 
 <script setup lang="ts">
+
+import {useHead} from "#app";
+
+useHead({
+  title: 'Sign up ',
+  meta: [
+    {
+      name: 'description',
+      content: 'Create an account to enroll in courses, leaves comments and so on! Sign up to our center.'
+    },
+    {
+      property: 'og:title',
+      content: 'Sign up to our center.'
+    },
+    {
+      property: 'og:description',
+      content: 'Create an account to enroll in courses, leaves comments and so on!'
+    },
+    {
+      property: 'og:type',
+      content: 'website'
+    },
+    {
+      property: 'og:url',
+      content: 'https://hmwa-25-git-main-moise7000s-projects.vercel.app/auth/signup'
+    },
+    {
+      name: 'twitter:card',
+      content: 'summary'
+    },
+    {
+      name: 'twitter:title',
+      content: 'Sign up'
+    },
+    {
+      name: 'twitter:description',
+      content: 'Create an account to enroll in courses, leaves comments and so on! Sign up to our center.'
+    }
+  ]
+})
+
+
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 const supabase = useSupabaseClient()
