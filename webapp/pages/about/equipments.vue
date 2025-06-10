@@ -1,96 +1,33 @@
 <template>
-	<BreadCrumps :breadCrumps= "breadCrumps" />
-	<Hero :title = "title" :description = "description"/>
-	<div class="p-6 animate-fade-in">
-
-
-		<div v-if="loading">Loading...</div>
-		<div v-else-if="error" class="text-red-500">Error : {{ error.message }}</div>
-
-		<div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 animate-fade-in">
-			<EquipmentCard
-					v-for="equipment in equipmentList"
-					:key="equipment.id"
-					:equipment="equipment"
-			/>
-		</div>
-	</div>
+  <BreadCrumps :breadCrumps="breadCrumps" />
+  <Hero :title="title" :description="description" />
+  <div class="p-6 animate-fade-in">
+    <div v-if="loading">Loading...</div>
+    <div v-else-if="error" class="text-red-500">Error : {{ error.message }}</div>
+    <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 animate-fade-in">
+      <EquipmentCard
+          v-for="equipment in equipmentList"
+          :key="equipment.id"
+          :equipment="equipment"
+      />
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { useHead } from '#app'
-
-useHead({
-  title: 'Our Yoga Equipments | Yoga Studio',
-  meta: [
-    {
-      name: 'description',
-      content: 'Discover our selection of recommended yoga equipment gear and accessories, with links to our partner sites where you can explore and purchase the items we love and use.'
-    },
-    {
-      property: 'og:title',
-      content: 'Our Yoga Equipments | Yoga Studio'
-    },
-    {
-      property: 'og:description',
-      content: 'Explore our curated yoga equipment: mats, blocks, straps and more — all selected to enhance your yoga practice.'
-    },
-    {
-      property: 'og:type',
-      content: 'website'
-    },
-    {
-      property: 'og:url',
-      content: 'https://hmwa-25-git-main-moise7000s-projects.vercel.app/about/equipments'
-    },
-    {
-      name: 'twitter:card',
-      content: 'summary'
-    },
-    {
-      name: 'twitter:title',
-      content: 'Our Yoga Equipments | Yoga Studio'
-    },
-    {
-      name: 'twitter:description',
-      content: 'Discover the yoga gear we recommend to elevate your practice.'
-    }
-  ]
-})
-
 import Hero from '~/layouts/hero.vue'
 import BreadCrumps from '~/components/common/bread-crumps.vue'
-import { ref, onMounted } from 'vue'
-import { useEquipment } from '~/managers/equipmentManager'
 import EquipmentCard from '~/components/equipment/EquipmentCard.vue'
-import type { Equipment } from '@/types/Equipment'
+import { useEquipmentsPage } from '~/composables/useEquipmentsPage'
 
-const title = "Our yoga equipments"
-
-const description = "Discover our selection of recommended yoga equipment gear and accessories, with links to our partner sites where you can explore and purchase the items we love and use."
-
-const breadCrumps = [{
-		name : "About",
-		link : "/about"
-	}, {
-		name : "Equipments",
-		link : "/about/equipments"
-}]
-
-const { getAllEquipment } = useEquipment()
-const equipmentList = ref<Equipment[]>([])
-const loading = ref(true)
-const error = ref<Error | null>(null)
-
-onMounted(async () => {
-	try {
-		equipmentList.value = await getAllEquipment()
-	} catch (err: any) {
-		error.value = err
-	} finally {
-		loading.value = false
-	}
-})
+const {
+  title,
+  description,
+  breadCrumps,
+  equipmentList,
+  loading,
+  error
+} = useEquipmentsPage()
 </script>
 
 <style>
