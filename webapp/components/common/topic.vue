@@ -6,7 +6,15 @@
     <div class="content">
       <h2 class="title main-title">{{topicTitle}}</h2>
       <p class="description standard-text">{{topicDescription}}</p>
-      <NuxtLink v-if="!noLink" :to="linkPath" class="link"><em>{{ linkText }}</em></NuxtLink>
+      <BaseButton
+          :url="linkPath"
+          :variant="4"
+      >
+        <em>{{linkText}}</em>
+      </BaseButton>
+
+
+
     </div>
     <div class="image-wrapper" v-if="!side">
       <img :src="imagePath" :alt="topicTitle" />
@@ -15,6 +23,9 @@
 </template>
 
 <script setup>
+import {createSlug} from "~/scripts/article/articleCardLogic.js";
+import BaseButton from "~/components/common/BaseButton.vue";
+
 defineProps({
   imagePath: { type: String, required: true },
   topicDescription: { type: String, required: false, default: 'No description provided.' },

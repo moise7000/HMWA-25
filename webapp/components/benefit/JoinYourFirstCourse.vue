@@ -27,7 +27,7 @@ import BaseButton from "~/components/common/BaseButton.vue";
         <p class="text-center sm:text-xl text-gray-600  mb-8 ">
           Discover our complete collection of yoga courses.
         </p>
-        
+
         <BaseButton
             url="/courses-and-subscriptions/courses"
             :variant="3"
