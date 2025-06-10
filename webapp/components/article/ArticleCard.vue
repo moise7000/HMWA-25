@@ -43,7 +43,7 @@
         <span>By {{ article.author }}</span>
       </div>
 
-      
+
       <BaseButton
           :url="`/about/articles/${createSlug(article.title)}`"
           :variant="1"
