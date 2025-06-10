@@ -317,6 +317,49 @@
 </template>
 
 <script setup lang="ts">
+
+import {useHead} from "#app";
+
+useHead({
+  title: 'Yoga Course',
+  meta: [
+    {
+      name: 'description',
+      content: 'Discover our complete collection of yoga courses. From beginner-friendly sessions to advanced practices, find the perfect class to enhance your yoga journey with our experienced instructors.'
+    },
+    {
+      property: 'og:title',
+      content: 'Yoga course'
+    },
+    {
+      property: 'og:description',
+      content: 'Discover our complete collection of yoga courses. '
+    },
+    {
+      property: 'og:type',
+      content: 'website'
+    },
+    {
+      property: 'og:url',
+      content: 'https://hmwa-25-git-main-moise7000s-projects.vercel.app/courses-and-subscriptions/courses'
+    },
+    {
+      name: 'twitter:card',
+      content: 'summary'
+    },
+    {
+      name: 'twitter:title',
+      content: 'Yoga course'
+    },
+    {
+      name: 'twitter:description',
+      content: 'Discover our complete collection of yoga courses. From beginner-friendly sessions to advanced practices, find the perfect class to enhance your yoga journey with our experienced instructors.'
+    }
+  ]
+})
+
+
+
 import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useCourses } from '~/managers/courseManager'
