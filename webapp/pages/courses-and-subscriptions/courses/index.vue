@@ -93,20 +93,21 @@
 
 					<!-- Load more button -->
 					<div v-if="hasMoreCourses" class="text-center">
-						<button
-								@click="loadMoreCourses"
-								:disabled="loadingMore"
-                class="px-4 py-3 text-center text-sm font-semibold rounded-md transition-transform transition-colors duration-200 ease-in-out
-         hover:-translate-y-[1px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black/30
-         text-black bg-white border-2 border-black hover:bg-neutral-200"
-						>
-							<span v-if="loadingMore">Loading...</span>
-							<span v-else>More</span>
-							<span v-if="!loadingMore" class="text-sm opacity-75">
-								({{ remainingCoursesCount }} remaining)
-							</span>
-						</button>
-					</div>
+            <BaseButton
+                as-button
+                :variant="2"
+                :disabled="loadingMore"
+                @click="loadMoreCourses"
+            >
+              <span v-if="loadingMore">Loading...</span>
+              <span v-else>More</span>
+              <span v-if="!loadingMore" class="text-sm opacity-75">
+    ({{ remainingCoursesCount }} remaining)
+  </span>
+            </BaseButton>
+
+
+          </div>
 
 					<!-- End message -->
 					<div v-else-if="displayedCourses.length > 6" class="text-center text-gray-500 py-8">
@@ -126,6 +127,7 @@ import CourseCard from '~/components/course/CourseCard.vue'
 import Hero from '~/layouts/hero.vue'
 import type { Course } from '~/types/Course'
 import BreadCrumps from '~/components/common/bread-crumps.vue'
+import BaseButton from "~/components/common/BaseButton.vue";
 
 const breadCrumps = [{
 		name : "Courses and Subscriptions",
