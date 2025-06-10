@@ -43,13 +43,19 @@
         <span>By {{ article.author }}</span>
       </div>
 
-      <!-- Bouton Read more -->
-      <NuxtLink
-          :to="`/about/articles/${createSlug(article.title)}`"
-          class="w-full bg-black text-white py-3 px-4 rounded-lg hover:bg-gray-800 transition-colors duration-200 text-center block font-medium"
+
+      <BaseButton
+          :url="`/about/articles/${createSlug(article.title)}`"
+          :variant="1"
       >
         Read more
-      </NuxtLink>
+      </BaseButton>
+
+
+
+
+
+
     </div>
   </div>
 </template>
@@ -57,6 +63,7 @@
 <script setup lang="ts">
 import type { Article } from '@/types/Article'
 import { createSlug, formatDate } from '~/scripts/article/articleCardLogic'
+import BaseButton from "~/components/common/BaseButton.vue";
 
 interface Props {
   article: Article

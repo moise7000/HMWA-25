@@ -1,5 +1,6 @@
 <script setup lang="ts">
 
+import BaseButton from "~/components/common/BaseButton.vue";
 </script>
 
 <template>
@@ -26,13 +27,14 @@
         <p class="text-center sm:text-xl text-gray-600  mb-8 ">
           Discover our complete collection of yoga courses.
         </p>
-
-        <NuxtLink
-            to="/courses-and-subscriptions/courses"
-            class="inline-block bg-black text-white px-8 py-4 rounded-lg font-semibold text-base hover:bg-gray-800 active:bg-gray-900 transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-gray-300"
+        
+        <BaseButton
+            url="/courses-and-subscriptions/courses"
+            :variant="3"
         >
           See all courses
-        </NuxtLink>
+        </BaseButton>
+
       </div>
 
     </div>

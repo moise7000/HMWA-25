@@ -17,7 +17,7 @@
         </div>
       </div>
 
-      <!-- Bouton conditionnel : Profile si connecté, Sign In sinon -->
+
       <NuxtLink
           v-if="user"
           to="/auth/dashboard"

@@ -4,11 +4,19 @@
 		<p class = "date">{{date}}</p>
 		<h2 class = "title">{{title}}</h2>
 		<p class = "excerpt">{{description}}</p>
-		<MyButton :url = "url">Read</MyButton>
+
+    <BaseButton
+        :url="url"
+        :variant="1"
+    >
+      Read more
+    </BaseButton>
 	</article>
 </template>
 
 <script setup>
+
+import {createSlug} from "~/scripts/article/articleCardLogic.js";
 
 defineProps({
 	date : {type : String, required : false, default : "Error loading date"},
@@ -19,6 +27,7 @@ defineProps({
 })
 
 import MyButton from '~/components/common/button.vue'
+import BaseButton from "~/components/common/BaseButton.vue";
 
 </script>
 

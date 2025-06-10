@@ -16,13 +16,16 @@
 
       <!-- Bouton More -->
       <div v-if="hasMoreArticles" class="flex justify-center">
-        <button
-            @click="loadMoreArticles"
+
+        <BaseButton
+            as-button
+            :variant="2"
             :disabled="loadingMore"
-            class="bg-white border-2 border-black text-gray-700 px-8 py-3 rounded-lg hover:border-gray-400 hover:bg-gray-50 transition-colors duration-200 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+            @click="loadMoreArticles"
         >
-          {{ loadingMore ? 'Loading...' : 'More' }}
-        </button>
+    {{ loadingMore ? 'Loading...' : 'More' }}
+        </BaseButton>
+
       </div>
     </div>
   </div>
@@ -33,6 +36,7 @@ import BreadCrumps from '~/components/common/bread-crumps.vue'
 import Hero from '~/layouts/hero.vue'
 import ArticleCard from '~/components/article/ArticleCard.vue'
 import { useArticlesPage } from '~/composables/useArticlesPage'
+import BaseButton from "~/components/common/BaseButton.vue";
 
 const {
   title,
