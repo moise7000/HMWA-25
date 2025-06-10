@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  8 JUN 2025 20:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  10 JUN 2025 22:51
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -404,32 +404,40 @@ Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
 \TX@cols=\count296
 \TX@ftn=\toks30
 )
+(/usr/local/texlive/2025/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count297
+\float@exts=\toks31
+\float@box=\box56
+\@float@everytoks=\toks32
+\@floatcapt=\box57
+)
 (/usr/local/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count297
-\l__pdf_internal_box=\box56
+\l__color_backend_stack_int=\count298
+\l__pdf_internal_box=\box58
 )
 (/Users/ewan/Documents/dev/HMWA-25/out/tech_report.aux)
 \openout1 = `tech_report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -467,17 +475,17 @@ LaTeX Font Info:    ... okay on input line 42.
 
 (/usr/local/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count298
+\scratchcounter=\count299
 \scratchdimen=\dimen176
-\scratchbox=\box57
-\nofMPsegments=\count299
-\nofMParguments=\count300
-\everyMPshowfont=\toks31
-\MPscratchCnt=\count301
+\scratchbox=\box59
+\nofMPsegments=\count300
+\nofMParguments=\count301
+\everyMPshowfont=\toks33
+\MPscratchCnt=\count302
 \MPscratchDim=\dimen177
-\MPnumerator=\count302
-\makeMPintoPDFobject=\count303
-\everyMPtoPDFconversion=\toks32
+\MPnumerator=\count303
+\makeMPintoPDFobject=\count304
+\everyMPtoPDFconversion=\toks34
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -487,24 +495,24 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring OFF on input line 42.
+Package hyperref Info: Link coloring OFF on input line 44.
 
 (/Users/ewan/Documents/dev/HMWA-25/out/tech_report.out)
 (/Users/ewan/Documents/dev/HMWA-25/out/tech_report.out)
 \@outlinefile=\write4
 \openout4 = `tech_report.out'.
 
-<../asset/logo.png, id=47, 666.49pt x 489.83pt>
+<../asset/logo.png, id=63, 666.49pt x 489.83pt>
 File: ../asset/logo.png Graphic file (type png)
 <use ../asset/logo.png>
-Package pdftex.def Info: ../asset/logo.png  used on input line 44.
+Package pdftex.def Info: ../asset/logo.png  used on input line 46.
 (pdftex.def)             Requested size: 170.71393pt x 125.46182pt.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 44.
+(Font)              <12> on input line 46.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 44.
+(Font)              <8> on input line 46.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 44.
+(Font)              <6> on input line 46.
 
 (/Users/ewan/Documents/dev/HMWA-25/out/tech_report.toc
 LaTeX Font Info:    External font `cmex10' loaded for size
@@ -532,37 +540,203 @@ ct's
 
 
 [2{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc
-}]
-Underfull \hbox (badness 10000) in paragraph at lines 77--77
+}] (./tech_content/documentation/project_structure.tex
+Underfull \hbox (badness 10000) in paragraph at lines 51--51
 []|\T1/cmr/m/n/10 /courses-and-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 77--77
+Underfull \hbox (badness 10000) in paragraph at lines 51--51
 []|\T1/cmr/m/n/10 /courses-and-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 77--77
+Underfull \hbox (badness 10000) in paragraph at lines 51--51
 []|\T1/cmr/m/n/10 /courses-and-
  []
 
+) (./tech_content/documentation/custom_types.tex
+
+[3]) (./tech_content/documentation/custom_components.tex
+
+./tech_content/documentation/custom_components.tex:1: LaTeX Error: Can be used 
+only in preamble.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1 \usepackage
+               {graphicx}
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+(./tech_content/documentation/custom_components/cards/course_card.tex
+LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10> not available
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 1.
+
+Underfull \hbox (badness 10000) in paragraph at lines 1--2
+
+ []
+
+<asset/courseCard.png, id=109, 380.42125pt x 484.81125pt>
+File: asset/courseCard.png Graphic file (type png)
+<use asset/courseCard.png>
+Package pdftex.def Info: asset/courseCard.png  used on input line 45.
+(pdftex.def)             Requested size: 85.35696pt x 108.77452pt.
 )
 
-[3] (/Users/ewan/Documents/dev/HMWA-25/out/tech_report.aux)
+[4] (./tech_content/documentation/custom_components/cards/article_card.tex
+Underfull \hbox (badness 10000) in paragraph at lines 1--2
+
+ []
+
+<asset/articleCard.png, id=115, 367.3725pt x 503.8825pt>
+File: asset/articleCard.png Graphic file (type png)
+<use asset/articleCard.png>
+Package pdftex.def Info: asset/articleCard.png  used on input line 37.
+(pdftex.def)             Requested size: 85.35696pt x 117.07458pt.
+) (./tech_content/documentation/custom_components/cards/benefit_card.tex
+Underfull \hbox (badness 10000) in paragraph at lines 1--2
+
+ []
+
+
+
+[5
+pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.15 \end{center}
+                 
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.15 \end{center}
+                  <./asset/courseCard.png> <./asset/articleCard.png>]
+<asset/benefitCard.png, id=126, 293.095pt x 244.915pt>
+File: asset/benefitCard.png Graphic file (type png)
+<use asset/benefitCard.png>
+Package pdftex.def Info: asset/benefitCard.png  used on input line 20.
+(pdftex.def)             Requested size: 128.0387pt x 106.98933pt.
+)
+(./tech_content/documentation/custom_components/cards/equipment_card.tex
+Underfull \hbox (badness 10000) in paragraph at lines 1--2
+
+ []
+
+<asset/equipmentCard.png, id=127, 494.84875pt x 384.43625pt>
+File: asset/equipmentCard.png Graphic file (type png)
+<use asset/equipmentCard.png>
+Package pdftex.def Info: asset/equipmentCard.png  used on input line 41.
+(pdftex.def)             Requested size: 85.35696pt x 66.30945pt.
+) (./tech_content/documentation/custom_components/cards/teacher_card.tex
+Underfull \hbox (badness 10000) in paragraph at lines 1--2
+
+ []
+
+
+
+[6
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.15 \end{center}
+                 
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.15 \end{center}
+                  <./asset/benefitCard.png> <./asset/equipmentCard.png>]
+Underfull \hbox (badness 1057) in paragraph at lines 32--32
+\T1/cmr/m/n/10 pro-file photo stored in Su-
+ []
+
+<asset/teacherCard.png, id=137, 335.2525pt x 371.3875pt>
+File: asset/teacherCard.png Graphic file (type png)
+<use asset/teacherCard.png>
+Package pdftex.def Info: asset/teacherCard.png  used on input line 37.
+(pdftex.def)             Requested size: 85.35696pt x 94.55238pt.
+) (./tech_content/documentation/custom_components/cards/feedback_card.tex
+Underfull \hbox (badness 10000) in paragraph at lines 1--2
+
+ []
+
+<asset/feedbackCard.png, id=138, 584.1825pt x 185.69376pt>
+File: asset/feedbackCard.png Graphic file (type png)
+<use asset/feedbackCard.png>
+Package pdftex.def Info: asset/feedbackCard.png  used on input line 37.
+(pdftex.def)             Requested size: 170.71393pt x 54.26349pt.
+) (./tech_content/documentation/custom_components/navigation/navbar.tex
+Underfull \hbox (badness 10000) in paragraph at lines 1--2
+
+ []
+
+<asset/navbar.png, id=139, 1514.65875pt x 150.5625pt>
+File: asset/navbar.png Graphic file (type png)
+<use asset/navbar.png>
+Package pdftex.def Info: asset/navbar.png  used on input line 12.
+(pdftex.def)             Requested size: 384.1096pt x 38.1804pt.
+
+
+[7
+pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.15 
+     
+pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.15 
+      <./asset/teacherCard.png> <./asset/feedbackCard.png>]
+<asset/navbarResponsive_2.png, id=152, 562.1pt x 629.35126pt>
+File: asset/navbarResponsive_2.png Graphic file (type png)
+<use asset/navbarResponsive_2.png>
+Package pdftex.def Info: asset/navbarResponsive_2.png  used on input line 18.
+(pdftex.def)             Requested size: 170.71393pt x 191.13078pt.
+)
+(./tech_content/documentation/custom_components/navigation/footer.tex
+Underfull \hbox (badness 10000) in paragraph at lines 1--2
+
+ []
+
+)))
+
+[8
+pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.58 \end{document}
+                   
+pdfTeX warning (ext4): destination with the same identifier (name{figure.8}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.58 \end{document}
+                    <./asset/navbar.png> <./asset/navbarResponsive_2.png>]
+(/Users/ewan/Documents/dev/HMWA-25/out/tech_report.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `tech_report.out' has not changed.
-(rerunfilecheck)             Checksum: 93E1ABBC2CA635448DD6F511F4DC1468;977.
+(rerunfilecheck)             Checksum: 540F1DEE38A8776825F8E482202E7E4B;1417.
  ) 
 Here is how much of TeX's memory you used:
- 13259 strings out of 473190
- 225585 string characters out of 5715801
- 681661 words of memory out of 5000000
- 36278 multiletter control sequences out of 15000+600000
- 568761 words of font info for 55 fonts, out of 8000000 for 9000
+ 13544 strings out of 473190
+ 234967 string characters out of 5715801
+ 685063 words of memory out of 5000000
+ 36497 multiletter control sequences out of 15000+600000
+ 569074 words of font info for 56 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  94i,11n,93p,435b,529s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb>
@@ -571,12 +745,13 @@ usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></us
 r/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/
 local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/lo
 cal/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/loca
-l/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfti1000.pfb>
-Output written on /Users/ewan/Documents/dev/HMWA-25/out/tech_report.pdf (3 page
-s, 214069 bytes).
+l/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfti1000.pfb></usr/local/
+texlive/2025/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb>
+Output written on /Users/ewan/Documents/dev/HMWA-25/out/tech_report.pdf (8 page
+s, 1423998 bytes).
 PDF statistics:
- 129 PDF objects out of 1000 (max. 8388607)
- 105 compressed objects within 2 object streams
- 15 named destinations out of 1000 (max. 500000)
- 98 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 214 PDF objects out of 1000 (max. 8388607)
+ 167 compressed objects within 2 object streams
+ 40 named destinations out of 1000 (max. 500000)
+ 170 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -16,7 +16,6 @@ import MultiTopic from '~/components/common/indexes.vue'
 const title = "Courses & Subscriptions"
 
 const description = computed(() => {
-  // Utilisation d'un computed pour permettre une description adaptative si nécessaire
   return 'Whether you\'re just beginning or looking to deepen your practice, our Courses are designed for you. <br>' +
       'Explore our Subscriptions for unlimited classes, exclusive content, and personalized support to help you stay consistent and inspired.'
 })
@@ -45,7 +44,7 @@ const topics = computed(() => [
   }
 ])
 
-// Gestion des breakpoints responsive
+
 const breakpoints = {
   mobile: '(max-width: 768px)',
   tablet: '(min-width: 769px) and (max-width: 1024px)',

@@ -1,0 +1,39 @@
+\paragraph{\texttt{TeacherCard}}  \mbox{}\\
+
+This component displays a card for a given teacher, including his name, a brief bio
+some of his certifications. Prior to \texttt{CourseCard}, the first table of is relatively straightforward.
+
+
+\begin{center}
+    \begin{tabularx}{\textwidth}{|X|X|X|X|}
+        \hline
+        \textbf{Prop} & Type & Required & Description \\
+        \hline
+        \texttt{teacher} & \texttt{Teacher} & yes & A yoga teacher \\
+        \hline
+    \end{tabularx}
+\end{center}
+
+And more precisely
+
+\begin{center}
+    \begin{tabularx}{\textwidth}{|X|X|X|}
+        \hline
+        \textbf{Prop.attribute} & Type & Description \\
+        \hline
+        \texttt{teacher.photo} & \texttt{string | null} &  the path of  the yoga teacher's profile photo stored in Supabase\\
+        \hline
+        \texttt{teacher.name} & \texttt{string} & the name of the yoga teacher\\
+        \hline
+        \texttt{teacher.biography} & \texttt{string} & the biography of the teacher\\
+        \hline
+        \texttt{teacher.certificates} & \texttt{string[]} & a list of yoga certifications\\
+        \hline
+    \end{tabularx}
+\end{center}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.2\textwidth]{asset/teacherCard}
+    \caption{\texttt{teacherCard}}
+\end{figure}

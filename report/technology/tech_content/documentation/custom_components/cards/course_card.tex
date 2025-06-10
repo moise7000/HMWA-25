@@ -1,0 +1,47 @@
+\paragraph{\texttt{CourseCard}}  \mbox{}\\
+
+This component is of paramount importance and serves as the central element in the context of a yoga center, as it
+visually represents the courses offered by the center. Therefore, it is imperative that it be meticulously designed.
+
+
+\begin{center}
+    \begin{tabularx}{\textwidth}{|X|X|X|X|}
+        \hline
+        \textbf{Prop} & Type & Required & Description \\
+        \hline
+        \texttt{course} & \texttt{Course} & yes & a yoga course \\
+        \hline
+    \end{tabularx}
+\end{center}
+
+To provide a comprehensive understanding of the \texttt{CourseCard} component, it is essential to delve into the specific
+parameters that define a yoga course. Below is a detailed breakdown of the main properties associated with the Course object:
+
+
+\begin{center}
+    \begin{tabularx}{\textwidth}{|X|X|X|}
+        \hline
+        \textbf{Prop.attribute} & Type & Description \\
+        \hline
+        \texttt{course.image} & \texttt{string | null} &  the path of the image associated with the yoga course stored in Supabase\\
+        \hline
+        \texttt{course.title} & \texttt{string} & the title of the yoga course\\
+        \hline
+        \texttt{course.difficulty\_level} & \texttt{string} & beginner - intermediate - advanced or all levels, defining the difficulty of the course\\
+        \hline
+        \texttt{course.teacher} & \texttt{Teacher} & the teacher leading the course\\
+        \hline
+        \texttt{course.description} & \texttt{string} & description of the course\\
+        \hline
+        ... & & \\
+        \hline
+
+
+    \end{tabularx}
+\end{center}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.2\textwidth]{asset/courseCard}
+    \caption{\texttt{CourseCard}}
+\end{figure}
