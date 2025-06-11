@@ -23,21 +23,27 @@
               class="text-sm font-medium"
             >
 
-              <NuxtLink
-                :to="`/courses-and-subscriptions/courses/${createSlug(course.title)}`"
-                class="hover:text-gray-600 transition"
+              <BaseButton
+                  :url="`/courses-and-subscriptions/courses/${createSlug(course.title)}`"
+                  :variant="5"
               >
                 {{ course.title }}
-              </NuxtLink>
+              </BaseButton>
 
             </li>
           </ul>
 
-          <button
-            class="w-48 border border-gray-900 rounded-md py-3 font-medium hover:bg-gray-50 transition"
+          <BaseButton
+              :url="`/institute/contact`"
+              :variant="2"
           >
             Contact
-          </button>
+          </BaseButton>
+
+
+
+
+
         </div>
 
         <div class="space-y-8">
@@ -81,6 +87,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useSubscriptions } from '~/managers/subscriptionManager'
 import type { Subscription } from '~/types/subscription'
+import BaseButton from "~/components/common/BaseButton.vue";
 
 const route = useRoute()
 const { getActiveSubscriptions, getCoursesForSubscription } = useSubscriptions()

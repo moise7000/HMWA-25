@@ -43,7 +43,8 @@ const variantClasses = computed(() => {
     return "inline-block bg-black text-white px-8 py-4 rounded-lg font-semibold text-base hover:bg-gray-800 active:bg-gray-900 transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-gray-300"
   } else if (props.variant === 4) {
     return "text-[1.7rem] underline text-[#1a1a1a] cursor-pointer hover:text-[#555555]"
-
+  } else if (props.variant === 5) {
+    return "text-[0.9rem] underline text-[#1a1a1a] cursor-pointer hover:text-[#555555]"
   }
   return ''
 })
