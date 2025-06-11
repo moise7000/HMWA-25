@@ -33,11 +33,17 @@
             </li>
           </ul>
 
-          <button
-            class="w-48 border border-gray-900 rounded-md py-3 font-medium hover:bg-gray-50 transition"
+          <BaseButton
+              :url="`/institute/contact`"
+              :variant="2"
           >
             Contact
-          </button>
+          </BaseButton>
+
+
+
+
+
         </div>
 
         <div class="space-y-8">
