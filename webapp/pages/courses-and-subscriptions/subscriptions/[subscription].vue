@@ -22,12 +22,14 @@
               :key="idx"
               class="text-sm font-medium"
             >
+
               <NuxtLink
                 :to="`/courses-and-subscriptions/courses/${createSlug(course.title)}`"
                 class="hover:text-gray-600 transition"
               >
                 {{ course.title }}
               </NuxtLink>
+
             </li>
           </ul>
 
