@@ -3,7 +3,7 @@
     <BreadCrumps :breadCrumps="breadCrumps" />
     <Hero :title="title" :description="description" />
 
-    <div class="subscription-image-wrapper">
+    <div class="subscription-image-wrapper animate-fade-in">
       <img
         src="/assets/subscriptions/hero_subscription.jpeg"
         alt="Subscriptions Banner"
@@ -50,5 +50,18 @@ onMounted(async () => {
 .subscription-image-wrapper {
   margin: 2rem 0;
 }
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto px-4 lg:px-12 max-w-6xl py-16">
+  <div class="container mx-auto px-4 lg:px-12 max-w-6xl py-16 animate-fade-in">
     <!-- Loading -->
     <div v-if="loading" class="text-center py-24">Loading…</div>
 
@@ -129,4 +129,18 @@ useHead(() => ({
 </script>
 
 <style scoped>
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 </style>
