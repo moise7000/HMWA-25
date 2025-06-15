@@ -13,14 +13,14 @@ import SpecialOfferCard from "~/components/home/SpecialOfferCard.vue";
     />
 
     <SpecialOfferCard
-        imageUrl="/assets/yoga_courses/yoga_course_24.png"
+        imageUrl="/assets/yoga_courses/yoga_course_24.jpg"
         title="Special offer"
         description="- 30% on your first month of subscription "
         linkTo="/courses-and-subscriptions/subscriptions"
     />
 
     <SpecialOfferCard
-        imageUrl="/assets/yoga_courses/yoga_course_25.png"
+        imageUrl="/assets/yoga_courses/yoga_course_25.jpg"
         title="Special offer"
         description="- 20% for your first yoga equipment with the code HYPERMEDIA25"
         linkTo="/about/equipments"
