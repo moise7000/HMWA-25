@@ -2,6 +2,12 @@
   <Hero :title="title" :description="description" />
 
 
+  <SpecialOffers/>
+
+
+
+
+
 
   <Hero subtitle="Some testimonies" />
 
@@ -63,6 +69,7 @@ const description="Welcome to our yoga center"
 
 import { useBenefitsPage } from '~/composables/useBenefitsPage'
 import ArticleCard from "~/components/article/ArticleCard.vue";
+import SpecialOffers from "~/components/home/SpecialOffers"
 
 
 const {
