@@ -109,7 +109,7 @@
       </div>
 
       <!-- Teacher's Courses -->
-      <div class="bg-white rounded-lg shadow-lg p-8">
+      <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
         <h2 class="text-2xl font-bold mb-6">My courses</h2>
 
         <div v-if="coursesLoading" class="text-center py-8">
@@ -133,6 +133,32 @@
           />
         </div>
       </div>
+
+      <!-- Teacher's Articles -->
+      <div class="bg-white rounded-lg shadow-lg p-8">
+        <h2 class="text-2xl font-bold mb-6">My articles</h2>
+
+        <div v-if="articlesLoading" class="text-center py-8">
+          Loading articles...
+        </div>
+
+        <div v-else-if="articlesError" class="text-red-500 text-center py-8">
+          Error while loading articles: {{ articlesError.message }}
+        </div>
+
+        <div v-else-if="teacherArticles.length === 0" class="text-center py-8 text-gray-500">
+          No articles available.
+        </div>
+
+        <!-- Utilisation du composant ArticleCard -->
+        <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <ArticleCard
+              v-for="article in teacherArticles"
+              :key="article.id"
+              :article="article"
+          />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -142,19 +168,25 @@ import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useTeachers } from '~/managers/teacherManager'
 import { useCourses } from '~/managers/courseManager'
+import { useArticleTeachers } from '~/managers/articleTeacherManager'
 import type { Teacher } from '~/types/Teacher'
 import type { Course } from '~/types/Course'
+import type { Article } from '~/types/Article'
 
 const route = useRoute()
 const { getAllTeachers } = useTeachers()
 const { getCoursesByTeacher } = useCourses()
+const { getArticlesForTeacher } = useArticleTeachers()
 
 const teacher = ref<Teacher | null>(null)
 const teacherCourses = ref<Course[]>([])
+const teacherArticles = ref<Article[]>([])
 const loading = ref(true)
 const coursesLoading = ref(true)
+const articlesLoading = ref(true)
 const error = ref<Error | null>(null)
 const coursesError = ref<Error | null>(null)
+const articlesError = ref<Error | null>(null)
 
 // Fonction pour créer un slug à partir du nom
 const createSlug = (name: string): string => {
@@ -182,11 +214,19 @@ onMounted(async () => {
       // Charger les cours du professeur
       try {
         teacherCourses.value = await getCoursesByTeacher(foundTeacher.id.toString())
-
       } catch (err: any) {
         coursesError.value = err
       } finally {
         coursesLoading.value = false
+      }
+
+      // Charger les articles du professeur
+      try {
+        teacherArticles.value = await getArticlesForTeacher(foundTeacher.id.toString())
+      } catch (err: any) {
+        articlesError.value = err
+      } finally {
+        articlesLoading.value = false
       }
     } else {
       // Professeur non trouvé

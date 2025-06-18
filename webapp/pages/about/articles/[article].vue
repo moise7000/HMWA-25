@@ -14,10 +14,11 @@
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Colonne de gauche - Informations de l'article -->
         <div class="lg:col-span-1">
+          <!-- Section à remplacer dans votre template -->
           <div class="border-b border-gray-300 pb-6 mb-6">
             <h1 class="text-2xl font-bold mb-4">{{ article.title }}</h1>
 
-            <div class="space-y-2 text-sm text-gray-600">
+            <div class="space-y-2 text-sm text-gray-600 mb-4">
               <div>
                 <span class="font-medium">Publish date</span><br>
                 <span>{{ formatDate(article.created_at) }}</span>
@@ -28,7 +29,26 @@
                 <span>{{ article.author }}</span>
               </div>
             </div>
+
+            <!-- Nouvelle section pour l'auteur avec TeacherCardCompact -->
+            <div v-if="authorTeacher && !teachersLoading" class="mt-4">
+              <TeacherCardCompact :teacher="authorTeacher" />
+            </div>
+
+            <!-- Loading state pour l'auteur -->
+            <div v-else-if="teachersLoading" class="mt-4">
+              <div class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg border border-gray-200 animate-pulse">
+                <div class="w-12 h-12 bg-gray-300 rounded-full"></div>
+                <div class="flex-1 space-y-2">
+                  <div class="h-3 bg-gray-300 rounded w-3/4"></div>
+                  <div class="h-2 bg-gray-300 rounded w-1/2"></div>
+                </div>
+              </div>
+            </div>
           </div>
+
+
+
 
           <!-- Liens vers les cours/événements -->
           <div v-if="relatedLinks.length > 0">
@@ -78,6 +98,9 @@
           </div>
         </div>
       </div>
+
+      <!-- Related Teachers Section -->
+
 
       <!-- Related Events Section -->
       <div v-if="relatedEvents.length > 0" class="mt-12 border-t border-gray-200 pt-8">
@@ -169,17 +192,21 @@ import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useArticles } from '~/managers/articleManager'
 import { useArticleEvents } from '~/managers/articleEventManager'
+import { useArticleTeachers } from '~/managers/articleTeacherManager'
 import BreadCrumps from '~/components/common/bread-crumps.vue'
 import type { Article } from '@/types/Article'
 import type { Event } from '@/types/Event'
+import type { Teacher } from '@/types/Teacher'
 import { useArticleCourseManager } from '~/managers/articleCourseManager'
 import CourseCard from '~/components/course/CourseCard.vue'
 import EventCard from '~/components/event/event-card.vue'
+import TeacherCard from '~/components/teacher/TeacherCard.vue'
 import type { Course } from '~/types/Course'
 
 const route = useRoute()
 const { getAllArticles } = useArticles()
 const { getEventsForArticle } = useArticleEvents()
+const { getTeachersForArticle } = useArticleTeachers()
 
 const article = ref<Article | null>(null)
 const loading = ref(true)
@@ -189,14 +216,22 @@ const coursesLoading = ref(false)
 const coursesLimit = ref(6)
 const loadingMoreCourses = ref(false)
 
-// Nouvelles variables pour les événements
+// Variables pour les événements
 const relatedEvents = ref<Event[]>([])
 const eventsLoading = ref(false)
 const eventsLimit = ref(6)
 const loadingMoreEvents = ref(false)
 
+// Nouvelles variables pour les teachers
+const relatedTeachers = ref<Teacher[]>([])
+const teachersLoading = ref(false)
+
 const { getCoursesForArticle } = useArticleCourseManager()
 
+import TeacherCardCompact from '~/components/teacher/TeacherCardCompact.vue'
+
+// Ajoutez cette variable réactive
+const authorTeacher = ref<Teacher | null>(null)
 // Fonction pour créer un slug à partir du titre (même logique que dans ArticleCard)
 const createSlug = (title: string): string => {
   return title
@@ -207,6 +242,36 @@ const createSlug = (title: string): string => {
       .replace(/[^\w-]/g, '') // Supprimer les caractères spéciaux
 }
 
+// Fonction pour charger les teachers liés à l'article
+const loadRelatedTeachers = async () => {
+  if (!article.value) return
+
+  teachersLoading.value = true
+  try {
+    const articleTeachers = await getTeachersForArticle(article.value.id.toString())
+    relatedTeachers.value = articleTeachers
+
+    // Trouver l'auteur principal (premier teacher de la liste ou celui qui correspond à article.author)
+    if (articleTeachers.length > 0) {
+      if (article.value.author) {
+        // Chercher le teacher qui correspond au nom de l'auteur
+        authorTeacher.value = articleTeachers.find(teacher =>
+            teacher.name.toLowerCase().includes(article.value.author.toLowerCase()) ||
+            article.value.author.toLowerCase().includes(teacher.name.toLowerCase())
+        ) || articleTeachers[0]
+      } else {
+        // Prendre le premier teacher de la liste
+        authorTeacher.value = articleTeachers[0]
+      }
+    }
+  } catch (err) {
+    console.error('Error loading related teachers:', err)
+    relatedTeachers.value = []
+    authorTeacher.value = null
+  } finally {
+    teachersLoading.value = false
+  }
+}
 // Fonction pour charger les événements liés à l'article
 const loadRelatedEvents = async () => {
   if (!article.value) return
@@ -322,6 +387,7 @@ onMounted(async () => {
 
       // Charger les contenus liés en parallèle
       await Promise.all([
+        loadRelatedTeachers(),
         loadRelatedCourses(),
         loadRelatedEvents()
       ])
