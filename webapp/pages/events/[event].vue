@@ -126,6 +126,18 @@
       </div>
     </div>
 
+    <!-- Articles liés à l'événement -->
+    <div v-if="relatedArticles.length > 0" class="mt-16">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-8">Related articles</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <ArticleCard
+            v-for="article in relatedArticles"
+            :key="article.id"
+            :article="article"
+        />
+      </div>
+    </div>
+
     <!-- Événements similaires -->
     <div v-if="relatedEvents.length > 0" class="mt-16">
       <h2 class="text-2xl font-semibold text-gray-900 mb-8">Other events to come</h2>
@@ -198,31 +210,36 @@ useHead({
 
 const route = useRoute()
 const eventId = route.params.event as string
-import {useEvents} from "~/managers/eventManager";
+import { useEvents } from "~/managers/eventManager"
+import { useArticleEvents } from "~/managers/articleEventManager"
 import BreadCrumps from '~/components/common/bread-crumps.vue'
+import ArticleCard from '~/components/article/ArticleCard.vue'
+
 const { getEventById, getUpcomingEvents } = useEvents()
+const { getArticlesForEvent } = useArticleEvents()
 
 const breadCrumps = computed(() => [
   { name: "Events", link: "/events" },
   { name: event.value?.title || "Loading...", link: "#" }
 ])
 
-
-
 const { data: event, pending, error } = await useLazyAsyncData(
     `event-${eventId}`,
     () => getEventById(eventId)
 )
 
-
 const { data: allEvents } = await useLazyAsyncData('related-events', () => getUpcomingEvents())
 
+const { data: relatedArticles } = await useLazyAsyncData(
+    `event-articles-${eventId}`,
+    () => getArticlesForEvent(eventId),
+    { default: () => [] }
+)
 
 const relatedEvents = computed(() => {
   if (!allEvents.value || !event.value) return []
   return allEvents.value.filter(e => e.id !== event.value.id)
 })
-
 
 const formatDate = (dateString: string) => {
   return new Date(dateString).toLocaleDateString('en-EN', {
@@ -240,9 +257,7 @@ const formatTime = (dateString: string) => {
   })
 }
 
-
 const handleReservation = () => {
-  
   alert('Feature to be implemented')
 }
 

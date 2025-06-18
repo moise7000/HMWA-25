@@ -78,7 +78,47 @@
           </div>
         </div>
       </div>
-      <!-- Ajoutez cette section après la catégorie et avant la fermeture de la div principale -->
+
+      <!-- Related Events Section -->
+      <div v-if="relatedEvents.length > 0" class="mt-12 border-t border-gray-200 pt-8">
+        <h2 class="text-2xl font-bold mb-6 text-gray-900">Related Events</h2>
+
+        <!-- Loading state for events -->
+        <div v-if="eventsLoading" class="flex justify-center py-8">
+          <div class="text-gray-500">Loading events...</div>
+        </div>
+
+        <!-- Events Grid -->
+        <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <EventCard
+              v-for="event in relatedEvents"
+              :key="event.id"
+              :date="formatEventDate(event.date)"
+              :title="event.title"
+              :description="event.description?.substring(0, 150) + '...'"
+              :url="`/events/${event.id}`"
+              :imagePath="event.image || '/assets/yoga_courses/yoga_course_0.png'"
+          />
+        </div>
+
+        <!-- Show more button if there are more events (optionnel) -->
+        <div v-if="relatedEvents.length >= eventsLimit" class="text-center mt-8">
+          <button
+              @click="loadMoreEvents"
+              :disabled="loadingMoreEvents"
+              class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          >
+            <span v-if="loadingMoreEvents" class="flex items-center justify-center">
+              <svg class="animate-spin -ml-1 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Loading more...
+            </span>
+            <span v-else>Show More Events</span>
+          </button>
+        </div>
+      </div>
 
       <!-- Related Courses Section -->
       <div v-if="relatedCourses.length > 0" class="mt-12 border-t border-gray-200 pt-8">
@@ -105,13 +145,13 @@
               :disabled="loadingMoreCourses"
               class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
-                <span v-if="loadingMoreCourses" class="flex items-center justify-center">
-                  <svg class="animate-spin -ml-1 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  Loading more...
-                </span>
+            <span v-if="loadingMoreCourses" class="flex items-center justify-center">
+              <svg class="animate-spin -ml-1 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Loading more...
+            </span>
             <span v-else>Show More Courses</span>
           </button>
         </div>
@@ -128,14 +168,18 @@
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useArticles } from '~/managers/articleManager'
+import { useArticleEvents } from '~/managers/articleEventManager'
 import BreadCrumps from '~/components/common/bread-crumps.vue'
 import type { Article } from '@/types/Article'
+import type { Event } from '@/types/Event'
 import { useArticleCourseManager } from '~/managers/articleCourseManager'
 import CourseCard from '~/components/course/CourseCard.vue'
+import EventCard from '~/components/event/event-card.vue'
 import type { Course } from '~/types/Course'
 
 const route = useRoute()
 const { getAllArticles } = useArticles()
+const { getEventsForArticle } = useArticleEvents()
 
 const article = ref<Article | null>(null)
 const loading = ref(true)
@@ -145,7 +189,14 @@ const coursesLoading = ref(false)
 const coursesLimit = ref(6)
 const loadingMoreCourses = ref(false)
 
+// Nouvelles variables pour les événements
+const relatedEvents = ref<Event[]>([])
+const eventsLoading = ref(false)
+const eventsLimit = ref(6)
+const loadingMoreEvents = ref(false)
+
 const { getCoursesForArticle } = useArticleCourseManager()
+
 // Fonction pour créer un slug à partir du titre (même logique que dans ArticleCard)
 const createSlug = (title: string): string => {
   return title
@@ -156,6 +207,39 @@ const createSlug = (title: string): string => {
       .replace(/[^\w-]/g, '') // Supprimer les caractères spéciaux
 }
 
+// Fonction pour charger les événements liés à l'article
+const loadRelatedEvents = async () => {
+  if (!article.value) return
+
+  eventsLoading.value = true
+  try {
+    const articleEvents = await getEventsForArticle(article.value.id.toString())
+    // Limiter le nombre d'événements affichés initialement
+    relatedEvents.value = articleEvents.slice(0, eventsLimit.value)
+  } catch (err) {
+    console.error('Error loading related events:', err)
+    relatedEvents.value = []
+  } finally {
+    eventsLoading.value = false
+  }
+}
+
+// Fonction pour charger plus d'événements (optionnelle)
+const loadMoreEvents = async () => {
+  if (!article.value) return
+
+  loadingMoreEvents.value = true
+  try {
+    const allEvents = await getEventsForArticle(article.value.id.toString())
+    const newLimit = eventsLimit.value + 6
+    relatedEvents.value = allEvents.slice(0, newLimit)
+    eventsLimit.value = newLimit
+  } catch (err) {
+    console.error('Error loading more events:', err)
+  } finally {
+    loadingMoreEvents.value = false
+  }
+}
 
 // Fonction pour charger les cours liés à l'article
 const loadRelatedCourses = async () => {
@@ -191,8 +275,6 @@ const loadMoreCourses = async () => {
   }
 }
 
-
-
 const formatDate = (dateString: string): string => {
   const date = new Date(dateString)
   return date.toLocaleDateString('en-US', {
@@ -202,13 +284,22 @@ const formatDate = (dateString: string): string => {
   })
 }
 
+// Fonction pour formater la date des événements
+const formatEventDate = (dateString: string): string => {
+  const date = new Date(dateString)
+  return date.toLocaleDateString('en-US', {
+    weekday: 'short',
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric'
+  })
+}
 
 const relatedLinks = ref([
   // { name: 'Link courses/events', url: '/courses' },
   // { name: 'Link courses/events', url: '/events' },
   // { name: 'Link courses/events', url: '/workshops' }
 ])
-
 
 const breadCrumps = ref([
   { name: "About", link: "/about" },
@@ -228,7 +319,12 @@ onMounted(async () => {
       article.value = foundArticle
       // Mettre à jour le breadcrumb avec le titre de l'article
       breadCrumps.value[2].name = foundArticle.title
-      await loadRelatedCourses()
+
+      // Charger les contenus liés en parallèle
+      await Promise.all([
+        loadRelatedCourses(),
+        loadRelatedEvents()
+      ])
     } else {
       throw new Error('Article not found')
     }
