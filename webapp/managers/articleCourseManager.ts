@@ -41,7 +41,15 @@ export const useArticleCourseManager = () => {
 
         if (error) throw error
 
-        return data.map((row: any) => row.courses)
+        return data.map((row: any) => {
+            const course = row.courses
+            return {
+                ...course,
+                image: course.image
+                    ? `https://lmwpuleyzjxgzecypqdk.supabase.co/storage/v1/object/public/${course.image}`
+                    : null,
+            }
+        })
     }
 
     return {
