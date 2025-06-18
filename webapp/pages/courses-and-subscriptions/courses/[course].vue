@@ -273,7 +273,52 @@
           </div>
         </div>
       </div>
+
+
+
+      <!-- Ajoutez cette section dans votre template après la section Feedbacks et avant la section Goals -->
+
+
+
+
+
+
+
+
     </div>
+
+    <!-- Related Articles Section ===================================-->
+    <div v-if="relatedArticles.length > 0" class="bg-white rounded-lg border p-6 m-4">
+      <h3 class="text-lg font-semibold mb-6">Related Articles</h3>
+
+      <!-- Loading state for articles -->
+      <div v-if="articlesLoading" class="flex justify-center py-8">
+        <div class="text-gray-500">Loading articles...</div>
+      </div>
+
+      <!-- Articles Grid -->
+      <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <ArticleCard
+            v-for="article in relatedArticles"
+            :key="article.id"
+            :article="article"
+        />
+      </div>
+
+      <!-- Show more button if there are more articles (optionnel) -->
+      <div v-if="relatedArticles.length >= articlesLimit" class="text-center mt-6">
+        <button
+            @click="loadMoreArticles"
+            :disabled="loadingMoreArticles"
+            class="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          <span v-if="loadingMoreArticles">Loading more...</span>
+          <span v-else>Show More Articles</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Related Articles Section ===================================-->
 
     <!-- Success Modal -->
     <Modal :show="showSuccessModal" @close="showSuccessModal = false">
@@ -375,6 +420,9 @@ const { getAllCoursesWithTeachers } = useCourses()
 const { getTeacherById } = useTeachers()
 const { enrollProfileToCourse, getCoursesForProfile, removeProfileFromCourse } = useCourseEnrollments()
 
+import { useArticleCourseManager } from '~/managers/articleCourseManager'
+import ArticleCard from '~/components/article/ArticleCard.vue'
+
 // Accès à l'utilisateur Supabase
 const user = useSupabaseUser()
 
@@ -390,7 +438,50 @@ const isEnrolling = ref(false)
 const isAlreadyEnrolled = ref(false)
 const enrollmentError = ref('')
 
-// Fonction pour créer un slug
+const relatedArticles = ref<Article[]>([])
+const articlesLoading = ref(false)
+const articlesLimit = ref(6) // Nombre d'articles à afficher initialement
+const loadingMoreArticles = ref(false)
+
+const { getArticlesForCourse } = useArticleCourseManager()
+// Fonction pour charger les articles liés au cours
+const loadRelatedArticles = async () => {
+  if (!course.value) return
+
+  articlesLoading.value = true
+  try {
+    const courseArticles = await getArticlesForCourse(course.value.id.toString())
+    // Limiter le nombre d'articles affichés initialement
+    relatedArticles.value = courseArticles.slice(0, articlesLimit.value)
+  } catch (err) {
+    console.error('Error loading related articles:', err)
+    relatedArticles.value = []
+  } finally {
+    articlesLoading.value = false
+  }
+}
+
+// Fonction pour charger plus d'articles (optionnelle)
+const loadMoreArticles = async () => {
+  if (!course.value) return
+
+  loadingMoreArticles.value = true
+  try {
+    const allArticles = await getArticlesForCourse(course.value.id.toString())
+    const newLimit = articlesLimit.value + 6
+    relatedArticles.value = allArticles.slice(0, newLimit)
+    articlesLimit.value = newLimit
+  } catch (err) {
+    console.error('Error loading more articles:', err)
+  } finally {
+    loadingMoreArticles.value = false
+  }
+}
+
+
+
+
+
 const createSlug = (name: string): string => {
   return name
       .toLowerCase()
@@ -504,6 +595,7 @@ onMounted(async () => {
       if (user.value) {
         await checkEnrollmentStatus()
       }
+      await loadRelatedArticles()
     } else {
       course.value = null
     }
@@ -550,6 +642,7 @@ watch(user, async (newUser) => {
 import { useUserFeedbacks } from '~/managers/userFeedbackManager'
 // Import du composant FeedbackCard
 import FeedbackCard from '~/components/FeedbackCard.vue'
+import type {Article} from "~/types/Article";
 
 // Ajoutez ces variables avec les autres variables ref()
 const feedbacks = ref([])
