@@ -1,9 +1,6 @@
 <template>
 	<BreadCrumps :breadCrumps= "breadCrumps" />
 	<Hero :title = "title" :description = "description" />
-	<div class = "image-wrapper standard-padding animate-fade-in">
-		<img src = "/assets/yoga_courses/yoga_course_0.png">
-	</div>
 	<TopicCard v-for = "topic in topics" :key = "topic.topicTitle" :noLink = "true" :topic-title = "topic.topicTitle"  :topic-description = "topic.topicDescription" :image-path = "topic.imagePath" :side = "topic.side"/>
 </template>
 
@@ -17,7 +14,8 @@ import {useStoryPage} from "~/composables/useStoryPage.js";
 const {
   title,
   description,
-  topics
+  topics,
+  breadCrumps
 } = useStoryPage()
 
 </script>
