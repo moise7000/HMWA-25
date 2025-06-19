@@ -4,7 +4,7 @@
 	<div class = "image-wrapper standard-padding animate-fade-in">
 		<img src = "/assets/yoga_courses/yoga_course_0.png">
 	</div>
-	<TopicCard v-for = "topic in topics" :key = "topic.topicTitle" :no-link = "true" :topic-title = "topic.topicTitle"  :topic-description = "topic.topicDescription" :image-path = "topic.imagePath" :side = "topic.side"/>
+	<TopicCard v-for = "topic in topics" :key = "topic.topicTitle" :noLink = "true" :topic-title = "topic.topicTitle"  :topic-description = "topic.topicDescription" :image-path = "topic.imagePath" :side = "topic.side"/>
 </template>
 
 <script setup>
