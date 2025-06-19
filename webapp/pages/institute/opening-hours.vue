@@ -229,11 +229,11 @@ const title = "Schedule & Courses"
 const description = "View all our yoga classes and their schedules. Click on any time slot to discover available courses and book your perfect session."
 
 const breadCrumps = [{
-  name: "Courses and Subscriptions",
-  link: "/courses-and-subscriptions"
+  name: "Institute",
+  link: "/institute"
 }, {
-  name: "Schedule",
-  link: "/courses-and-subscriptions/schedule"
+  name: "Opening hours",
+  link: "/institute/opening-hours"
 }]
 
 // Days definition
