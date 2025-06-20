@@ -1,0 +1,27 @@
+\paragraph{\texttt{BreadcrumbTrail}} \mbox{}\\
+
+This component displays a horizontal breadcrumb navigation trail composed of up to three levels. It uses \texttt{NuxtLink} elements for navigation when possible and shows a plain text label for the final level if present. Each breadcrumb is visually separated by a \texttt{>} character.
+
+\begin{center}
+    \begin{tabularx}{\textwidth}{|X|X|X|X|}
+        \hline
+        \textbf{Prop} & Type & Required & Description \\
+        \hline
+        \texttt{breadCrumbs} & \texttt{Array<{ name: string, link: string }>} & no & An array of breadcrumb items (up to 3). The first two items are shown as links; the third, if present, is rendered as plain text. \\
+        \hline
+    \end{tabularx}
+\end{center}
+
+\paragraph{Structure and Behavior}
+\begin{itemize}
+    \item The first two elements in \texttt{breadCrumbs} are rendered as clickable \texttt{NuxtLink}s.
+    \item If a third element exists, it is rendered as plain text to indicate the current page.
+    \item Separators (\texttt{>}) are inserted between breadcrumb levels using styled \texttt{<p>} elements.
+\end{itemize}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{asset/breadcrumb}
+    \caption{\texttt{Breadcrumb} with two navigable links and a third current page label}
+\end{figure}
