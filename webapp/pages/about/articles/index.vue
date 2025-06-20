@@ -49,6 +49,11 @@ const {
   hasMoreArticles,
   loadMoreArticles
 } = useArticlesPage()
+
+useSeoMeta({
+  title: title,
+  description: description
+})
 </script>
 
 <style>
