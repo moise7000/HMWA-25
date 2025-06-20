@@ -13,4 +13,8 @@ const {
   topics
 } = useInstituePage()
 
+useSeoMeta({
+  title: title,
+  description: description
+})
 </script>

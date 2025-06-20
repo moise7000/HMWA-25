@@ -366,6 +366,10 @@ useHead({
     }
   ]
 })
+useSeoMeta({
+  title: title,
+  description: description
+})
 </script>
 
 <style scoped>

@@ -17,7 +17,10 @@ const {
   topics,
   breadCrumps
 } = useStoryPage()
-
+useSeoMeta({
+  title: title,
+  description: description
+})
 </script>
 
 <style scoped>

@@ -86,4 +86,8 @@ const {
   loadArticles,
   loadAllFeedbacks
 } = useBenefitsPage()
+useSeoMeta({
+  title: title,
+  description: description
+})
 </script>

@@ -123,7 +123,10 @@ const {
   description,
 
 } = useLocationPage()
-
+useSeoMeta({
+  title: title,
+  description: description
+})
 </script>
 
 <style scoped>

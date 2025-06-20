@@ -58,6 +58,11 @@ useHead({
     { name: 'description', content: 'Discover our yoga courses and subscriptions designed for all levels. Flexible learning options with unlimited access to classes and exclusive content.' }
   ]
 })
+
+useSeoMeta({
+  title: title,
+  description: description
+})
 </script>
 
 <style scoped>

@@ -28,6 +28,11 @@ const {
   loading,
   error
 } = useEquipmentsPage()
+
+useSeoMeta({
+  title: title,
+  description: description
+})
 </script>
 
 <style>

@@ -14,4 +14,8 @@ const {
   topics
 } = useAboutPage()
 
+useSeoMeta({
+  title: title,
+  description: description
+})
 </script>

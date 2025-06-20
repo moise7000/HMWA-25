@@ -249,6 +249,9 @@ const handleSignUp = async () => {
     loading.value = false
   }
 }
+useSeoMeta({
+  title: "Sign up"
+})
 </script>
 
 <style>

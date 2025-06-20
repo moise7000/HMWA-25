@@ -161,7 +161,9 @@ const handleSignIn = async () => {
   router.push('/auth/dashboard')
 }
 
-
+useSeoMeta({
+  title: "Sign in ",
+})
 </script>
 
 <style>

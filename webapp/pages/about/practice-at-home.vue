@@ -92,6 +92,11 @@ const {
   title,
   description
 } = usePracticeAtHomePage()
+
+useSeoMeta({
+  title: title,
+  description: description
+})
 </script>
 
 <style scoped>

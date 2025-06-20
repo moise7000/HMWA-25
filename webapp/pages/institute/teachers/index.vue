@@ -93,4 +93,8 @@ onMounted(async () => {
 		loading.value = false
 	}
 })
+useSeoMeta({
+  title: title,
+  description: description
+})
 </script>

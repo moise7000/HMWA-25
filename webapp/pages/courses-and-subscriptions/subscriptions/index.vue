@@ -44,6 +44,10 @@ const { getActiveSubscriptions } = useSubscriptions()
 onMounted(async () => {
   subscriptions.value = await getActiveSubscriptions()
 })
+useSeoMeta({
+  title: title,
+  description: description
+})
 </script>
 
 <style scoped>
