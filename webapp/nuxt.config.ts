@@ -32,7 +32,20 @@ export default defineNuxtConfig({
   app: {
     head: {
       link: [
-        { rel: 'icon', type: 'image/png', href: '/favicon.png' }
+        // Standard
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
+        { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
+
+        // Apple (Safari, iOS)
+        { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+
+        // Android/Chrome PWA icons
+        { rel: 'icon', type: 'image/png', sizes: '192x192', href: '/android-chrome-192x192.png' },
+        { rel: 'icon', type: 'image/png', sizes: '512x512', href: '/android-chrome-512x512.png' },
+
+        // Web App Manifest
+        { rel: 'manifest', href: '/site.webmanifest' }
       ]
     }
   }
