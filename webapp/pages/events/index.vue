@@ -90,7 +90,7 @@ if (error.value) {
 
 // Meta tags pour SEO
 useSeoMeta({
-  title: 'Nos Événements - Events not to be missed',
+  title: 'Events',
   description: description
 })
 </script>
