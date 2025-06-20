@@ -144,7 +144,7 @@
             <span class="text-2xl">🎯</span>
           </div>
           <h3 class="font-semibold mb-2">First</h3>
-          <p class="text-sm text-gray-600">Body text for whatever you'd like to say. Add main takeaway points, quotes, anecdotes, or even a very short story.</p>
+          <p class="text-sm text-gray-600">Reduce your stress naturally by practicing yoga—calming poses and breathing help release tension and promote a peaceful, focused mind.</p>
         </div>
 
         <!-- Feature 2 -->
@@ -153,7 +153,7 @@
             <span class="text-2xl">⚡</span>
           </div>
           <h3 class="font-semibold mb-2">Second</h3>
-          <p class="text-sm text-gray-600">Body text for whatever you'd like to suggest. Add motivational points, quotes, anecdotes, or even a very short story.</p>
+          <p class="text-sm text-gray-600">Try yoga to improve your flexibility and posture—gentle stretching strengthens your body and prevents discomfort from long hours of sitting.</p>
         </div>
 
         <!-- Feature 3 -->
@@ -162,7 +162,7 @@
             <span class="text-2xl">🔒</span>
           </div>
           <h3 class="font-semibold mb-2">Third</h3>
-          <p class="text-sm text-gray-600">Body text for whatever you'd like to claim. Add main takeaway points, quotes, anecdotes, or even a very short story.</p>
+          <p class="text-sm text-gray-600">Boost your energy and mental clarity—yoga combines movement and breathwork to refresh your mind and keep you productive all day.</p>
         </div>
 
         <!-- Feature 4 -->
@@ -171,7 +171,7 @@
             <span class="text-2xl">📈</span>
           </div>
           <h3 class="font-semibold mb-2">Fourth</h3>
-          <p class="text-sm text-gray-600">Body text for whatever you'd like to claim. Add main takeaway points, quotes, anecdotes, or even a very short story.</p>
+          <p class="text-sm text-gray-600">Enhance your sleep quality with evening yoga—relaxing routines prepare your body for rest and help you wake up refreshed.</p>
         </div>
       </div>
 
